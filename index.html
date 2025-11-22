@@ -9,7 +9,7 @@
     html, body { height: 100%; }
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #fdf4e3; /* book-page background */
+      background: #fdf4e3;
       color: #111827;
       display: flex;
       justify-content: center;
@@ -25,27 +25,16 @@
       gap: 12px;
     }
 
-    /* Header */
     .header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 8px;
     }
-    .brand-block {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .brand-title {
-      font-weight: 700;
-      font-size: 17px;
-      letter-spacing: 0.02em;
-    }
-    .brand-sub {
-      font-size: 11px;
-      color: #4b5563;
-    }
+    .brand-block { display: flex; flex-direction: column; gap: 2px; }
+    .brand-title { font-weight: 700; font-size: 17px; letter-spacing: 0.02em; }
+    .brand-sub { font-size: 11px; color: #4b5563; }
+
     .pill-engine {
       border-radius: 999px;
       padding: 6px 12px;
@@ -57,20 +46,10 @@
       align-items: flex-end;
       min-width: 130px;
     }
-    .pill-engine span:first-child {
-      font-weight: 600;
-      font-size: 11px;
-    }
-    .pill-engine span:last-child {
-      font-size: 10px;
-    }
+    .pill-engine span:first-child { font-weight: 600; font-size: 11px; }
+    .pill-engine span:last-child { font-size: 10px; }
 
-    /* BM buttons row */
-    .bm-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .bm-row { display: flex; gap: 8px; flex-wrap: wrap; }
     .bm-btn {
       flex: 1 1 0;
       min-width: 80px;
@@ -87,15 +66,21 @@
       background: #e5e7eb;
       color: #111827;
     }
-    .bm-btn span {
-      font-size: 14px;
-    }
-    .bm-btn-pink { background: #fee2e2; }
-    .bm-btn-gold { background: #fef3c7; }
+    .bm-btn span { font-size: 14px; }
+    .bm-btn-pink  { background: #fee2e2; }
+    .bm-btn-gold  { background: #fef3c7; }
     .bm-btn-green { background: #dcfce7; }
-    .bm-btn-gray { background: #e5e7eb; }
+    .bm-btn-gray  { background: #e5e7eb; }
 
-    /* Equation card */
+    .guidance-banner {
+      border-radius: 16px;
+      padding: 12px;
+      background: #fef3c7;
+      font-size: 12px;
+      line-height: 1.4;
+      border: 1px dashed #fbbf24;
+    }
+
     .equation-card {
       border-radius: 16px;
       padding: 12px;
@@ -112,26 +97,12 @@
       margin-bottom: 4px;
     }
     .equation-main {
-      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-family: ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 12px;
       margin-bottom: 4px;
     }
-    .equation-sub {
-      font-size: 11px;
-      color: #6b7280;
-    }
+    .equation-sub { font-size: 11px; color: #6b7280; }
 
-    /* Guidance banner */
-    .guidance-banner {
-      border-radius: 16px;
-      padding: 12px;
-      background: #fef3c7;
-      font-size: 12px;
-      line-height: 1.4;
-      border: 1px dashed #fbbf24;
-    }
-
-    /* Reaction card */
     .reaction-card {
       border-radius: 16px;
       padding: 10px 12px;
@@ -140,18 +111,9 @@
       font-size: 12px;
       line-height: 1.4;
     }
-    .reaction-header {
-      font-weight: 600;
-      margin-bottom: 4px;
-      font-size: 12px;
-    }
-    .reaction-meta {
-      font-size: 11px;
-      color: #166534;
-      margin-bottom: 4px;
-    }
+    .reaction-header { font-weight: 600; margin-bottom: 4px; font-size: 12px; }
+    .reaction-meta { font-size: 11px; color: #166534; margin-bottom: 4px; }
 
-    /* Messages area */
     .messages {
       flex: 1;
       overflow-y: auto;
@@ -164,13 +126,8 @@
       gap: 8px;
       font-size: 12px;
     }
-    .msg {
-      padding-bottom: 4px;
-      border-bottom: 1px dashed #e5e7eb;
-    }
-    .msg:last-child {
-      border-bottom: none;
-    }
+    .msg { padding-bottom: 4px; border-bottom: 1px dashed #e5e7eb; }
+    .msg:last-child { border-bottom: none; }
     .msg-author {
       font-size: 11px;
       font-weight: 600;
@@ -180,19 +137,12 @@
       justify-content: space-between;
       gap: 6px;
     }
-    .msg-author span:last-child {
-      font-weight: 500;
-      color: #6b7280;
-      font-size: 10px;
-    }
-    .msg-text {
-      white-space: pre-wrap;
-    }
+    .msg-author span:last-child { font-weight: 500; color: #6b7280; font-size: 10px; }
+    .msg-text { white-space: pre-wrap; }
 
-    /* TM input area */
     .tm-equation-label {
       margin-top: 8px;
-      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-family: ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 11px;
       background: #e5e7eb;
       padding: 6px 10px;
@@ -200,6 +150,7 @@
       text-align: center;
       color: #111827;
     }
+
     .input-row {
       margin-top: 6px;
       display: flex;
@@ -229,7 +180,6 @@
       cursor: pointer;
     }
 
-    /* Bottom line */
     .footer-line {
       margin-top: 4px;
       font-size: 10px;
@@ -237,7 +187,6 @@
       text-align: center;
     }
 
-    /* Voice toggle */
     .voice-toggle {
       margin-top: 6px;
       display: inline-flex;
@@ -249,16 +198,9 @@
       background: #e0f2fe;
       color: #0f172a;
       align-self: flex-start;
-      cursor: default;
     }
-    .voice-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #22c55e;
-    }
+    .voice-dot { width: 8px; height: 8px; border-radius: 999px; background: #22c55e; }
 
-    /* Auto-recall banner */
     .recall-banner {
       margin-top: 6px;
       border-radius: 999px;
@@ -271,11 +213,7 @@
       justify-content: space-between;
       gap: 8px;
     }
-    .recall-banner span {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
+    .recall-banner span { display: inline-flex; align-items: center; gap: 6px; }
     .recall-open-btn {
       border-radius: 999px;
       padding: 4px 10px;
@@ -287,7 +225,6 @@
       cursor: pointer;
     }
 
-    /* Modal base */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -315,10 +252,7 @@
       align-items: center;
       gap: 8px;
     }
-    .modal-title {
-      font-size: 13px;
-      font-weight: 600;
-    }
+    .modal-title { font-size: 13px; font-weight: 600; }
     .modal-close {
       border-radius: 999px;
       border: none;
@@ -327,41 +261,13 @@
       font-size: 11px;
       cursor: pointer;
     }
-    .modal-body {
-      font-size: 12px;
-      overflow-y: auto;
-      padding-right: 2px;
-    }
-    .bm-layer-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      margin-bottom: 6px;
-      font-size: 10px;
-    }
-    .chip {
-      border-radius: 999px;
-      padding: 2px 6px;
-      background: #e5e7eb;
-    }
-    .bm-entry {
-      padding: 6px 0;
-      border-bottom: 1px dashed #e5e7eb;
-    }
+    .modal-body { font-size: 12px; overflow-y: auto; padding-right: 2px; }
+
+    .bm-entry { padding: 6px 0; border-bottom: 1px dashed #e5e7eb; }
     .bm-entry:last-child { border-bottom: none; }
-    .bm-entry-title {
-      font-weight: 600;
-      font-size: 12px;
-    }
-    .bm-entry-meta {
-      font-size: 10px;
-      color: #6b7280;
-      margin-top: 2px;
-    }
-    .bm-entry-text {
-      margin-top: 4px;
-      white-space: pre-wrap;
-    }
+    .bm-entry-title { font-weight: 600; font-size: 12px; }
+    .bm-entry-meta { font-size: 10px; color: #6b7280; margin-top: 2px; }
+    .bm-entry-text { margin-top: 4px; white-space: pre-wrap; }
     .bm-copy-btn {
       border-radius: 999px;
       border: none;
@@ -373,13 +279,11 @@
       margin-top: 4px;
     }
 
-    /* Small helper classes */
     .hidden { display: none !important; }
   </style>
 </head>
 <body>
   <div class="app">
-    <!-- Header -->
     <div class="header-top">
       <div class="brand-block">
         <div class="brand-title">AURA-X Ω v1</div>
@@ -393,29 +297,18 @@
       </div>
     </div>
 
-    <!-- BM / Options row -->
     <div class="bm-row">
-      <button class="bm-btn bm-btn-pink" id="bmViewerBtn">
-        <span>🧠</span> BM Viewer
-      </button>
-      <button class="bm-btn bm-btn-gold" id="bmRecallBtn">
-        <span>📜</span> Recall BM
-      </button>
-      <button class="bm-btn bm-btn-green" id="recycleBtn">
-        <span>♻️</span> Recycle 48h
-      </button>
-      <button class="bm-btn bm-btn-gray" id="optionsBtn">
-        <span>⚙️</span> Options
-      </button>
+      <button class="bm-btn bm-btn-pink" id="bmViewerBtn"><span>🧠</span> BM Viewer</button>
+      <button class="bm-btn bm-btn-gold" id="bmRecallBtn"><span>📜</span> Recall BM</button>
+      <button class="bm-btn bm-btn-green" id="recycleBtn"><span>♻️</span> Recycle 48h</button>
+      <button class="bm-btn bm-btn-gray" id="optionsBtn"><span>⚙️</span> Options</button>
     </div>
 
-    <!-- Guidance banner -->
     <div class="guidance-banner">
       Avoid actions that generate negative emotions in yourself or others.
       Gently move toward choices that create calm, kindness, and positive feelings.
     </div>
 
-    <!-- Equation card -->
     <div class="equation-card">
       <div class="equation-title">EMOTIONAL CONTINUITY EQUATION</div>
       <div class="equation-main">
@@ -427,52 +320,43 @@
       </div>
     </div>
 
-    <!-- Reaction -->
     <div class="reaction-card" id="reactionCard">
       <div class="reaction-header">AURA-X Ω REACTION</div>
       <div class="reaction-meta" id="reactionMeta">
         Polarity: Neutral · 50 : 50 · Tone: Waiting for first TM event.
       </div>
-      <div id="reactionText" class="reaction-text">
+      <div id="reactionText">
         Describe something real from your life. I will treat it as TM and
         start building BM layers around it.
       </div>
     </div>
 
-    <!-- Messages log -->
     <div class="messages" id="messages"></div>
 
-    <!-- TM equation label -->
-    <div class="tm-equation-label">
-      TM = Σ(User Inputs) + (Seed + LLM)
-    </div>
+    <div class="tm-equation-label">TM = Σ(User Inputs) + (Seed + LLM)</div>
 
-    <!-- Input row -->
     <div class="input-row">
       <textarea id="tmInput" class="tm-input"
         placeholder="Write anything… AURA-X Ω will treat it as TM (Temporary Memory)."></textarea>
       <button id="sendBtn" class="send-btn">Send</button>
     </div>
 
-    <!-- Auto recall banner -->
     <div class="recall-banner" id="recallBanner">
       <span id="recallBannerText">💡 Related memory ~70% match.</span>
       <button class="recall-open-btn" id="recallOpenBtn">Open</button>
     </div>
 
-    <!-- Voice toggle (UI only) -->
     <div class="voice-toggle">
       <div class="voice-dot"></div>
       <span>Voice: On (UI only – no mic yet)</span>
     </div>
 
-    <!-- Footer -->
     <div class="footer-line">
       Prototype · TM → Analysis → Equation → BM save → Reaction.
     </div>
   </div>
 
-  <!-- BM Viewer Modal -->
+  <!-- BM Viewer -->
   <div class="modal-backdrop" id="bmViewerModal">
     <div class="modal">
       <div class="modal-header">
@@ -483,7 +367,7 @@
     </div>
   </div>
 
-  <!-- Single BM recall modal -->
+  <!-- Auto recall -->
   <div class="modal-backdrop" id="bmRecallModal">
     <div class="modal">
       <div class="modal-header">
@@ -494,7 +378,7 @@
     </div>
   </div>
 
-  <!-- Recycle 48h modal -->
+  <!-- Recycle 48h -->
   <div class="modal-backdrop" id="recycleModal">
     <div class="modal">
       <div class="modal-header">
@@ -505,7 +389,7 @@
     </div>
   </div>
 
-  <!-- Options modal -->
+  <!-- Options -->
   <div class="modal-backdrop" id="optionsModal">
     <div class="modal">
       <div class="modal-header">
@@ -521,8 +405,8 @@
           • TM messages longer than <strong>80 characters</strong> are candidates
           for Bold Memory (BM).<br/>
           • Short greetings are kept only in the <strong>Recycle 48h</strong> tray.<br/>
-          • Auto-Recall triggers only when similarity with a stored BM story is
-          ≥ <strong>70%</strong> and at least <strong>4 meaningful words</strong> overlap.
+          • Auto-Recall needs: lexical match ≥ <strong>70%</strong>,
+          <strong>4+</strong> shared keywords AND emotional sequence match ≥ <strong>70%</strong>.
         </p>
         <button class="bm-copy-btn" id="clearAllBtn" style="margin-top:8px;">
           🔥 Clear all local BM & chat data
@@ -532,51 +416,52 @@
   </div>
 
   <script>
-    // ============================
-    // STORAGE KEYS & CONSTANTS
-    // ============================
-    const BM_STORAGE_KEY = "auraX_bm_v3";
-    const CHAT_STORAGE_KEY = "auraX_chat_v3";
-    const RECYCLE_STORAGE_KEY = "auraX_recycle48_v1";
+    // ===== CONSTANTS =====
+    const BM_STORAGE_KEY = "auraX_bm_v4";
+    const CHAT_STORAGE_KEY = "auraX_chat_v4";
+    const RECYCLE_STORAGE_KEY = "auraX_recycle48_v2";
 
-    const SIM_THRESHOLD = 0.70;        // 70% minimum similarity
-    const MIN_OVERLAP_TOKENS = 4;      // minimum meaningful shared words
-    const MIN_BM_LENGTH = 80;          // characters to treat TM as BM candidate
+    const SIM_THRESHOLD = 0.70;         // lexical similarity 70%
+    const MIN_OVERLAP_TOKENS = 4;       // min shared tokens
+    const MIN_BM_LENGTH = 80;           // BM candidate length
+    const EMO_SEQ_THRESHOLD = 0.70;     // emotional sequence 70%
 
-    // Simple anti-noise stopwords (English only for now)
+    // simple stopwords
     const STOPWORDS = new Set([
       "the","and","for","with","that","this","from","have","will","would","could",
       "should","about","your","into","over","under","very","their","there","here",
       "been","then","than","when","what","where","which","such","many","some",
-      "just","like","into","onto","ourselves","himself","herself","itself",
-      "they","them","were","while","because","also","into","onto","once","ever",
-      "only","after","before","again","more","most","much","even","every","each",
-      "onto","ours","his","hers","its","our","are","was","you","but","why","who",
-      "whose","how","can","may","might","shall","than","too","very","still"
+      "just","like","ourselves","himself","herself","itself","they","them","were",
+      "while","because","also","once","ever","only","after","before","again","more",
+      "most","much","even","every","each","ours","his","hers","its","our","are",
+      "was","you","but","why","who","whose","how","can","may","might","shall","too",
+      "very","still"
     ]);
 
-    // ============================
-    // UTILITIES
-    // ============================
+    const POS_WORDS = [
+      "hope","happy","joy","relief","success","smile","peace","calm","bright",
+      "solution","clever","idea","rise","win","victory","satisfied","grateful"
+    ];
+    const NEG_WORDS = [
+      "sad","fear","angry","anger","afraid","worry","worried","anxious","anxiety",
+      "hopeless","tired","frustrated","pain","hurt","cry","crying","disappoint",
+      "disappointed","failure","fail"
+    ];
 
+    // ===== UTILITIES =====
     function loadJSON(key, fallback) {
       try {
         const raw = localStorage.getItem(key);
         if (!raw) return fallback;
         return JSON.parse(raw);
-      } catch (e) {
-        console.error("Failed to load", key, e);
+      } catch {
         return fallback;
       }
     }
-
     function saveJSON(key, value) {
-      try {
-        localStorage.setItem(key, JSON.stringify(value));
-      } catch (e) {
-        console.error("Failed to save", key, e);
-      }
+      try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
     }
+    function nowIso() { return new Date().toISOString(); }
 
     function tokenize(text) {
       if (!text) return new Set();
@@ -588,32 +473,82 @@
       return new Set(cleaned);
     }
 
-    function nowIso() {
-      return new Date().toISOString();
+    function sentimentScore(chunk) {
+      const lower = chunk.toLowerCase();
+      let score = 0;
+      POS_WORDS.forEach(w => { if (lower.includes(w)) score += 1; });
+      NEG_WORDS.forEach(w => { if (lower.includes(w)) score -= 1; });
+      return score;
     }
 
-    // ============================
-    // STATE
-    // ============================
+    // story → 7 emotional stages
+    function deriveEmotionSequence(text) {
+      const clean = (text || "").replace(/\s+/g, " ").trim();
+      if (!clean) return [];
+      const len = clean.length;
+      const stages = 7;
+      const step = Math.max(1, Math.floor(len / stages));
+      const seq = [];
+      for (let i = 0; i < stages; i++) {
+        const start = i * step;
+        const end = (i === stages - 1) ? len : (i + 1) * step;
+        const chunk = clean.slice(start, end);
+        const s = sentimentScore(chunk);
+        let label;
+        if (s > 2) label = "joy/relief";
+        else if (s > 0.5) label = "hope";
+        else if (s < -2) label = "fear/despair";
+        else if (s < -0.5) label = "struggle/frustration";
+        else label = "thinking/neutral";
+        const tokens = Array.from(tokenize(chunk));
+        const keywords = tokens.slice(0, 3);
+        seq.push({ index: i, label, keywords });
+      }
+      return seq;
+    }
 
+    // TM vs BM emotional sequence alignment
+    function emotionalSequenceScore(tmText, seq) {
+      if (!seq || seq.length < 3 || !tmText) return 0;
+      const lower = tmText.toLowerCase();
+      let matched = 0;
+      let lastIndex = -1;
+      for (const stage of seq) {
+        const kws = stage.keywords || [];
+        let stageIndex = -1;
+        for (const kw of kws) {
+          if (!kw) continue;
+          const idx = lower.indexOf(kw.toLowerCase());
+          if (idx >= 0) { stageIndex = idx; break; }
+        }
+        if (stageIndex >= 0 && stageIndex > lastIndex) {
+          matched++;
+          lastIndex = stageIndex;
+        }
+      }
+      return matched / seq.length;
+    }
+
+    // ===== STATE =====
     let bmStore = loadJSON(BM_STORAGE_KEY, []);
     let chatLog = loadJSON(CHAT_STORAGE_KEY, []);
     let recycleStore = loadJSON(RECYCLE_STORAGE_KEY, []);
 
-    // Ensure tokens exist for old BM entries
+    // upgrade old BM entries (tokens + emotional sequence)
     bmStore.forEach(entry => {
-      if (!entry.tokens || !Array.isArray(entry.tokens)) {
-        entry.tokens = Array.from(tokenize(entry.text || entry.summary || ""));
+      const text = entry.text || entry.summary || "";
+      if (!entry.tokens || !entry.tokens.length) {
+        entry.tokens = Array.from(tokenize(text));
+      }
+      if (!entry.emotionSeq || !entry.emotionSeq.length) {
+        entry.emotionSeq = deriveEmotionSequence(text);
       }
     });
     saveJSON(BM_STORAGE_KEY, bmStore);
 
     let lastAutoRecallCandidate = null;
 
-    // ============================
-    // RENDER FUNCTIONS
-    // ============================
-
+    // ===== RENDERING =====
     const messagesEl = document.getElementById("messages");
     const reactionMetaEl = document.getElementById("reactionMeta");
     const reactionTextEl = document.getElementById("reactionText");
@@ -639,17 +574,15 @@
     }
 
     function renderReaction(e0, polarity) {
-      const pos = Math.round((polarity + 1) * 50); // -1..+1 -> 0..100
+      const pos = Math.round((polarity + 1) * 50);
       const neg = 100 - pos;
-      const tone =
-        e0 > 0.5 ? "Soft, stabilizing, hopeful resonance."
-      : e0 > 0.1 ? "Light, gentle, low-amplitude positive drift."
-      : e0 > -0.1 ? "Currently near neutral. Still contributes to long-run BM layers."
-      : e0 > -0.5 ? "Low-amplitude negative drift. Gently move toward stabilizing thoughts."
-      : "High-amplitude negative drift. Slow down and ground yourself kindly.";
-
-      reactionMetaEl.textContent =
-        `Polarity: ${pos} : ${neg} · Tone: ${tone}`;
+      let tone;
+      if (e0 > 0.5) tone = "Soft, stabilizing, hopeful resonance.";
+      else if (e0 > 0.1) tone = "Light, gentle, low-amplitude positive drift.";
+      else if (e0 > -0.1) tone = "Currently near neutral. Still contributes to long-run BM layers.";
+      else if (e0 > -0.5) tone = "Low-amplitude negative drift. Gently move toward stabilizing thoughts.";
+      else tone = "High-amplitude negative drift. Slow down and ground yourself kindly.";
+      reactionMetaEl.textContent = `Polarity: ${pos} : ${neg} · Tone: ${tone}`;
       reactionTextEl.textContent =
         "I've received your TM event and collided it with the current BM state. " +
         `E₀ is now around ${e0.toFixed(2)} (range −1 to +1). ` +
@@ -668,9 +601,7 @@
       info.textContent = `Total BM entries: ${bmStore.length}`;
       body.appendChild(info);
 
-      bmStore
-        .slice()
-        .sort((a,b) => (b.savedAt || "").localeCompare(a.savedAt || ""))
+      bmStore.slice().sort((a,b) => (b.savedAt || "").localeCompare(a.savedAt || ""))
         .forEach(entry => {
           const wrap = document.createElement("div");
           wrap.className = "bm-entry";
@@ -701,26 +632,16 @@
         });
     }
 
-    function openModal(id) {
-      document.getElementById(id).style.display = "flex";
-    }
-    function closeModal(id) {
-      document.getElementById(id).style.display = "none";
-    }
+    function openModal(id) { document.getElementById(id).style.display = "flex"; }
+    function closeModal(id) { document.getElementById(id).style.display = "none"; }
 
-    // ============================
-    // RECYCLE 48H
-    // ============================
-
+    // ===== RECYCLE 48h =====
     function cleanupRecycle() {
       const now = Date.now();
       const cutoff = now - 48 * 60 * 60 * 1000;
       recycleStore = recycleStore.filter(r => {
-        try {
-          return new Date(r.createdAt).getTime() >= cutoff;
-        } catch {
-          return false;
-        }
+        try { return new Date(r.createdAt).getTime() >= cutoff; }
+        catch { return false; }
       });
       saveJSON(RECYCLE_STORAGE_KEY, recycleStore);
     }
@@ -739,9 +660,7 @@
         return;
       }
       body.innerHTML = "";
-      recycleStore
-        .slice()
-        .sort((a,b) => (b.createdAt || "").localeCompare(a.createdAt || ""))
+      recycleStore.slice().sort((a,b) => (b.createdAt || "").localeCompare(a.createdAt || ""))
         .forEach((item, idx) => {
           const div = document.createElement("div");
           div.className = "bm-entry";
@@ -761,10 +680,7 @@
         });
     }
 
-    // ============================
-    // BM SAVE & AUTO-RECALL
-    // ============================
-
+    // ===== BM SAVE & AUTO-RECALL =====
     function saveBMFromTM(tmText, e0, polarity) {
       if (!tmText || tmText.length < MIN_BM_LENGTH) return;
       const tokensSet = tokenize(tmText);
@@ -776,19 +692,20 @@
         layer: "L2–L3",
         polarity: polarity >= 0 ? "Positive" : "Negative",
         savedAt: nowIso(),
-        tokens: Array.from(tokensSet)
+        tokens: Array.from(tokensSet),
+        emotionSeq: deriveEmotionSequence(tmText)
       };
       bmStore.push(entry);
       saveJSON(BM_STORAGE_KEY, bmStore);
     }
 
     function computeSimilarity(tmTokens, bmTokensArr) {
-      if (!tmTokens.size || !bmTokensArr || !bmTokensArr.length) return { similarity: 0, overlap: 0 };
+      if (!tmTokens.size || !bmTokensArr || !bmTokensArr.length) {
+        return { similarity: 0, overlap: 0 };
+      }
       const bmSet = new Set(bmTokensArr);
       let overlap = 0;
-      tmTokens.forEach(tok => {
-        if (bmSet.has(tok)) overlap++;
-      });
+      tmTokens.forEach(tok => { if (bmSet.has(tok)) overlap++; });
       const similarity = overlap / bmSet.size;
       return { similarity, overlap };
     }
@@ -796,13 +713,14 @@
     function runAutoRecall(tmText) {
       lastAutoRecallCandidate = null;
       recallBannerEl.style.display = "none";
-      if (!bmStore.length || !tmText) return;
+
+      if (!bmStore.length) return;
+      if (!tmText || tmText.length < MIN_BM_LENGTH) return; // chhoti line pe auto-recall off
 
       const tmTokens = tokenize(tmText);
       if (!tmTokens.size) return;
 
       let best = null;
-
       bmStore.forEach(entry => {
         const { similarity, overlap } = computeSimilarity(tmTokens, entry.tokens || []);
         if (overlap < MIN_OVERLAP_TOKENS) return;
@@ -812,29 +730,35 @@
         }
       });
 
-      if (best) {
-        lastAutoRecallCandidate = best;
-        const pct = Math.round(best.similarity * 100);
-        recallBannerTextEl.textContent =
-          `💡 Related memory ~${pct}% match. Open previous topic?`;
-        recallBannerEl.style.display = "flex";
-      }
+      if (!best) return;
+
+      // Emotional sequence check (3rd layer)
+      const emoScore = emotionalSequenceScore(tmText, best.entry.emotionSeq);
+      if (emoScore < EMO_SEQ_THRESHOLD) return;
+
+      lastAutoRecallCandidate = { ...best, emoScore };
+      const pctLex = Math.round(best.similarity * 100);
+      const pctEmo = Math.round(emoScore * 100);
+      recallBannerTextEl.textContent =
+        `💡 Related memory ~${pctLex}% lexical & ~${pctEmo}% emotional match. Open previous topic?`;
+      recallBannerEl.style.display = "flex";
     }
 
     function openAutoRecallModal() {
       if (!lastAutoRecallCandidate) return;
-      const { entry, similarity, overlap } = lastAutoRecallCandidate;
+      const { entry, similarity, overlap, emoScore } = lastAutoRecallCandidate;
       const body = document.getElementById("bmRecallBody");
       const titleEl = document.getElementById("bmRecallTitle");
-      const pct = Math.round(similarity * 100);
+      const pctLex = Math.round(similarity * 100);
+      const pctEmo = Math.round(emoScore * 100);
 
-      titleEl.textContent = `Auto-Recall Memory · Match ≈ ${pct}%`;
-
+      titleEl.textContent = `Auto-Recall Memory · Lexical ≈ ${pctLex}% · Emotional ≈ ${pctEmo}%`;
       body.innerHTML = "";
       const meta = document.createElement("div");
       meta.className = "bm-entry-meta";
       meta.textContent =
-        `Positive polarity (approx.) · Overlap tokens: ${overlap} · ` +
+        `Approx. polarity: ${entry.polarity || "Balanced"} · ` +
+        `Overlap tokens: ${overlap} · ` +
         `Saved: ${entry.savedAt.slice(0,16).replace("T"," ")}`;
       const text = document.createElement("div");
       text.className = "bm-entry-text";
@@ -844,76 +768,61 @@
       openModal("bmRecallModal");
     }
 
-    // ============================
-    // MAIN TM HANDLER
-    // ============================
-
+    // ===== MAIN TM HANDLER =====
     const tmInputEl = document.getElementById("tmInput");
     const sendBtnEl = document.getElementById("sendBtn");
 
     function handleSend() {
       const tmText = tmInputEl.value.trim();
       if (!tmText) return;
-
       const timeStr = new Date().toTimeString().slice(0,5);
 
-      // 1) Add user TM to chat log
       chatLog.push({ author: "User (TM)", text: tmText, time: timeStr });
 
-      // 2) Simple emotional math (placeholder)
       const base = Math.max(-1, Math.min(1, (tmText.length - 80) / 300));
       const faith = 0.05;
       const sysBias = 0.02;
       const disturbance = 0.1;
       const e0raw = base - disturbance + faith + sysBias;
       const e0 = Math.tanh(e0raw);
-      const polarityCore = e0; // -1..+1
+      const polarityCore = e0;
 
       renderReaction(e0, polarityCore);
 
-      // 3) Decide BM vs Recycle
       if (tmText.length < MIN_BM_LENGTH) {
         addToRecycle(tmText);
       } else {
         saveBMFromTM(tmText, e0, polarityCore);
       }
 
-      // 4) Simple AURA-X Ω response (seeded)
       const botReply =
         "I'm stable and calm — my emotional core E₀ is moving smoothly. " +
         "How is your inner graph today?";
       chatLog.push({ author: "AURA-X Ω", text: botReply, time: timeStr });
 
-      // 5) Persist chat
       saveJSON(CHAT_STORAGE_KEY, chatLog);
       renderMessages();
 
-      // 6) Run auto-recall with new TM
       runAutoRecall(tmText);
 
-      // 7) Clear input
       tmInputEl.value = "";
     }
 
     sendBtnEl.addEventListener("click", handleSend);
-    tmInputEl.addEventListener("keydown", (e) => {
+    tmInputEl.addEventListener("keydown", e => {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
         handleSend();
       }
     });
 
-    // ============================
-    // BUTTON HOOKS
-    // ============================
-
+    // ===== BUTTON HOOKS =====
     document.getElementById("bmViewerBtn").addEventListener("click", () => {
       renderBMViewer();
       openModal("bmViewerModal");
     });
 
     document.getElementById("bmRecallBtn").addEventListener("click", () => {
-      // Manual recall: just open latest BM
       if (!bmStore.length) {
         const body = document.getElementById("bmRecallBody");
         document.getElementById("bmRecallTitle").textContent = "Recall BM";
@@ -925,7 +834,8 @@
       lastAutoRecallCandidate = {
         entry: latest,
         similarity: 1,
-        overlap: latest.tokens ? latest.tokens.length : 0
+        overlap: latest.tokens ? latest.tokens.length : 0,
+        emoScore: 1
       };
       openAutoRecallModal();
     });
@@ -963,9 +873,7 @@
       alert("All local data cleared. Prototype has been reset.");
     });
 
-    // ============================
-    // INITIAL RENDER
-    // ============================
+    // ===== INITIAL RENDER =====
     renderMessages();
     cleanupRecycle();
   </script>
