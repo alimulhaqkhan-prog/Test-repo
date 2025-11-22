@@ -1,1 +1,1408 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AURA-X Ω v1 – Emotional Continuity Prototype</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #fdf4e3; /* book-page background */
+      color: #111827;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+    }
+    .app {
+      width: 100%;
+      max-width: 480px;
+      height: 100vh;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Header */
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .title-block h1 {
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+    }
+    .title-block p {
+      font-size: 0.7rem;
+      opacity: 0.8;
+      line-height: 1.2;
+    }
+    .mode-pill {
+      border-radius: 999px;
+      padding: 6px 10px;
+      border: 1px solid #38bdf8;
+      font-size: 0.63rem;
+      text-align: right;
+      background: #0f172a;
+      color: #e5e7eb;
+    }
+    .mode-pill span { display: block; }
+    .mode-pill .mode-label {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.9;
+    }
+    .mode-pill .mode-sub {
+      color: #22c55e;
+      font-weight: 500;
+    }
+    .mode-pill .engine { opacity: 0.8; }
+
+    /* Top buttons */
+    .top-buttons {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .pill-btn {
+      flex: 1;
+      border-radius: 999px;
+      padding: 8px 6px;
+      border: 1px solid #d1d5db;
+      background: #fefce8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.08s, border-color 0.15s;
+      min-width: 0;
+      white-space: nowrap;
+    }
+    .pill-btn span.icon { font-size: 0.95rem; }
+    .pill-btn.primary {
+      border-color: #f59e0b;
+      background: #fffbeb;
+    }
+    .pill-btn:hover {
+      transform: translateY(-1px);
+      border-color: #f97316;
+      background: #fffbeb;
+    }
+
+    /* Cards */
+    .card {
+      border-radius: 18px;
+      padding: 12px 14px;
+      border: 1px solid #e5e7eb;
+      background: #fefce8;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+    .card.golden {
+      background: #fffbeb;
+      border-color: #facc15;
+      color: #92400e;
+      font-weight: 500;
+    }
+    .card.equation {
+      border-style: dashed;
+      background: #fefce8;
+      font-family: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.75rem;
+    }
+    .card.equation .label {
+      opacity: 0.9;
+      margin-bottom: 4px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+    .card.equation .formula-main {
+      margin: 4px 0 6px;
+      color: #111827;
+    }
+    .card.equation .formula-values { opacity: 0.9; }
+
+    /* Reaction banner (small) */
+    .reaction-banner {
+      display: none;
+      border-radius: 16px;
+      padding: 8px 10px;
+      font-size: 0.75rem;
+      line-height: 1.3;
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
+      margin-bottom: 6px;
+    }
+    .reaction-banner strong {
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+    }
+    .reaction-positive {
+      border-color: #16a34a;
+      background: #ecfdf3;
+      color: #065f46;
+    }
+    .reaction-negative {
+      border-color: #f97316;
+      background: #fef3c7;
+      color: #9a3412;
+    }
+    .reaction-neutral {
+      border-color: #e5e7eb;
+      background: #f9fafb;
+      color: #374151;
+    }
+
+    /* Chat area */
+    .chat-area {
+      flex: 1;
+      border-radius: 18px;
+      border: 1px solid #e5e7eb;
+      background: #fffdf5;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 140px;
+    }
+    .chat-log {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 4px;
+      font-size: 0.8rem;
+    }
+    .msg { margin-bottom: 8px; }
+    .msg-user { text-align: right; color: #0369a1; }
+    .msg-bot { text-align: left; color: #111827; }
+
+    .status-line {
+      font-size: 0.7rem;
+      opacity: 0.8;
+    }
+
+    .input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .input-row textarea {
+      flex: 1;
+      resize: none;
+      min-height: 40px;
+      max-height: 80px;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      background: #fefce8;
+      color: #111827;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+    }
+    .input-row textarea:focus {
+      outline: none;
+      border-color: #22c55e;
+      box-shadow: 0 0 0 1px #bbf7d0;
+    }
+
+    .send-btn {
+      border-radius: 999px;
+      padding: 10px 16px;
+      border: none;
+      background: #16a34a;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 0 0 1px rgba(22,163,74,0.6), 0 8px 14px rgba(22,163,74,0.35);
+      transition: transform 0.08s, box-shadow 0.08s, background 0.08s;
+    }
+    .send-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 6px 10px rgba(22,163,74,0.35);
+      background: #15803d;
+    }
+
+    .footer-line {
+      font-size: 0.7rem;
+      opacity: 0.75;
+      margin-top: 2px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .voice-toggle {
+      border-radius: 999px;
+      padding: 3px 10px;
+      border: 1px solid #d1d5db;
+      background: #fefce8;
+      color: #111827;
+      font-size: 0.7rem;
+      cursor: pointer;
+    }
+    .voice-toggle.active {
+      border-color: #22c55e;
+      color: #166534;
+      background: #ecfdf3;
+    }
+
+    /* Modals shared */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 30;
+    }
+    .modal {
+      width: 100%;
+      max-width: 480px;
+      max-height: 80vh;
+      background: #fffbeb;
+      border-radius: 20px;
+      border: 1px solid #e5e7eb;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .modal-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .modal-close {
+      border-radius: 999px;
+      border: none;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      background: #e5e7eb;
+      color: #111827;
+    }
+    .modal-body {
+      flex: 1;
+      overflow-y: auto;
+      font-size: 0.78rem;
+    }
+
+    /* BM Viewer styles */
+    .bm-day {
+      margin-bottom: 10px;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 6px;
+    }
+    .bm-day-title {
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.8rem;
+      color: #111827;
+    }
+    .bm-node {
+      margin-bottom: 8px;
+      padding: 6px 8px;
+      border-radius: 12px;
+      background: #fffdf5;
+      border: 1px solid #e5e7eb;
+    }
+    .bm-node-title {
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .bm-node-meta {
+      font-size: 0.7rem;
+      opacity: 0.85;
+      margin-bottom: 4px;
+    }
+    .polarity-line {
+      font-size: 0.72rem;
+      margin-bottom: 4px;
+    }
+    .polarity-line .label {
+      opacity: 0.85;
+      margin-right: 4px;
+    }
+    .polarity-line .pos {
+      color: #16a34a;
+      font-weight: 600;
+    }
+    .polarity-line .neg {
+      color: #f97316;
+      font-weight: 600;
+    }
+    .layer-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .layer-chip {
+      border-radius: 999px;
+      padding: 2px 6px;
+      font-size: 0.65rem;
+      color: #111827;
+      font-weight: 600;
+    }
+    .L1 { background: #bfdbfe; }
+    .L2 { background: #fecaca; }
+    .L3 { background: #fed7aa; }
+    .L4 { background: #e9d5ff; }
+    .L5 { background: #bbf7d0; }
+    .L6 { background: #fef9c3; }
+    .L7 { background: #e5e7eb; }
+    .delete-day-btn {
+      border-radius: 999px;
+      border: none;
+      padding: 4px 10px;
+      font-size: 0.7rem;
+      cursor: pointer;
+      background: #b91c1c;
+      color: #fee2e2;
+      margin-left: auto;
+      display: block;
+      margin-top: 4px;
+    }
+
+    /* Recall modal */
+    .recall-search { margin-bottom: 6px; }
+    .recall-search input {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      background: #fffdf5;
+      color: #111827;
+      padding: 6px 10px;
+      font-size: 0.78rem;
+    }
+    .recall-node {
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      padding: 6px 8px;
+      margin-bottom: 6px;
+      background: #fffdf5;
+    }
+    .copy-btn {
+      border-radius: 999px;
+      border: none;
+      padding: 4px 10px;
+      font-size: 0.7rem;
+      cursor: pointer;
+      background: #1d4ed8;
+      color: #e5e7eb;
+      margin-top: 4px;
+    }
+
+    /* Options modal */
+    .option-section-title {
+      font-weight: 600;
+      font-size: 0.8rem;
+      margin: 6px 0 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.9;
+    }
+    .faith-note {
+      font-size: 0.74rem;
+      opacity: 0.85;
+      margin-bottom: 6px;
+    }
+    .faith-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .faith-pill {
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      background: #fefce8;
+      padding: 5px 10px;
+      font-size: 0.73rem;
+      cursor: pointer;
+    }
+    .faith-pill.active {
+      background: #ecfdf3;
+      border-color: #22c55e;
+      color: #166534;
+      font-weight: 500;
+    }
+    .option-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      gap: 8px;
+    }
+    .option-row span { font-size: 0.78rem; }
+    .toggle {
+      position: relative;
+      width: 38px;
+      height: 20px;
+    }
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #d1d5db;
+      transition: .2s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 14px;
+      width: 14px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .2s;
+      border-radius: 50%;
+    }
+    input:checked + .slider { background-color: #22c55e; }
+    input:checked + .slider:before { transform: translateX(18px); }
+
+    .options-footer-note {
+      margin-top: 6px;
+      font-size: 0.72rem;
+      opacity: 0.75;
+    }
+
+    /* LLM select dropdown */
+    #llmModelSelect {
+      background: #fefce8;
+      color: #111827;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      padding: 4px 8px;
+      font-size: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="header-top">
+      <div class="title-block">
+        <h1>AURA-X Ω</h1>
+        <p>EMOTIONAL CONTINUITY · AEC · CRM · AECN · RL³ · LR³</p>
+      </div>
+      <div class="mode-pill" id="modePill">
+        <span class="mode-label">MODE: OFFLINE PROTOTYPE</span>
+        <span class="mode-sub">Universal Ethics · Local BM</span>
+        <span class="engine">Engine: Seed (local)</span>
+      </div>
+    </div>
+
+    <!-- Top buttons -->
+    <div class="top-buttons">
+      <button class="pill-btn" id="bmViewerBtn">
+        <span class="icon">🧠</span><span>BM Viewer</span>
+      </button>
+      <button class="pill-btn primary" id="recallBtn">
+        <span class="icon">📂</span><span>Recall BM</span>
+      </button>
+      <button class="pill-btn" id="cleanupBtn">
+        <span class="icon">♻️</span><span>Cleanup 24h</span>
+      </button>
+      <button class="pill-btn" id="optionsBtn">
+        <span class="icon">🔘</span><span>Options</span>
+      </button>
+    </div>
+
+    <div class="card golden" id="ethicsBanner">
+      Avoid actions that generate negative emotions in yourself or others.
+      Gently move toward choices that create calm, kindness, and positive feelings.
+    </div>
+
+    <div class="card equation" id="equationCard">
+      <div class="label">EMOTIONAL CONTINUITY EQUATION</div>
+      <div class="formula-main" id="eqMain">
+        E₀ = tanh(TM × BM − D + λ_faith + λ_sys + ΣCₜ)
+      </div>
+      <div class="formula-values" id="eqValues">
+        E₀ = 0.00 · TM = 0.35 · BM = 0.55 · D = 0.00 · ΣCₜ = 0.05 · λ_faith = 0.00 · λ_sys = 0.02
+      </div>
+    </div>
+
+    <div class="chat-area">
+      <div id="reactionBanner" class="reaction-banner"></div>
+      <div class="chat-log" id="chatLog"></div>
+      <div class="status-line" id="statusLine">
+        E₀=0.00 · TM=0.35 · D=0.00 · tag=neutral
+      </div>
+      <div class="input-row">
+        <textarea id="userInput"
+          placeholder="Write anything… AURA-X Ω will treat it as TM (Temporary Memory)."></textarea>
+        <button class="send-btn" id="sendBtn">Send</button>
+      </div>
+      <div class="footer-line">
+        <span>Prototype · TM → Engine → BM · Equation live.</span>
+        <span>Engine: <span id="engineLabel">Seed (local)</span></span>
+        <button id="voiceToggle" class="voice-toggle active">🔊 Voice: On</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BM Viewer Modal -->
+  <div class="modal-backdrop" id="bmModalBackdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title"><span>🧠</span> Bold Memory (BM)</div>
+        <button class="modal-close" data-close="bmModalBackdrop">Close</button>
+      </div>
+      <div class="modal-body" id="bmModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Recall Modal -->
+  <div class="modal-backdrop" id="recallModalBackdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title"><span>📂</span> Recall from BM</div>
+        <button class="modal-close" data-close="recallModalBackdrop">Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="recall-search">
+          <input id="recallSearchInput"
+            placeholder='Search BM by keyword (e.g., "snow", "mother", "court", "hope").' />
+        </div>
+        <div id="recallList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Options Modal -->
+  <div class="modal-backdrop" id="optionsModalBackdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title"><span>🔘</span> AURA-X Ω options</div>
+        <button class="modal-close" data-close="optionsModalBackdrop">Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="option-section-title">FAITH LENS (OPTIONAL)</div>
+        <div class="faith-note">
+          Universal ethics are always active. You can optionally pick a faith lens to shape
+          encouragement lines locally. Nothing is sent to any external server.
+        </div>
+        <div class="faith-row" id="faithRow">
+          <button class="faith-pill" data-faith="None">None</button>
+          <button class="faith-pill" data-faith="Islam">Islam</button>
+          <button class="faith-pill" data-faith="Christianity">Christianity</button>
+          <button class="faith-pill" data-faith="Hinduism">Hinduism</button>
+          <button class="faith-pill" data-faith="Buddhism">Buddhism</button>
+          <button class="faith-pill" data-faith="Sikhism">Sikhism</button>
+          <button class="faith-pill" data-faith="Judaism">Judaism</button>
+          <button class="faith-pill" data-faith="Atheism / Humanism">Atheism / Humanism</button>
+          <button class="faith-pill" data-faith="Other / Mixed">Other / Mixed</button>
+        </div>
+
+        <div class="option-section-title">Engine mode</div>
+        <div class="faith-note">
+          Seed-only (offline) or Live emotional reactor (via backend).
+        </div>
+        <div class="option-row">
+          <span>Current: <span id="engineModeLabel">Seed-only. Everything runs locally.</span></span>
+          <label class="toggle">
+            <input type="checkbox" id="engineModeToggle" />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <!-- LLM model selection -->
+        <div class="option-row" id="llmModelRow" style="display:none;">
+          <span>Preferred backend LLM model</span>
+          <select id="llmModelSelect">
+            <option value="gpt-4.1">OpenAI – GPT-4.1</option>
+            <option value="gpt-4o">OpenAI – GPT-4o</option>
+            <option value="claude-3.5-sonnet">Anthropic – Claude 3.5 Sonnet</option>
+            <option value="claude-3.5-opus">Anthropic – Claude 3.5 Opus</option>
+            <option value="gemini-1.5-pro">Google – Gemini 1.5 Pro</option>
+            <option value="mistral-large">Mistral – Mistral Large</option>
+            <option value="command-r-plus">Cohere – Command-R+</option>
+            <option value="grok-2">xAI – Grok-2</option>
+            <option value="llama-3-70b-instruct">Meta – Llama-3-70B-Instruct</option>
+            <option value="qwen-2-72b">Qwen – Qwen-2-72B</option>
+          </select>
+        </div>
+
+        <div class="option-section-title">Prototype controls</div>
+        <div class="option-row">
+          <span>Auto-summarize long conversations to ~200 sentences</span>
+          <label class="toggle">
+            <input type="checkbox" id="autoSummarizeToggle" checked />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="option-row">
+          <span>Ignore tiny small-talk as BM (hello / hi / how are you)</span>
+          <label class="toggle">
+            <input type="checkbox" id="ignoreSmallTalkToggle" checked />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="option-row">
+          <span>Clear all stored BM for the last 24 hours (wastage cleanup)</span>
+          <button class="modal-close" id="clear24hBtn">♻️ Clear 24h</button>
+        </div>
+        <div class="option-row">
+          <span>Delete full local BM life (all days)</span>
+          <button class="modal-close" id="clearAllBtn">Delete All</button>
+        </div>
+        <div class="options-footer-note">
+          About AURA-X Ω: designed around the idea that emotions are continuity functions
+          between memories (TM and BM), not isolated sparks. This page is a small offline
+          + online demo of Alim ul Haq’s emotional continuity theory.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== CONFIG =====
+    const BACKEND_URL = "https://aura-x-backend-jliz.onrender.com/api/chat"; // <- change if needed
+
+    const lsKey = "auraX_bm_v31";
+    const faithKey = "auraX_faithLens";
+    const engineKey = "auraX_engineMode";
+    const llmModelKey = "auraX_llmModel";
+
+    const smallTalkPatterns = [
+      "hi","hello","hey","salam","assalamualaikum",
+      "how are you","kia hal hai","kese ho","how r u"
+    ];
+
+    // Seed lexicons for reaction
+    const abuseWords = [
+      "fuck","fucking","fucked","lanat","laanat","haramzada",
+      "bastard","bitch","bitches","bloody","kutte","kutta","kutiya",
+      "chutiya","stupid","idiot","gadha","gandi zuban","shut up","chup",
+      "bakwas","bakwass","zalil","zaleel","cursed","i hate you","hate you"
+    ];
+    const duaWords = [
+      "dua","prayer","pray for me","make dua","dua karo","dua karna",
+      "istighfar","astaghfirullah"
+    ];
+    const shukrWords = [
+      "shukr","shukar","thanks","thank you","alhamdulillah","grateful","gratitude"
+    ];
+    const tawakkulWords = [
+      "tawakkul","tawakkal","trust in allah","allah par bharosa","allah pe bharosa"
+    ];
+    const loveSeedWords = [
+      "i love you","love you","pyaar","pyar","mohabbat",
+      "i care about you","miss you","hug","embrace"
+    ];
+    const empathyWords = [
+      "feel sorry for you","sorry for you","may allah ease",
+      "may allah make it easy","allah apko ajar de",
+      "i am with you","i understand your pain","may god help you"
+    ];
+
+    function loadBM() {
+      try {
+        const raw = localStorage.getItem(lsKey);
+        return raw ? JSON.parse(raw) : {};
+      } catch { return {}; }
+    }
+    function saveBM(data) { localStorage.setItem(lsKey, JSON.stringify(data)); }
+    function todayKey() { return new Date().toISOString().slice(0,10); }
+    function tanh(x){ const e2x=Math.exp(2*x); return (e2x-1)/(e2x+1); }
+
+    function approximateSentences(text){
+      return text.split(/[.!?۔\n]/).filter(s=>s.trim().length>0);
+    }
+    function summarizeTo200Sentences(text){
+      const sentences = approximateSentences(text);
+      if (sentences.length<=200) return text.trim();
+      return sentences.slice(0,200).join(". ").slice(0,10000);
+    }
+    function isMostlySmallTalk(text){
+      const clean=text.toLowerCase().trim();
+      if (clean.length>80) return false;
+      return smallTalkPatterns.some(p=>clean===p||clean.startsWith(p+" "));
+    }
+    function containsAny(lower, arr){
+      return arr.some(w => lower.includes(w));
+    }
+    function countAny(lower, arr){
+      return arr.reduce((c,w)=> c + (lower.includes(w)?1:0), 0);
+    }
+
+    function analyseContent(text){
+      const lower = text.toLowerCase();
+      const abuseCount = countAny(lower, abuseWords);
+      const posSeedCount =
+        countAny(lower, loveSeedWords) +
+        countAny(lower, shukrWords) +
+        countAny(lower, tawakkulWords) +
+        countAny(lower, empathyWords);
+      const total = abuseCount + posSeedCount;
+      const sentiment = total ? (posSeedCount - abuseCount) / total : 0;
+
+      // Ending segment sentiment (last ~300 chars) – small weight (~8%)
+      const endSlice = lower.slice(Math.max(0, lower.length - 300));
+      const endAbuse = countAny(endSlice, abuseWords);
+      const endPos =
+        countAny(endSlice, loveSeedWords) +
+        countAny(endSlice, shukrWords) +
+        countAny(endSlice, tawakkulWords) +
+        countAny(endSlice, empathyWords);
+      const endTotal = endAbuse + endPos;
+      const endingSentiment = endTotal ? (endPos - endAbuse) / endTotal : sentiment;
+
+      const hasDua = containsAny(lower, duaWords);
+      const hasShukr = containsAny(lower, shukrWords);
+      const hasLove = containsAny(lower, loveSeedWords);
+      const hasEmpathy = containsAny(lower, empathyWords);
+      const hasTawakkul = containsAny(lower, tawakkulWords);
+      const isAbuse = abuseCount > 0;
+      return {
+        isAbuse,
+        hasDua,
+        hasShukr,
+        hasLove,
+        hasEmpathy,
+        hasTawakkul,
+        hasFaithSeed: hasDua || hasTawakkul,
+        positiveSeed: posSeedCount > 0,
+        abuseCount,
+        posSeedCount,
+        sentiment,
+        endingSentiment
+      };
+    }
+
+    // ===== Equation state =====
+    let TM=0.35, BMvalue=0.55, D=0.0, Csum=0.05;
+    let lambdaFaith=0.0;
+    const lambdaSys=0.02;
+    let E0=0.0;
+
+    // Engine & faith state
+    let engineMode = localStorage.getItem(engineKey) || "seed"; // "seed" or "live"
+    let faithLens = localStorage.getItem(faithKey) || "None";
+    let preferredLLM = localStorage.getItem(llmModelKey) || "gpt-4.1";
+    let autoSummarize = true;
+    let ignoreSmallTalk = true;
+    let autoVoice = true;
+
+    // DOM refs
+    const chatLogEl=document.getElementById("chatLog");
+    const statusLineEl=document.getElementById("statusLine");
+    const eqMainEl=document.getElementById("eqMain");
+    const eqValuesEl=document.getElementById("eqValues");
+    const userInputEl=document.getElementById("userInput");
+    const modePill=document.getElementById("modePill");
+    const reactionBannerEl=document.getElementById("reactionBanner");
+    const voiceToggleEl=document.getElementById("voiceToggle");
+    const engineLabelEl=document.getElementById("engineLabel");
+
+    const engineModeLabelEl=document.getElementById("engineModeLabel");
+    const engineModeToggle=document.getElementById("engineModeToggle");
+    const llmModelRow=document.getElementById("llmModelRow");
+    const llmModelSelect=document.getElementById("llmModelSelect");
+    const autoSummarizeToggle=document.getElementById("autoSummarizeToggle");
+    const ignoreSmallTalkToggle=document.getElementById("ignoreSmallTalkToggle");
+
+    function updateEquationDisplay(){
+      eqMainEl.textContent="E₀ = tanh(TM × BM − D + λ_faith + λ_sys + ΣCₜ)";
+      eqValuesEl.textContent=
+        `E₀ = ${E0.toFixed(2)} · TM = ${TM.toFixed(2)} · BM = ${BMvalue.toFixed(2)} · ` +
+        `D = ${D.toFixed(2)} · ΣCₜ = ${Csum.toFixed(2)} · λ_faith = ${lambdaFaith.toFixed(2)} · λ_sys = ${lambdaSys.toFixed(2)}`;
+      statusLineEl.textContent=
+        `E₀=${E0.toFixed(2)} · TM=${TM.toFixed(2)} · D=${D.toFixed(2)} · tag=${
+          E0>0.1?"positive":E0<-0.1?"negative":"neutral"
+        }`;
+    }
+
+    function buildReactionTone(){
+      const intensity=Math.abs(E0);
+      let polarity = "Neutral / Mixed";
+      let cls = "reaction-neutral";
+      if (E0>0.1){ polarity="Positive"; cls="reaction-positive"; }
+      else if (E0<-0.1){ polarity="Negative"; cls="reaction-negative"; }
+
+      let tone="";
+      if (polarity==="Positive"){
+        if (intensity>0.7) tone="Warm, expansive, high-energy encouragement.";
+        else if (intensity>0.35) tone="Soft, stabilising, hopeful resonance.";
+        else tone="Light, gentle, low-amplitude positive drift.";
+      } else if (polarity==="Negative"){
+        if (intensity>0.7) tone="Deep, heavy, thunder-style emotional load (fear / anger).";
+        else if (intensity>0.35) tone="Firm, serious, caution-oriented resonance.";
+        else tone="Mild negative charge, like a faint worry or discomfort.";
+      } else {
+        if (intensity>0.5) tone="Mixed signal: strong but conflicted emotional pattern.";
+        else tone="Calm, observant, analytically neutral reading.";
+      }
+      return {polarity, cls, intensity, tone};
+    }
+
+    function updateReactionBanner(sourceText){
+      const text = (sourceText||"").trim();
+      if (!text){
+        reactionBannerEl.style.display="none";
+        return;
+      }
+      const {polarity, cls, intensity, tone} = buildReactionTone();
+      reactionBannerEl.className = "reaction-banner " + cls;
+      reactionBannerEl.innerHTML =
+        `<strong>AURA-X Ω REACTION</strong><br>`+
+        `Polarity: ${polarity} · Intensity: ${(intensity*100).toFixed(0)}%<br>`+
+        `Tone: ${tone}`;
+      reactionBannerEl.style.display="block";
+    }
+
+    function appendMessage(text, who){
+      const div=document.createElement("div");
+      div.className="msg "+(who==="user"?"msg-user":"msg-bot");
+      div.textContent=text;
+      chatLogEl.appendChild(div);
+      chatLogEl.scrollTop=chatLogEl.scrollHeight;
+    }
+
+    // ===== Voice synthesis =====
+    function pickVoiceForPolarity(polarity) {
+      const synth = window.speechSynthesis;
+      if (!synth) return {voice:null, pitch:1.0, rate:1.0};
+      let voices = synth.getVoices();
+      if (!voices || !voices.length) {
+        return {voice:null, pitch: polarity==="Negative" ? 1.2 : 0.9, rate:1.0};
+      }
+      let target = null;
+      if (polarity === "Positive") {
+        target = voices.find(v => /male/i.test(v.name)) || voices[0];
+        return {voice:target, pitch:0.9, rate:1.0};
+      } else if (polarity === "Negative") {
+        target = voices.find(v => /female/i.test(v.name)) || voices[0];
+        return {voice:target, pitch:1.15, rate:1.0};
+      } else {
+        target = voices[0];
+        return {voice:target, pitch:1.0, rate:1.0};
+      }
+    }
+
+    function speakReply(text){
+      if (!autoVoice) return;
+      if (!("speechSynthesis" in window)) return;
+      if (!text || !text.trim()) return;
+      const synth = window.speechSynthesis;
+      const {polarity} = buildReactionTone();
+      const {voice, pitch, rate} = pickVoiceForPolarity(polarity);
+      const utt = new SpeechSynthesisUtterance(text);
+      if (voice) utt.voice = voice;
+      utt.pitch = pitch;
+      utt.rate = rate;
+      synth.cancel();
+      synth.speak(utt);
+    }
+
+    // ===== Emotion maths =====
+    function computeEmotion(strength, analysis){
+      const baseFromLength=Math.min(1,0.2+strength/400);
+      const sentiment = analysis ? analysis.sentiment || 0 : 0;
+      const endingSentiment = analysis ? analysis.endingSentiment || sentiment : sentiment;
+
+      // TM from content length + sentiment (0.5 weight length, 0.5 weight sentiment)
+      TM = Math.min(1, Math.max(
+        0.05,
+        0.5*baseFromLength + 0.5*(0.5+sentiment/2)
+      ));
+
+      // D (dissonance / distress) grows when abuse or very negative
+      if (analysis && analysis.isAbuse) {
+        D = Math.min(1, D + 0.25);
+      } else if (sentiment < -0.4) {
+        D = Math.min(1, D + 0.15);
+      } else {
+        D = Math.max(0, D - 0.05); // gentle decay
+      }
+
+      // Faith influence
+      const faithBase =
+        faithLens==="Islam" ? 0.10 :
+        (faithLens==="Christianity" || faithLens==="Judaism" || faithLens==="Sikhism") ? 0.08 :
+        (faithLens==="Hinduism" || faithLens==="Buddhism") ? 0.07 :
+        (faithLens==="Atheism / Humanism" || faithLens==="Other / Mixed") ? 0.05 :
+        0.00;
+
+      lambdaFaith = faithBase;
+      if (analysis && (analysis.hasDua || analysis.hasTawakkul || analysis.hasShukr)) {
+        lambdaFaith += 0.05;
+      }
+      lambdaFaith = Math.min(0.25, lambdaFaith);
+
+      // BMvalue gently follows average TM (memory continuity)
+      BMvalue = 0.7*BMvalue + 0.3*TM;
+
+      // Final equation – ending sentiment gets small weight on top (~8%)
+      const sentimentTerm = 0.22*sentiment + 0.08*endingSentiment;
+      const raw = (TM*BMvalue - D + lambdaFaith + lambdaSys + Csum) + sentimentTerm;
+      E0 = tanh(raw);
+    }
+
+    // ===== BM writing =====
+    function createLayerDistribution(){
+      // Simple static split for now (can be refined later)
+      return {L1:85, L2:60, L3:50, L4:38, L5:90, L6:45, L7:15};
+    }
+
+    function maybeWriteBMNode(text, analysis){
+      const strength = text.length;
+      const intensity = Math.abs(E0);
+      const hasSeeds = analysis && (analysis.positiveSeed || analysis.isAbuse || analysis.hasFaithSeed);
+      if (intensity < 0.35 && !hasSeeds && strength < 260) return;
+
+      const bm = loadBM();
+      const day = todayKey();
+      if (!bm[day]) bm[day]=[];
+
+      const layers = createLayerDistribution();
+      const polarityPos = Math.round(((E0+1)/2)*100);
+      const polarityNeg = 100 - polarityPos;
+
+      bm[day].push({
+        id: Date.now(),
+        title: text.slice(0,80),
+        raw: text,
+        E0,
+        TM,
+        D,
+        polarityPos,
+        polarityNeg,
+        layers,
+        createdAt: new Date().toISOString()
+      });
+      saveBM(bm);
+    }
+
+    // ===== BM Viewer rendering =====
+    function renderBMModal(){
+      const body=document.getElementById("bmModalBody");
+      body.innerHTML="";
+      const bm=loadBM();
+      const days=Object.keys(bm).sort().reverse();
+      if (!days.length){
+        body.textContent="No BM nodes stored yet. High-intensity memories will appear here.";
+        return;
+      }
+      days.forEach(day=>{
+        const dayBlock=document.createElement("div");
+        dayBlock.className="bm-day";
+        const title=document.createElement("div");
+        title.className="bm-day-title";
+        title.textContent=day+" ("+bm[day].length+" nodes)";
+        dayBlock.appendChild(title);
+
+        bm[day].forEach(node=>{
+          const nodeDiv=document.createElement("div");
+          nodeDiv.className="bm-node";
+          const t=document.createElement("div");
+          t.className="bm-node-title";
+          t.textContent=node.title || "(no title)";
+          nodeDiv.appendChild(t);
+
+          const meta=document.createElement("div");
+          meta.className="bm-node-meta";
+          const dt = node.createdAt ? new Date(node.createdAt).toLocaleTimeString() : "";
+          meta.textContent=`E₀≈${node.E0.toFixed(2)} · TM=${node.TM.toFixed(2)} · D=${node.D.toFixed(2)} · ${dt}`;
+          nodeDiv.appendChild(meta);
+
+          const pol=document.createElement("div");
+          pol.className="polarity-line";
+          pol.innerHTML=
+            `<span class="label">Polarity:</span>`+
+            `<span class="pos">Positive ${node.polarityPos}%</span>`+
+            ` : `+
+            `<span class="neg">Negative ${node.polarityNeg}%</span>`;
+          nodeDiv.appendChild(pol);
+
+          const chips=document.createElement("div");
+          chips.className="layer-chips";
+          Object.keys(node.layers||{}).forEach(key=>{
+            const chip=document.createElement("span");
+            chip.className="layer-chip "+key;
+            chip.textContent=`${key}:${node.layers[key]}`;
+            chips.appendChild(chip);
+          });
+          nodeDiv.appendChild(chips);
+
+          const trig=document.createElement("div");
+          trig.style.fontSize="0.72rem";
+          trig.style.opacity="0.9";
+          trig.textContent="Triggers / text: "+node.raw.slice(0,260)+"…";
+          nodeDiv.appendChild(trig);
+
+          dayBlock.appendChild(nodeDiv);
+        });
+
+        const delBtn=document.createElement("button");
+        delBtn.className="delete-day-btn";
+        delBtn.textContent="Delete Day";
+        delBtn.addEventListener("click",()=>{
+          if (confirm("Delete all BM nodes for "+day+"?")){
+            const all=loadBM();
+            delete all[day];
+            saveBM(all);
+            renderBMModal();
+          }
+        });
+        dayBlock.appendChild(delBtn);
+
+        body.appendChild(dayBlock);
+      });
+    }
+
+    // ===== Recall modal =====
+    function buildRecallList(filter){
+      const list=document.getElementById("recallList");
+      list.innerHTML="";
+      const bm=loadBM();
+      const days=Object.keys(bm).sort().reverse();
+      const f=(filter||"").toLowerCase().trim();
+      const matches=[];
+      days.forEach(day=>{
+        bm[day].forEach(node=>{
+          if (!f || node.raw.toLowerCase().includes(f) || day.includes(f)){
+            matches.push({day,node});
+          }
+        });
+      });
+      if (!matches.length){
+        list.textContent="No BM nodes match this search.";
+        return;
+      }
+      matches.sort((a,b)=> (b.node.createdAt||"").localeCompare(a.node.createdAt||""));
+      matches.forEach(({day,node})=>{
+        const div=document.createElement("div");
+        div.className="recall-node";
+        const title=document.createElement("div");
+        title.style.fontWeight="600";
+        title.style.marginBottom="2px";
+        title.textContent=node.title || "(no title)";
+        div.appendChild(title);
+
+        const meta=document.createElement("div");
+        meta.style.fontSize="0.72rem";
+        meta.style.opacity="0.85";
+        const dt = node.createdAt ? new Date(node.createdAt).toLocaleString() : "";
+        meta.textContent=`${day} · E₀≈${node.E0.toFixed(2)} · ${dt}`;
+        div.appendChild(meta);
+
+        const pol=document.createElement("div");
+        pol.className="polarity-line";
+        pol.innerHTML=
+          `<span class="label">Polarity:</span>`+
+          `<span class="pos">Positive ${node.polarityPos}%</span>`+
+          ` : `+
+          `<span class="neg">Negative ${node.polarityNeg}%</span>`;
+        div.appendChild(pol);
+
+        const snippet=document.createElement("div");
+        snippet.style.fontSize="0.72rem";
+        snippet.style.marginTop="2px";
+        snippet.textContent=node.raw.slice(0,260)+"…";
+        div.appendChild(snippet);
+
+        const btn=document.createElement("button");
+        btn.className="copy-btn";
+        btn.textContent="Copy prompt for LLM";
+        btn.addEventListener("click",()=>{
+          const prompt =
+`[AURA-X Ω RECALL]
+
+Date: ${day}
+E₀≈${node.E0.toFixed(2)} · TM=${node.TM.toFixed(2)} · D=${node.D.toFixed(2)}
+Polarity: Positive ${node.polarityPos}% : Negative ${node.polarityNeg}%
+
+Original text:
+${node.raw}
+`;
+          navigator.clipboard.writeText(prompt).then(()=>{
+            alert("Copied to clipboard.");
+          }).catch(()=>{});
+        });
+        div.appendChild(btn);
+
+        list.appendChild(div);
+      });
+    }
+
+    // ===== Engine / options =====
+    function updateModePill(){
+      const label = engineMode==="live" ? "MODE: LIVE LLM" : "MODE: OFFLINE PROTOTYPE";
+      const sub = engineMode==="live"
+        ? `Universal Ethics · BM + Live LLM`
+        : `Universal Ethics · Local BM`;
+      const engine = engineMode==="live"
+        ? `Engine: Emotional Reactor (UI + backend)`
+        : `Engine: Seed (local)`;
+
+      modePill.querySelector(".mode-label").textContent = label;
+      modePill.querySelector(".mode-sub").textContent = sub;
+      modePill.querySelector(".engine").textContent = engine;
+      engineLabelEl.textContent = engineMode==="live" ? "Live LLM backend" : "Seed (local)";
+      engineModeLabelEl.textContent = engineMode==="live"
+        ? "Live emotional reactor via backend."
+        : "Seed-only. Everything runs locally.";
+
+      engineModeToggle.checked = engineMode==="live";
+      llmModelRow.style.display = engineMode==="live" ? "flex" : "none";
+    }
+
+    function highlightFaithPill(){
+      document.querySelectorAll(".faith-pill").forEach(btn=>{
+        if (btn.getAttribute("data-faith")===faithLens) btn.classList.add("active");
+        else btn.classList.remove("active");
+      });
+    }
+
+    // ===== Local seed reply (when backend off / error) =====
+    function buildSeedReply(analysis){
+      const {polarity, intensity} = buildReactionTone();
+      const percent = Math.round(intensity*100);
+      let base = `[Live engine error, using local seed] `;
+
+      if (polarity==="Positive"){
+        base += `There is a positive continuity drift in this memory (≈${percent}% intensity). `+
+          `Protect it with gentle choices, calm behaviour and kind actions.`;
+      } else if (polarity==="Negative"){
+        base += `There is a heavy or negative continuity load in this memory (≈${percent}% intensity). `+
+          `Slow down, breathe, avoid rash decisions and look for safe, kind next steps.`;
+      } else {
+        base += `This memory feels emotionally mixed or neutral. `+
+          `Observe it calmly and choose actions that keep you and others safe.`;
+      }
+
+      if (analysis && analysis.hasShukr){
+        base += ` Shukr / gratitude inside this TM usually pulls E₀ slightly to the positive side over time.`;
+      }
+      if (analysis && analysis.isAbuse){
+        base += ` Repeated abuse-style words slowly increase D (distortion). Reducing such words helps emotions stabilise.`;
+      }
+      return base;
+    }
+
+    async function callBackend(prompt, analysis){
+      if (engineMode!=="live" || !BACKEND_URL) {
+        return buildSeedReply(analysis);
+      }
+
+      try {
+        const bm = loadBM();
+        const allText = Object.values(bm).flat().map(n=>n.raw).join("\n\n");
+        const context = autoSummarize ? summarizeTo200Sentences(allText) : allText;
+
+        const payload = {
+          tm: prompt,
+          e0: E0,
+          tm_scalar: TM,
+          d_scalar: D,
+          lambda_faith: lambdaFaith,
+          lambda_sys: lambdaSys,
+          context,
+          faith_lens: faithLens,
+          model: preferredLLM
+        };
+
+        const resp = await fetch(BACKEND_URL, {
+          method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body: JSON.stringify(payload)
+        });
+
+        if (!resp.ok) throw new Error("HTTP "+resp.status);
+        const data = await resp.json();
+
+        // expected fields: reply (main answer) OR message
+        const reply = data.reply || data.message || "";
+        if (!reply) throw new Error("Empty reply");
+        return reply;
+      } catch (err){
+        console.warn("Backend error, falling back to seed:", err);
+        return buildSeedReply(analysis);
+      }
+    }
+
+    // ===== Send pipeline =====
+    async function handleSend(){
+      const text=userInputEl.value.trim();
+      if (!text) return;
+      userInputEl.value="";
+      appendMessage(text,"user");
+
+      const analysis = analyseContent(text);
+      const length=text.length;
+      computeEmotion(length, analysis);
+      updateEquationDisplay();
+      updateReactionBanner(text);
+
+      if (ignoreSmallTalk && isMostlySmallTalk(text)){
+        const reply = "AURA-X Ω seed prototype ready. This page treats everything you type as TM (Temporary Memory).";
+        appendMessage(reply,"bot");
+        speakReply(reply);
+        return;
+      }
+
+      maybeWriteBMNode(text, analysis);
+
+      const replyText = await callBackend(text, analysis);
+      appendMessage(replyText,"bot");
+      speakReply(replyText);
+    }
+
+    // ===== Event wiring =====
+    document.getElementById("sendBtn").addEventListener("click",handleSend);
+    userInputEl.addEventListener("keydown",e=>{
+      if (e.key==="Enter" && !e.shiftKey){
+        e.preventDefault();
+        handleSend();
+      }
+    });
+
+    document.getElementById("bmViewerBtn").addEventListener("click",()=>{
+      renderBMModal();
+      document.getElementById("bmModalBackdrop").style.display="flex";
+    });
+    document.getElementById("recallBtn").addEventListener("click",()=>{
+      buildRecallList("");
+      document.getElementById("recallModalBackdrop").style.display="flex";
+    });
+    document.getElementById("cleanupBtn").addEventListener("click",()=>{
+      const bm=loadBM();
+      const today=todayKey();
+      if (bm[today]){
+        if (confirm("Delete BM nodes for the last 24 hours (today)?")){
+          delete bm[today];
+          saveBM(bm);
+          alert("Today’s BM nodes cleared.");
+        }
+      } else {
+        alert("No BM nodes stored for today.");
+      }
+    });
+    document.getElementById("optionsBtn").addEventListener("click",()=>{
+      document.getElementById("optionsModalBackdrop").style.display="flex";
+    });
+
+    document.querySelectorAll(".modal-close").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        const id=btn.getAttribute("data-close");
+        if (id) document.getElementById(id).style.display="none";
+      });
+    });
+
+    document.getElementById("recallSearchInput").addEventListener("input",e=>{
+      buildRecallList(e.target.value);
+    });
+
+    document.getElementById("clear24hBtn").addEventListener("click",()=>{
+      const bm=loadBM();
+      const today=todayKey();
+      if (bm[today]){
+        if (confirm("Clear all BM nodes for today?")){
+          delete bm[today];
+          saveBM(bm);
+          alert("Cleared BM for last 24h (today).");
+        }
+      } else {
+        alert("No BM nodes stored for today.");
+      }
+    });
+    document.getElementById("clearAllBtn").addEventListener("click",()=>{
+      if (confirm("Delete ALL stored BM (all days)?")){
+        localStorage.removeItem(lsKey);
+        alert("All BM cleared.");
+      }
+    });
+
+    // Faith selection
+    document.getElementById("faithRow").addEventListener("click",e=>{
+      const btn=e.target.closest(".faith-pill");
+      if (!btn) return;
+      faithLens = btn.getAttribute("data-faith");
+      localStorage.setItem(faithKey,faithLens);
+      highlightFaithPill();
+      computeEmotion(0,{sentiment:0,endingSentiment:0});
+      updateEquationDisplay();
+    });
+
+    // Engine mode
+    engineModeToggle.addEventListener("change",()=>{
+      engineMode = engineModeToggle.checked ? "live" : "seed";
+      localStorage.setItem(engineKey,engineMode);
+      updateModePill();
+    });
+
+    llmModelSelect.addEventListener("change",()=>{
+      preferredLLM = llmModelSelect.value;
+      localStorage.setItem(llmModelKey,preferredLLM);
+    });
+
+    autoSummarizeToggle.addEventListener("change",()=>{
+      autoSummarize = autoSummarizeToggle.checked;
+    });
+    ignoreSmallTalkToggle.addEventListener("change",()=>{
+      ignoreSmallTalk = ignoreSmallTalkToggle.checked;
+    });
+
+    // Voice toggle
+    voiceToggleEl.addEventListener("click",()=>{
+      autoVoice=!autoVoice;
+      if (autoVoice) voiceToggleEl.classList.add("active");
+      else voiceToggleEl.classList.remove("active");
+      voiceToggleEl.textContent = autoVoice ? "🔊 Voice: On" : "🔇 Voice: Off";
+    });
+
+    // ===== Initial boot =====
+    function initialBoot(){
+      // init toggles from defaults
+      autoSummarize = true;
+      ignoreSmallTalk = true;
+      autoSummarizeToggle.checked = autoSummarize;
+      ignoreSmallTalkToggle.checked = ignoreSmallTalk;
+
+      llmModelSelect.value = preferredLLM;
+      highlightFaithPill();
+      updateModePill();
+      computeEmotion(0,{sentiment:0,endingSentiment:0});
+      updateEquationDisplay();
+      updateReactionBanner("");
+    }
+
+    // voices may load async
+    if (window.speechSynthesis) {
+      window.speechSynthesis.onvoiceschanged = ()=>{};
+    }
+
+    initialBoot();
+  </script>
+</body>
+</html>
