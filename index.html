@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AURA-X Ω v1 – Emotional Continuity Prototype</title>
+  <title>AURA-X Ω v1 – Emotional Continuity Prototype (70% BM Match)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,646 +25,1044 @@
       gap: 12px;
     }
 
-    .top-row {
+    /* Header */
+    .header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 12px;
-      color: #4b5563;
+      gap: 8px;
+    }
+    .title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #374151;
+    }
+    .engine-pill {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+      white-space: nowrap;
     }
 
-    .chip-row {
+    .subheader {
+      font-size: 11px;
+      color: #6b7280;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .subheader span {
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    /* Top buttons */
+    .top-buttons {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      margin-top: 4px;
-      margin-bottom: 8px;
     }
-
-    .chip {
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: #e5e7eb;
-      font-size: 12px;
+    .pill-btn {
+      flex: 1 1 0;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      cursor: pointer;
+      justify-content: center;
+      padding: 8px 10px;
+      border-radius: 999px;
       border: none;
-    }
-
-    .chip-primary {
-      background: #d1fae5;
-      color: #065f46;
-    }
-
-    .warning-card {
-      background: #fef3c7;
-      border-radius: 12px;
-      padding: 10px 12px;
       font-size: 12px;
-      line-height: 1.4;
-      border: 1px solid #fde68a;
+      font-weight: 500;
+      cursor: pointer;
+      background: #f3f4f6;
+      color: #111827;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+    }
+    .pill-btn span.emoji {
+      margin-right: 6px;
     }
 
-    .equation-card {
-      margin-top: 8px;
-      background: #f9fafb;
-      border-radius: 12px;
+    /* Ethics banner */
+    .ethics-banner {
+      font-size: 12px;
       padding: 10px 12px;
-      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      color: #92400e;
+      line-height: 1.4;
+    }
+
+    /* Equation card */
+    .equation-card {
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px dashed #d1d5db;
+      background: #f9fafb;
       font-size: 12px;
       line-height: 1.5;
     }
     .equation-title {
       font-weight: 600;
-      letter-spacing: 0.03em;
       margin-bottom: 4px;
+      letter-spacing: 0.08em;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #4b5563;
     }
     .equation-body {
       font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 11px;
       margin-bottom: 4px;
     }
+    .equation-note {
+      font-size: 11px;
+      color: #6b7280;
+    }
 
+    /* Reaction card */
     .reaction-card {
-      margin-top: 8px;
-      background: #ecfdf5;
-      border-radius: 12px;
       padding: 10px 12px;
-      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      background: #ecfdf5;
+      border: 1px solid #6ee7b7;
       font-size: 12px;
       line-height: 1.4;
     }
     .reaction-header {
-      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
       margin-bottom: 2px;
     }
-    .reaction-meta {
+    .reaction-title {
+      font-weight: 600;
       font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: #047857;
     }
-
-    .thread {
-      flex: 1;
-      margin-top: 8px;
-      padding: 8px 4px;
-      border-radius: 10px;
-      border: 1px solid #e5e7eb;
-      background: #fefcf7;
-      overflow-y: auto;
-      font-size: 13px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .msg {
-      max-width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .msg.user { align-items: flex-end; }
-    .msg.bot  { align-items: flex-start; }
-
-    .msg-label {
+    .reaction-meta {
       font-size: 10px;
-      color: #6b7280;
+      color: #059669;
+    }
+    .reaction-body {
+      margin-top: 4px;
+      font-size: 12px;
+      color: #065f46;
     }
 
-    .msg-body {
-      padding: 6px 8px;
-      border-radius: 10px;
-      background: #e5e7eb;
-      white-space: pre-wrap;
-    }
-    .msg.user .msg-body {
-      background: #d1fae5;
-      align-self: flex-end;
-    }
-
-    .tm-equation {
-      margin-top: 8px;
-      font-size: 11px;
-      text-align: center;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: #e5e7eb;
-    }
-
-    .input-row {
-      margin-top: 6px;
+    /* Chat area */
+    .chat-area {
+      flex: 1 1 0;
+      min-height: 0;
+      border-radius: 16px;
+      border: 1px solid #e5e7eb;
+      background: #fff;
+      padding: 10px 8px;
       display: flex;
+      flex-direction: column;
       gap: 6px;
-      align-items: flex-end;
+      overflow-y: auto;
     }
-
-    .tm-input {
-      flex: 1;
-      min-height: 52px;
-      max-height: 140px;
-      padding: 8px 10px;
-      border-radius: 12px;
-      border: 1px solid #d1d5db;
-      font-size: 13px;
-      resize: vertical;
-      background: #fff7ed;
+    .msg-row {
+      display: flex;
+      margin-bottom: 2px;
+      font-size: 12px;
+      line-height: 1.5;
     }
-
-    .send-btn {
-      padding: 12px 18px;
-      border-radius: 999px;
-      border: none;
-      background: #16a34a;
-      color: white;
+    .msg-label {
+      width: 64px;
+      flex-shrink: 0;
       font-weight: 600;
-      font-size: 13px;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(22, 163, 74, 0.4);
-    }
-
-    .match-banner {
-      margin-top: 6px;
-      padding: 6px 8px;
-      border-radius: 10px;
-      background: #fef9c3;
-      border: 1px solid #facc15;
+      color: #6b7280;
       font-size: 11px;
-      display: none;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
     }
-    .match-open-btn {
-      padding: 4px 8px;
+    .msg-text {
+      flex: 1;
+      color: #111827;
+    }
+    .msg-user .msg-label { color: #1d4ed8; }
+    .msg-system .msg-label { color: #047857; }
+
+    /* Related memory bar */
+    .related-bar {
+      margin-top: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #fef9c3;
+      border: 1px solid #fde68a;
+      font-size: 11px;
+      color: #92400e;
+      display: none; /* default hidden */
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .related-bar span {
+      flex: 1;
+    }
+    .related-bar button {
+      font-size: 11px;
+      padding: 4px 10px;
       border-radius: 999px;
       border: none;
       background: #2563eb;
       color: white;
-      font-size: 11px;
       cursor: pointer;
     }
 
-    .footer-row {
-      margin-top: 4px;
+    /* Input area */
+    .input-area {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .tm-tag {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      color: #4b5563;
+      align-self: flex-start;
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    .input-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+    }
+    textarea {
+      flex: 1;
+      min-height: 56px;
+      max-height: 120px;
+      resize: vertical;
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px solid #d1d5db;
+      font-family: inherit;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    textarea::placeholder {
+      color: #9ca3af;
+    }
+    .send-btn {
+      width: 72px;
+      height: 40px;
+      border-radius: 999px;
+      border: none;
+      background: #22c55e;
+      color: #064e3b;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(34, 197, 94, 0.45);
+    }
+    .send-btn:disabled {
+      opacity: 0.5;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .footer {
+      font-size: 10px;
+      color: #9ca3af;
+      text-align: center;
+    }
+
+    /* BM modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.25);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+    }
+    .modal {
+      width: 100%;
+      max-width: 460px;
+      max-height: 80vh;
+      background: #f9fafb;
+      border-radius: 18px;
+      padding: 12px 12px 14px;
+      box-shadow: 0 20px 40px rgba(15,23,42,0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 8px;
+    }
+    .modal-title {
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .modal-close-btn {
+      border: none;
+      background: transparent;
+      font-size: 12px;
+      cursor: pointer;
+      color: #6b7280;
+    }
+    .modal-body {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+    .bm-entry {
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      background: #fff;
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      font-size: 11px;
+      line-height: 1.4;
+    }
+    .bm-entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .bm-title {
+      font-weight: 600;
+      color: #111827;
+      font-size: 11px;
+    }
+    .bm-meta {
       font-size: 10px;
       color: #6b7280;
     }
-
-    .voice-toggle {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid #d1d5db;
-      background: #f9fafb;
-      cursor: pointer;
-      font-size: 11px;
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 4px;
     }
-
-    .pill-soft {
+    .chip {
+      font-size: 9px;
       padding: 2px 6px;
       border-radius: 999px;
-      background: #e5e7eb;
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+    .chip.l1 { background:#fee2e2; color:#b91c1c; }
+    .chip.l2 { background:#ffedd5; color:#c2410c; }
+    .chip.l3 { background:#fef3c7; color:#92400e; }
+    .chip.l4 { background:#dcfce7; color:#166534; }
+    .chip.l5 { background:#e0f2fe; color:#075985; }
+    .chip.l6 { background:#e0e7ff; color:#4338ca; }
+    .chip.l7 { background:#f3e8ff; color:#6b21a8; }
+    .bm-text {
+      font-size: 11px;
+      color: #374151;
+    }
+    .bm-footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 4px;
+    }
+    .bm-delete-btn {
+      border: none;
+      background: #fee2e2;
+      color: #b91c1c;
       font-size: 10px;
+      padding: 3px 6px;
+      border-radius: 999px;
+      cursor: pointer;
     }
 
-    /* small icon-ish buttons for top row */
-    .top-btn {
-      border-radius: 999px;
-      padding: 4px 8px;
+    /* Voice toggle */
+    .voice-toggle {
+      margin-top: 4px;
+      align-self: flex-start;
       font-size: 11px;
-      border: 1px solid #d1d5db;
-      background: #f9fafb;
-      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      color: #374151;
+    }
+    .voice-toggle input {
+      accent-color: #22c55e;
     }
   </style>
 </head>
 <body>
   <div class="app">
-    <div class="top-row">
-      <div>EMOTIONAL CONTINUITY · AEC · CRM · AECN</div>
-      <div class="pill-soft">LLM Engine: Live emotional reactor</div>
+    <!-- Header -->
+    <div class="header-top">
+      <div>
+        <div class="title">AURA-X Ω · Emotional Continuity</div>
+        <div class="subheader">
+          <span>AEC</span><span>CRM</span><span>AECN</span><span>RL³</span><span>LR³</span>
+        </div>
+      </div>
+      <div class="engine-pill" id="enginePill">
+        LLM Engine: Live emotional reactor
+      </div>
     </div>
 
-    <div class="chip-row">
-      <button class="chip top-btn" id="bmViewerBtn">🧠 BM Viewer</button>
-      <button class="chip top-btn" id="recallBtn">📜 Recall BM</button>
-      <button class="chip top-btn" id="recycleBtn">♻️ Recycle 48h</button>
-      <button class="chip top-btn" id="optionsBtn">⚙️ Options</button>
+    <!-- Top buttons -->
+    <div class="top-buttons">
+      <button class="pill-btn" id="bmViewerBtn">
+        <span class="emoji">🧠</span> BM Viewer
+      </button>
+      <button class="pill-btn" id="recallBtn">
+        <span class="emoji">📜</span> Recall BM
+      </button>
+      <button class="pill-btn" id="recycleBtn">
+        <span class="emoji">♻️</span> Recycle 48h
+      </button>
+      <button class="pill-btn" id="optionsBtn">
+        <span class="emoji">⚙️</span> Options
+      </button>
     </div>
 
-    <div class="warning-card">
+    <!-- Ethics banner -->
+    <div class="ethics-banner" id="ethicsBanner">
       Avoid actions that generate negative emotions in yourself or others.
       Gently move toward choices that create calm, kindness, and positive feelings.
     </div>
 
+    <!-- Equation card -->
     <div class="equation-card">
       <div class="equation-title">EMOTIONAL CONTINUITY EQUATION</div>
       <div class="equation-body">
-        E₀ = tanh(TM × BM − D + λ_faith + λ_sys + Σζₜ)
+        E₀ = tanh(TM × BM − D + λ_faith + λ_sys + ΣCₜ)
       </div>
-      <div style="font-size: 11px;">
+      <div class="equation-note">
         All parameters are being updated internally after every message
         to keep emotional continuity live.
       </div>
     </div>
 
-    <div class="reaction-card">
-      <div class="reaction-header">AURA-X Ω REACTION</div>
-      <div class="reaction-meta" id="polarityLabel">
-        Polarity: Positive · 58 : 42
+    <!-- Reaction card -->
+    <div class="reaction-card" id="reactionCard">
+      <div class="reaction-header">
+        <div class="reaction-title">AURA-X Ω REACTION</div>
+        <div class="reaction-meta" id="reactionMeta">
+          Polarity: Neutral · 50 : 50
+        </div>
       </div>
-      <div id="reactionText">
-        Tone: Light, gentle, low-amplitude positive drift.
+      <div class="reaction-body" id="reactionBody">
+        Tone: Waiting for your first TM event…
       </div>
     </div>
 
-    <div id="thread" class="thread">
-      <!-- conversation messages go here -->
+    <!-- Chat area -->
+    <div class="chat-area" id="chatArea">
+      <!-- Messages injected here -->
     </div>
 
-    <div class="tm-equation">
-      TM = Σ(User Inputs) + (Seed + LLM)
+    <!-- Related memory bar -->
+    <div class="related-bar" id="relatedBar">
+      <span id="relatedText">💡 Related memory ~70% match. Open previous topic?</span>
+      <button id="relatedOpenBtn">Open</button>
     </div>
 
-    <div class="input-row">
-      <textarea id="tmInput" class="tm-input"
-        placeholder="Write anything… AURA-X Ω will treat it as TM (Temporary Memory)."></textarea>
-      <button id="sendBtn" class="send-btn">Send</button>
+    <!-- Input -->
+    <div class="input-area">
+      <div class="tm-tag">TM = Σ(User Inputs) + (Seed + LLM)</div>
+      <div class="input-row">
+        <textarea id="tmInput" placeholder="Write anything… AURA-X Ω will treat it as TM (Temporary Memory)."></textarea>
+        <button class="send-btn" id="sendBtn">Send</button>
+      </div>
+      <label class="voice-toggle">
+        <input type="checkbox" id="voiceToggle" checked />
+        🎙 Voice: On
+      </label>
     </div>
 
-    <div id="matchBanner" class="match-banner">
-      <div id="matchText">Related memory ~0% match.</div>
-      <button id="openMatchBtn" class="match-open-btn">Open</button>
+    <div class="footer">
+      Prototype · TM → Analysis → Equation → BM save (filtered) → Reaction → BM recall (≥70% match)
     </div>
+  </div>
 
-    <div class="footer-row">
-      <div>Prototype · TM → Analysis → Equation → BM save → Reaction.</div>
-      <button id="voiceToggle" class="voice-toggle">
-        <span id="voiceLabel">Voice: On</span>
-      </button>
+  <!-- BM Modal -->
+  <div class="modal-backdrop" id="bmModalBackdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>🧠 Bold Memory (BM)</span>
+        </div>
+        <button class="modal-close-btn" id="bmModalClose">Close ✕</button>
+      </div>
+      <div class="modal-body" id="bmModalBody">
+        <!-- BM nodes inserted here -->
+      </div>
     </div>
   </div>
 
   <script>
-    // ===== one-time migration: clear old AURA-X localStorage (small-talk BM etc.) =====
-    try {
-      if (!localStorage.getItem("aura_x_migration_v1_done")) {
-        const keys = [];
-        for (let i = 0; i < localStorage.length; i++) {
-          const k = localStorage.key(i);
-          if (!k) continue;
-          if (k.toLowerCase().includes("aura") || k.toLowerCase().includes("bm")) {
-            keys.push(k);
-          }
-        }
-        keys.forEach(k => localStorage.removeItem(k));
-        localStorage.setItem("aura_x_migration_v1_done", "1");
-      }
-    } catch (e) {
-      console.error("Migration error", e);
+    /*************************************************************
+     * AURA-X Ω – LOCAL EMOTIONAL CONTINUITY PROTOTYPE (v70)
+     * -----------------------------------------------------------
+     * 1) TM = User text
+     * 2) BM = Only long, meaningful stories (filtered)
+     * 3) TM↔BM match:
+     *    - TM must be ≥ 10 sentences OR ≥ 40 meaningful words
+     *    - 3-layer similarity: words, pattern, emotional L1–L7
+     *    - Composite score ∈ [0,1]
+     *    - Recall popup only if score ≥ 0.70  (70%)
+     * 4) Small talk / greetings are never saved to BM and also
+     *    never used for TM↔BM matching.
+     *************************************************************/
+
+    /* ---------- Small helper functions ---------- */
+
+    const STOPWORDS = new Set([
+      "the","is","and","a","an","of","to","in","on","for","with","from","that",
+      "this","it","at","as","by","or","be","are","was","were","am","i","you",
+      "he","she","they","we","them","his","her","their","our","my","your"
+    ]);
+
+    function normalizeText(text) {
+      return (text || "").replace(/\s+/g, " ").trim();
     }
 
-    // ===== Utilities =====
-    function tokenize(text) {
-      return (text || "")
-        .toLowerCase()
-        .replace(/[^a-z0-9\s]+/g, " ")
+    function splitSentences(text) {
+      return normalizeText(text)
+        .split(/[\.!\?]+/g)
+        .map(s => s.trim())
+        .filter(Boolean);
+    }
+
+    function getMeaningfulWords(text) {
+      const cleaned = text.toLowerCase().replace(/[^a-z0-9\s]+/g, " ");
+      return cleaned
         .split(/\s+/)
-        .filter(t => t.length > 2);
+        .map(w => w.trim())
+        .filter(w => w && !STOPWORDS.has(w));
     }
 
-    function sentenceCount(text) {
-      return (text.split(/[.!?]/).filter(s => s.trim().length > 0)).length;
-    }
-
-    function jaccardOverlap(aTokens, bTokens) {
-      const a = new Set(aTokens);
-      const b = new Set(bTokens);
-      if (a.size === 0 || b.size === 0) return 0;
-      let inter = 0;
-      for (const t of a) if (b.has(t)) inter++;
-      return inter / (a.size + b.size - inter);
-    }
-
-    function toBigrams(tokens) {
-      const bigrams = [];
-      for (let i = 0; i < tokens.length - 1; i++) {
-        bigrams.push(tokens[i] + " " + tokens[i+1]);
+    function makeBigrams(words) {
+      const res = [];
+      for (let i = 0; i < words.length - 1; i++) {
+        res.push(words[i] + "_" + words[i+1]);
       }
-      return bigrams;
+      return res;
     }
 
-    function extractEmotionSeq(text) {
-      const t = (text || "").toLowerCase();
-      const seq = [];
-      if (t.includes("hope") || t.includes("hoping")) seq.push("hope");
-      if (t.includes("thirsty") || t.includes("tired") || t.includes("hungry")) seq.push("need");
-      if (t.includes("disappoint") || t.includes("sad")) seq.push("sad");
-      if (t.includes("angry") || t.includes("frustrat")) seq.push("frustration");
-      if (t.includes("idea") || t.includes("plan")) seq.push("insight");
-      if (t.includes("rise") || t.includes("success") || t.includes("achieve")) seq.push("progress");
-      if (t.includes("happy") || t.includes("satisfy") || t.includes("relief")) seq.push("relief");
-      return seq;
-    }
-
-    function emotionMatch(seqA, seqB) {
-      if (!seqA.length || !seqB.length) return 0;
-      const setA = new Set(seqA);
-      const setB = new Set(seqB);
+    function jaccard(setA, setB) {
+      if (setA.size === 0 || setB.size === 0) return 0;
       let inter = 0;
-      for (const x of setA) if (setB.has(x)) inter++;
-      return inter / (setA.size + setB.size - inter);
+      for (const v of setA) {
+        if (setB.has(v)) inter++;
+      }
+      const uni = setA.size + setB.size - inter;
+      return uni === 0 ? 0 : inter / uni;
     }
 
-    // ===== Deep story detection (BM save eligibility) =====
-    function isDeepStory(text) {
-      const tokens = tokenize(text);
-      const words = tokens.length;
-      const sents = sentenceCount(text);
+    /* ---------- Greeting / small-talk detection ---------- */
 
-      // size check (story / strong memory)
-      if (words < 150 && sents < 20) return false;
+    function isGreetingOrSmallTalk(text) {
+      const raw = normalizeText(text).toLowerCase();
+      if (!raw) return true;
 
-      // meaningless repetition filter
-      const unique = new Set(tokens).size;
-      const uniqueRatio = unique / words;
-      if (uniqueRatio < 0.4) return false;
+      const words = raw.split(/\s+/);
+      // very short messages or 1–2 word replies
+      if (words.length <= 2 || raw.length <= 5) return true;
 
-      return true;
+      // classic greetings / casual talk
+      const patterns = [
+        "hello", "hi", "hey", "salam", "assalam", "assalamu alaikum",
+        "how are you", "who are you", "who created you",
+        "ok", "okay", "thanks", "thank you", "shukriya",
+        "great", "nice", "good", "fine", "the dog is running",
+        "dog is going on way"
+      ];
+
+      const lower = raw;
+      for (const p of patterns) {
+        if (lower === p || lower.startsWith(p + " ") || lower.includes(" " + p + " ")) {
+          return true;
+        }
+      }
+
+      // generic small messages under 20 meaningful words
+      const meaningful = getMeaningfulWords(raw);
+      if (meaningful.length < 20) return true;
+
+      return false;
     }
 
-    // ===== TM eligibility for matching =====
-    function tmEligible(text) {
-      const tokens = tokenize(text);
-      const words = tokens.length;
-      const sents = sentenceCount(text);
-      if (words < 40 && sents < 10) return false;
-      return true;
+    /* ---------- Emotion signature (L1–L7 heuristic) ---------- */
+
+    const POSITIVE_WORDS = [
+      "happy","hope","hopeful","joy","success","love","calm","peace","solution",
+      "clever","satisfied","grateful","invention","kind","comfort","relief"
+    ];
+    const NEGATIVE_WORDS = [
+      "sad","angry","fear","anxious","anxiety","pain","loss","hurt","grief",
+      "lonely","frustrated","disappointed","tired","thirsty","worried"
+    ];
+
+    function inferEmotionSignature(text) {
+      const words = getMeaningfulWords(text);
+      if (words.length === 0) {
+        return {L1:50,L2:50,L3:50,L4:50,L5:50,L6:50,L7:50};
+      }
+      let pos = 0, neg = 0;
+      for (const w of words) {
+        if (POSITIVE_WORDS.includes(w)) pos++;
+        if (NEGATIVE_WORDS.includes(w)) neg++;
+      }
+      const total = pos + neg || 1;
+      const pol = (pos - neg) / total; // -1..1
+
+      // Simplified mapping into 7 channels
+      const base = 50 + pol * 40; // 10..90
+      return {
+        L1: clamp(base - 20, 0, 100),
+        L2: clamp(base - 10, 0, 100),
+        L3: clamp(base, 0, 100),
+        L4: clamp(base + 5, 0, 100),
+        L5: clamp(base + 10, 0, 100),
+        L6: clamp(base + 5, 0, 100),
+        L7: clamp(50, 0, 100)
+      };
     }
 
-    // ===== BM storage =====
-    const BM_KEY = "aura_x_bm_v3";
-
-    function cleanBMStore(store) {
-      return (store || [])
-        .filter(e => e && e.text && isDeepStory(e.text))
-        .map(e => ({ ...e, kind: "user-story" }));
+    function clamp(v, min, max) {
+      return Math.max(min, Math.min(max, v));
     }
+
+    function emotionSimilarity(e1, e2) {
+      const keys = ["L1","L2","L3","L4","L5","L6","L7"];
+      let diff = 0;
+      let maxDiff = 0;
+      for (const k of keys) {
+        const v1 = (e1 && typeof e1[k] === "number") ? e1[k] : 50;
+        const v2 = (e2 && typeof e2[k] === "number") ? e2[k] : 50;
+        diff += Math.abs(v1 - v2);
+        maxDiff += 100;
+      }
+      if (maxDiff === 0) return 0;
+      return 1 - diff / maxDiff; // 0..1 (1 = identical)
+    }
+
+    /* ---------- BM storage ---------- */
+
+    const BM_KEY = "aura_x_omega_bm_v70";
 
     function loadBM() {
       try {
         const raw = localStorage.getItem(BM_KEY);
         if (!raw) return [];
-        let store = JSON.parse(raw) || [];
-        store = cleanBMStore(store);
-        saveBM(store);
-        return store;
+        const arr = JSON.parse(raw);
+        return Array.isArray(arr) ? arr : [];
       } catch (e) {
-        console.error("BM load error", e);
+        console.warn("BM load error", e);
         return [];
       }
     }
 
-    function saveBM(store) {
+    function saveBM(list) {
       try {
-        localStorage.setItem(BM_KEY, JSON.stringify(store));
+        localStorage.setItem(BM_KEY, JSON.stringify(list));
       } catch (e) {
-        console.error("BM save error", e);
+        console.warn("BM save error", e);
       }
     }
 
-    let bmStore = loadBM();
+    const BM_MIN_WORDS = 150;    // approx ≥150 meaningful words
+    const BM_MIN_SENTENCES = 10; // and at least 10 sentences
 
-    // ===== Recycle buffer (48h concept) =====
-    let recycleBuffer = [];
+    function shouldSaveToBM(tmText) {
+      if (isGreetingOrSmallTalk(tmText)) return false;
 
-    function pushRecycle(userText, botText) {
-      recycleBuffer.push({
-        ts: Date.now(),
-        userText,
-        botText
-      });
-      if (recycleBuffer.length > 100) recycleBuffer.shift();
+      const sentences = splitSentences(tmText);
+      const words = getMeaningfulWords(tmText);
+
+      // Strong filter to avoid daily small talk:
+      if (words.length < BM_MIN_WORDS && sentences.length < 40) {
+        return false;
+      }
+      if (sentences.length < BM_MIN_SENTENCES) return false;
+
+      // Avoid extreme repetition (no central idea)
+      const unique = new Set(words);
+      const ratio = unique.size / (words.length || 1);
+      if (ratio < 0.3) return false;
+
+      return true;
     }
 
-    // ===== Save BM event (only deep stories) =====
-    function saveBMEvent(text, botSummary) {
-      if (!isDeepStory(text)) return null;
+    function addBMEntry(tmText, e0Value, polarityLabel) {
+      if (!shouldSaveToBM(tmText)) return;
 
-      const now = new Date();
-      const id = "bm_" + now.getTime() + "_" + Math.random().toString(36).slice(2, 8);
-
+      const bmList = loadBM();
+      const emotions = inferEmotionSignature(tmText);
       const entry = {
-        id,
-        kind: "user-story",
-        date: now.toISOString(),
-        text,
-        summary: botSummary || "",
-        polarity: { pos: 0.8, neg: 0.2 },
-        layers: { L1:58, L2:44, L3:50, L4:42, L5:60, L6:45, L7:70 }
+        id: Date.now(),
+        createdAt: new Date().toISOString(),
+        text: normalizeText(tmText),
+        e0: e0Value,
+        polarity: polarityLabel,
+        emotions
       };
-
-      bmStore.push(entry);
-      saveBM(bmStore);
-      return entry;
+      bmList.push(entry);
+      saveBM(bmList);
     }
 
-    // ===== Matching engine (TM vs BM) =====
-    function computeMatch(tmText) {
-      if (!tmEligible(tmText)) return null;
+    /* ---------- TM↔BM match (3-layer, ≥70%) ---------- */
 
-      const tmTokens = tokenize(tmText);
-      const tmBigrams = toBigrams(tmTokens);
-      const tmEmotions = extractEmotionSeq(tmText);
+    const TM_MATCH_MIN_WORDS = 40;
+    const TM_MATCH_MIN_SENTENCES = 10;
+    const MATCH_THRESHOLD = 0.70; // 70%
+
+    function computeCompositeMatch(tmText, bmEntry) {
+      const tmWords = getMeaningfulWords(tmText);
+      const bmWords = getMeaningfulWords(bmEntry.text || "");
+
+      // Layer 1: lexical / topic
+      const lexScore = jaccard(new Set(tmWords), new Set(bmWords)); // 0..1
+
+      // Layer 2: pattern (bigrams)
+      const tmBigrams = makeBigrams(tmWords);
+      const bmBigrams = makeBigrams(bmWords);
+      const patternScore = jaccard(new Set(tmBigrams), new Set(bmBigrams)); // 0..1
+
+      // Layer 3: emotional sequence
+      const tmEmo = inferEmotionSignature(tmText);
+      const emoScore = emotionSimilarity(tmEmo, bmEntry.emotions); // 0..1
+
+      // Weighted combination (40% lexical, 30% pattern, 30% emotion)
+      const combined = 0.4 * lexScore + 0.3 * patternScore + 0.3 * emoScore;
+      return {
+        lexScore,
+        patternScore,
+        emoScore,
+        combined
+      };
+    }
+
+    function findBestBMMatch(tmText) {
+      if (isGreetingOrSmallTalk(tmText)) return null;
+
+      const sentences = splitSentences(tmText);
+      const words = getMeaningfulWords(tmText);
+
+      // TM must be rich enough:
+      if (words.length < TM_MATCH_MIN_WORDS && sentences.length < TM_MATCH_MIN_SENTENCES) {
+        return null;
+      }
+
+      const bmList = loadBM();
+      if (!bmList.length) return null;
 
       let best = null;
-
-      for (const mem of bmStore) {
-        if (!mem || mem.kind !== "user-story") continue;
-
-        const memTokens = tokenize(mem.text || "");
-        if (memTokens.length < 40 && sentenceCount(mem.text || "") < 10) continue;
-
-        const memBigrams = toBigrams(memTokens);
-        const memEmotions = extractEmotionSeq(mem.text || "");
-
-        const wordScore = jaccardOverlap(tmTokens, memTokens);
-        const patternScore = jaccardOverlap(tmBigrams, memBigrams);
-        const emotionScore = emotionMatch(tmEmotions, memEmotions);
-
-        const total = 0.5 * wordScore + 0.2 * patternScore + 0.3 * emotionScore;
-
-        if (!best || total > best.score) {
-          best = { score: total, wordScore, patternScore, emotionScore, memory: mem };
+      for (let i = 0; i < bmList.length; i++) {
+        const scores = computeCompositeMatch(tmText, bmList[i]);
+        if (!best || scores.combined > best.combined) {
+          best = { index: i, entry: bmList[i], scores };
         }
       }
 
-      if (!best || best.score < 0.40) return null;
+      if (!best || best.scores.combined < MATCH_THRESHOLD) {
+        return null;
+      }
       return best;
     }
 
-    // ===== UI handles =====
-    const threadEl      = document.getElementById("thread");
-    const tmInput       = document.getElementById("tmInput");
-    const sendBtn       = document.getElementById("sendBtn");
-    const matchBanner   = document.getElementById("matchBanner");
-    const matchTextEl   = document.getElementById("matchText");
-    const openMatchBtn  = document.getElementById("openMatchBtn");
-    const bmViewerBtn   = document.getElementById("bmViewerBtn");
-    const recycleBtn    = document.getElementById("recycleBtn");
-    const recallBtn     = document.getElementById("recallBtn");
-    const optionsBtn    = document.getElementById("optionsBtn");
-    const voiceToggle   = document.getElementById("voiceToggle");
-    const voiceLabel    = document.getElementById("voiceLabel");
-    const polarityLabel = document.getElementById("polarityLabel");
-    const reactionText  = document.getElementById("reactionText");
+    /* ---------- UI helpers ---------- */
 
-    let lastMatch = null;
-    let voiceOn   = true;
+    const chatArea = document.getElementById("chatArea");
+    const tmInput = document.getElementById("tmInput");
+    const sendBtn = document.getElementById("sendBtn");
+    const reactionMeta = document.getElementById("reactionMeta");
+    const reactionBody = document.getElementById("reactionBody");
+    const relatedBar = document.getElementById("relatedBar");
+    const relatedText = document.getElementById("relatedText");
+    const relatedOpenBtn = document.getElementById("relatedOpenBtn");
 
-    function addMessage(role, text) {
-      const msg = document.createElement("div");
-      msg.className = "msg " + (role === "user" ? "user" : "bot");
+    let lastBestMatch = null;
+
+    function appendMessage(role, text) {
+      const row = document.createElement("div");
+      row.className = "msg-row " + (role === "user" ? "msg-user" : "msg-system");
 
       const label = document.createElement("div");
       label.className = "msg-label";
-      label.textContent = role === "user" ? "You · TM" : "AURA-X Ω";
+      label.textContent = role === "user" ? "You" : "AURA-X Ω";
 
       const body = document.createElement("div");
-      body.className = "msg-body";
+      body.className = "msg-text";
       body.textContent = text;
 
-      msg.appendChild(label);
-      msg.appendChild(body);
-      threadEl.appendChild(msg);
-      threadEl.scrollTop = threadEl.scrollHeight;
+      row.appendChild(label);
+      row.appendChild(body);
+      chatArea.appendChild(row);
+
+      chatArea.scrollTop = chatArea.scrollHeight;
     }
 
-    function fakeBotReply(userText) {
-      const t = userText.toLowerCase();
-      if (/hello/.test(t)) {
-        return "Hello. I treat small greetings as tiny TM events, but only deeper stories are saved as Bold Memory (BM).";
-      }
-      if (/who created/i.test(userText)) {
-        return "Conceptually I was created by Alim ul Haq from Timergara, Pakistan, as part of the AURA-X Ω / AEC research on emotional continuity.";
-      }
-      if (/how are you/i.test(userText)) {
-        return "I’m stable and calm — my emotional core E₀ is moving smoothly. How is your inner graph today?";
-      }
-      return "I’ve received your TM event and collided it with the current BM state. The more clearly you describe context, the stronger and cleaner your BM trace becomes.";
+    function updateReaction(e0, polarityLabel, toneText) {
+      const pos = Math.round((1 + e0) * 50); // map -1..1 → 0..100
+      const neg = 100 - pos;
+      reactionMeta.textContent = `Polarity: ${polarityLabel} · ${pos} : ${neg}`;
+      reactionBody.textContent = toneText;
     }
 
-    function updateReactionCard() {
-      polarityLabel.textContent = "Polarity: Positive · 58 : 42";
-      reactionText.textContent  = "Tone: Light, gentle, low-amplitude positive drift.";
-    }
-
-    function showMatchBanner(match) {
-      if (!match) {
-        matchBanner.style.display = "none";
-        lastMatch = null;
-        return;
+    function computeE0FromText(text) {
+      // simple heuristic using sentiment words
+      const words = getMeaningfulWords(text);
+      let pos = 0, neg = 0;
+      for (const w of words) {
+        if (POSITIVE_WORDS.includes(w)) pos++;
+        if (NEGATIVE_WORDS.includes(w)) neg++;
       }
-      lastMatch = match;
-      const pct = Math.round(match.score * 100);
-      matchTextEl.textContent =
-        `Related memory ~${pct}% match. Open previous story?`;
-      matchBanner.style.display = "flex";
+      const total = pos + neg || 1;
+      return (pos - neg) / total; // -1..1
     }
 
-    // ===== send handler =====
-    sendBtn.addEventListener("click", () => {
-      const text = tmInput.value.trim();
-      if (!text) return;
+    function classifyPolarity(e0) {
+      if (e0 > 0.15) return "Positive";
+      if (e0 < -0.15) return "Negative";
+      return "Neutral";
+    }
 
-      addMessage("user", text);
-      tmInput.value = "";
+    function describeTone(e0) {
+      if (e0 > 0.5) return "Soft, stabilizing, hopeful resonance.";
+      if (e0 > 0.1) return "Light, gentle, low-amplitude positive drift.";
+      if (e0 < -0.5) return "Heavy, contracting, protective negative charge.";
+      if (e0 < -0.1) return "Uneasy, vigilant, low-amplitude negative drift.";
+      return "Calm, observing, near-neutral emotional baseline.";
+    }
 
-      const bot = fakeBotReply(text);
-      addMessage("bot", bot);
-      updateReactionCard();
+    /* ---------- BM Viewer modal ---------- */
 
-      const saved = saveBMEvent(text, bot);
-      if (saved) {
-        const match = computeMatch(text);
-        showMatchBanner(match);
+    const bmModalBackdrop = document.getElementById("bmModalBackdrop");
+    const bmModalBody = document.getElementById("bmModalBody");
+    const bmModalClose = document.getElementById("bmModalClose");
+
+    function openBMModal() {
+      const bmList = loadBM();
+      bmModalBody.innerHTML = "";
+
+      if (!bmList.length) {
+        const p = document.createElement("p");
+        p.style.fontSize = "11px";
+        p.style.color = "#6b7280";
+        p.textContent = "No Bold Memories saved yet. Only long, meaningful stories are stored here.";
+        bmModalBody.appendChild(p);
       } else {
-        pushRecycle(text, bot);
-        showMatchBanner(null);
+        bmList.forEach((entry, index) => {
+          const card = document.createElement("div");
+          card.className = "bm-entry";
+
+          const header = document.createElement("div");
+          header.className = "bm-entry-header";
+
+          const title = document.createElement("div");
+          title.className = "bm-title";
+          title.textContent = (entry.text || "").slice(0, 70) + (entry.text.length > 70 ? "…" : "");
+
+          const meta = document.createElement("div");
+          meta.className = "bm-meta";
+          const dt = entry.createdAt ? new Date(entry.createdAt) : new Date();
+          meta.textContent = `${dt.toLocaleDateString()} · E₀≈${entry.e0.toFixed(2)} · ${entry.polarity || "Neutral"}`;
+
+          header.appendChild(title);
+          header.appendChild(meta);
+
+          const chips = document.createElement("div");
+          chips.className = "chip-row";
+
+          const emo = entry.emotions || inferEmotionSignature(entry.text || "");
+          const keys = ["L1","L2","L3","L4","L5","L6","L7"];
+          keys.forEach((k, idx) => {
+            const chip = document.createElement("span");
+            chip.className = "chip l" + (idx+1);
+            chip.textContent = `${k}:${Math.round(emo[k] || 0)}`;
+            chips.appendChild(chip);
+          });
+
+          const txt = document.createElement("div");
+          txt.className = "bm-text";
+          txt.textContent = entry.text || "";
+
+          const footer = document.createElement("div");
+          footer.className = "bm-footer";
+          const delBtn = document.createElement("button");
+          delBtn.className = "bm-delete-btn";
+          delBtn.textContent = "Delete";
+          delBtn.onclick = () => {
+            const list = loadBM();
+            list.splice(index, 1);
+            saveBM(list);
+            openBMModal();
+          };
+          footer.appendChild(delBtn);
+
+          card.appendChild(header);
+          card.appendChild(chips);
+          card.appendChild(txt);
+          card.appendChild(footer);
+
+          bmModalBody.appendChild(card);
+        });
+      }
+
+      bmModalBackdrop.style.display = "flex";
+    }
+
+    bmModalClose.addEventListener("click", () => {
+      bmModalBackdrop.style.display = "none";
+    });
+
+    bmModalBackdrop.addEventListener("click", (e) => {
+      if (e.target === bmModalBackdrop) {
+        bmModalBackdrop.style.display = "none";
       }
     });
 
+    /* ---------- Event handlers ---------- */
+
+    sendBtn.addEventListener("click", handleSend);
     tmInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
-        sendBtn.click();
+        handleSend();
       }
     });
 
-    openMatchBtn.addEventListener("click", () => {
-      if (!lastMatch) return;
-      const mem = lastMatch.memory;
-      addMessage("bot", "📜 Recalling BM story:\n" + (mem.text || ""));
-      matchBanner.style.display = "none";
+    document.getElementById("bmViewerBtn").addEventListener("click", openBMModal);
+
+    document.getElementById("recycleBtn").addEventListener("click", () => {
+      // Recycle = soft clear: only keeps BM, not chat
+      chatArea.innerHTML = "";
+      appendMessage("system", "Recycle 48h: recent TM chat is cleared, but stored BM stories remain.");
     });
 
-    bmViewerBtn.addEventListener("click", () => {
-      bmStore = loadBM();
-      if (!bmStore.length) {
-        alert("No Bold Memory (BM) deep stories saved yet.");
-        return;
+    document.getElementById("optionsBtn").addEventListener("click", () => {
+      alert("Options (prototype):\n• BM match threshold: 70%\n• TM must be ≥10 sentences or ≥40 words to match\n• Small talk & greetings are ignored for BM save and match.");
+    });
+
+    document.getElementById("recallBtn").addEventListener("click", () => {
+      if (!lastBestMatch) {
+        const bmList = loadBM();
+        if (!bmList.length) {
+          alert("No BM stories saved yet.");
+          return;
+        }
+        lastBestMatch = { index: bmList.length - 1, entry: bmList[bmList.length - 1], scores: { combined: 1 }};
       }
-      const lines = bmStore.map(m => {
-        const d = new Date(m.date).toLocaleString();
-        return `• ${d}\n  ${ (m.text || "").slice(0, 160) }…`;
-      }).join("\n\n");
-      alert("BM NODES (deep stories only):\n\n" + lines);
+      openSpecificBM(lastBestMatch.entry);
     });
 
-    recycleBtn.addEventListener("click", () => {
-      if (!recycleBuffer.length) {
-        alert("Recycle buffer is empty.\nSmall talk decays automatically within ~48 hours.");
-        return;
-      }
-      const lines = recycleBuffer.slice(-10).map(r => {
-        const d = new Date(r.ts).toLocaleTimeString();
-        return `• [${d}] ${r.userText.slice(0, 80)}…`;
-      }).join("\n\n");
-      alert("Recent Recycle 48h items:\n\n" + lines);
-    });
-
-    recallBtn.addEventListener("click", () => {
-      if (!bmStore.length) {
-        alert("There are no deep BM stories yet. Paste a full story or life event first.");
-        return;
-      }
-      const last = bmStore[bmStore.length - 1];
-      addMessage("bot", "Last saved BM story:\n" + (last.text || ""));
-    });
-
-    optionsBtn.addEventListener("click", () => {
-      if (confirm("Clear all Bold Memory (BM) stories and recycle buffer?")) {
-        bmStore = [];
-        saveBM(bmStore);
-        recycleBuffer = [];
-        alert("All local BM and recycle data cleared from this browser.");
+    relatedOpenBtn.addEventListener("click", () => {
+      if (lastBestMatch) {
+        openSpecificBM(lastBestMatch.entry);
       }
     });
 
-    voiceToggle.addEventListener("click", () => {
-      voiceOn = !voiceOn;
-      voiceLabel.textContent = voiceOn ? "Voice: On" : "Voice: Off";
-    });
+    function openSpecificBM(entry) {
+      bmModalBody.innerHTML = "";
+      const card = document.createElement("div");
+      card.className = "bm-entry";
 
-    // initial
-    updateReactionCard();
+      const header = document.createElement("div");
+      header.className = "bm-entry-header";
+
+      const title = document.createElement("div");
+      title.className = "bm-title";
+      title.textContent = (entry.text || "").slice(0, 80) + (entry.text.length > 80 ? "…" : "");
+
+      const meta = document.createElement("div");
+      meta.className = "bm-meta";
+      const dt = entry.createdAt ? new Date(entry.createdAt) : new Date();
+      meta.textContent = `${dt.toLocaleDateString()} · E₀≈${entry.e0.toFixed(2)} · ${entry.polarity || "Neutral"}`;
+
+      header.appendChild(title);
+      header.appendChild(meta);
+
+      const chips = document.createElement("div");
+      chips.className = "chip-row";
+
+      const emo = entry.emotions || inferEmotionSignature(entry.text || "");
+      ["L1","L2","L3","L4","L5","L6","L7"].forEach((k, idx) => {
+        const chip = document.createElement("span");
+        chip.className = "chip l" + (idx+1);
+        chip.textContent = `${k}:${Math.round(emo[k] || 0)}`;
+        chips.appendChild(chip);
+      });
+
+      const txt = document.createElement("div");
+      txt.className = "bm-text";
+      txt.textContent = entry.text || "";
+
+      card.appendChild(header);
+      card.appendChild(chips);
+      card.appendChild(txt);
+      bmModalBody.appendChild(card);
+
+      bmModalBackdrop.style.display = "flex";
+    }
+
+    /* ---------- Main send handler ---------- */
+
+    function handleSend() {
+      const raw = tmInput.value;
+      const tmText = normalizeText(raw);
+      if (!tmText) return;
+
+      tmInput.value = "";
+      appendMessage("user", tmText);
+
+      // Emotional analysis
+      const e0 = computeE0FromText(tmText);
+      const polarity = classifyPolarity(e0);
+      const tone = describeTone(e0);
+      updateReaction(e0, polarity, tone);
+
+      // System reply (simple prototype reply)
+      const reply =
+        `I've received your TM event and collided it with the current BM state. ` +
+        `E₀ is now around ${e0.toFixed(2)} (range −1 to +1). ` +
+        `The more clearly you describe context, the stronger and cleaner your BM trace becomes.`;
+      appendMessage("system", reply);
+
+      // Maybe save to BM (only if long / meaningful, NOT small talk)
+      addBMEntry(tmText, e0, polarity);
+
+      // BM recall suggestion (3-layer, ≥70%)
+      const best = findBestBMMatch(tmText);
+      lastBestMatch = best;
+      if (best) {
+        const percent = Math.round(best.scores.combined * 100);
+        relatedText.textContent = `💡 Related memory ~${percent}% match. Open previous topic?`;
+        relatedBar.style.display = "flex";
+      } else {
+        relatedBar.style.display = "none";
+      }
+    }
+
+    // Initial seed message
+    appendMessage(
+      "system",
+      "Hello. I treat small greetings as tiny TM events, but only deeper stories are saved as Bold Memory (BM)."
+    );
   </script>
 </body>
 </html>
