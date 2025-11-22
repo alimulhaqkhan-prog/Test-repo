@@ -24,114 +24,110 @@
       flex-direction: column;
       gap: 12px;
     }
+
+    /* Header */
     .header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 8px;
     }
-    .brand {
-      font-size: 14px;
-      line-height: 1.2;
-    }
-    .brand-title {
+    .title {
+      font-size: 18px;
       font-weight: 700;
-      letter-spacing: 0.06em;
+      line-height: 1.3;
+    }
+    .subtitle {
       font-size: 11px;
-    }
-    .brand-sub {
-      font-size: 10px;
-      opacity: 0.8;
-    }
-    .pill {
-      border-radius: 999px;
-      padding: 6px 12px;
-      font-size: 10px;
-      border: 1px solid rgba(15,23,42,0.08);
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(4px);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 1px 3px rgba(15,23,42,0.12);
-    }
-    .pill-llm {
-      font-size: 10px;
-      border-radius: 999px;
-      padding: 6px 10px;
-      background: radial-gradient(circle at 0 0, #22c55e, #0ea5e9);
-      color: #ecfeff;
-      border: none;
-      box-shadow: 0 2px 6px rgba(15,23,42,0.4);
-    }
-    .pill-llm small { display: block; font-size: 9px; opacity: 0.85; }
-    .chip-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
+      color: #6b7280;
     }
     .chip {
-      border-radius: 999px;
-      padding: 6px 12px;
       font-size: 11px;
-      border: 1px solid rgba(15,23,42,0.12);
-      background: #f9fafb;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+      text-align: right;
+    }
+
+    .header-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pill-btn {
+      border-radius: 999px;
+      border: none;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      background: white;
+      border: 1px solid #e5e7eb;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
     }
-    .chip span.emoji { font-size: 13px; }
-    .equation-card, .reaction-card, .hint-card {
-      border-radius: 18px;
-      border: 1px solid rgba(15,23,42,0.08);
+    .pill-btn:hover { background: #f3f4f6; }
+
+    /* Cards */
+    .card {
+      border-radius: 16px;
+      background: white;
+      border: 1px solid #e5e7eb;
       padding: 12px 14px;
-      background: rgba(255,255,255,0.85);
-      box-shadow: 0 2px 5px rgba(15,23,42,0.06);
-      font-size: 11px;
+      box-shadow: 0 1px 3px rgba(15,23,42,0.06);
     }
-    .equation-card h3 {
-      font-size: 11px;
-      letter-spacing: 0.09em;
+    .card-title {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .06em;
       text-transform: uppercase;
       color: #6b7280;
       margin-bottom: 4px;
     }
+
+    .ethics {
+      background: #fef3c7;
+      border-color: #facc15;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
     .equation {
       font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 11px;
-      margin-bottom: 4px;
+      font-size: 12px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #111827;
     }
+
     .reaction-card {
-      border-left: 4px solid #22c55e;
-      background: #ecfdf3;
+      background: #ecfdf5;
+      border-color: #6ee7b7;
     }
-    .reaction-head {
-      display: flex;
-      justify-content: space-between;
+    .reaction-meta {
       font-size: 11px;
+      color: #047857;
       margin-bottom: 4px;
     }
-    .reaction-title { font-weight: 600; }
-    .reaction-tone { font-size: 10px; color: #16a34a; }
-    .hint-card {
-      background: #fff7ed;
-      color: #92400e;
-      border-color: #fed7aa;
-      font-size: 11px;
+    .reaction-text {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #064e3b;
     }
+
+    /* Chat log */
     .chat-log {
       flex: 1;
       min-height: 0;
-      border-radius: 18px;
-      border: 1px solid rgba(15,23,42,0.08);
-      background: rgba(255,255,255,0.8);
-      padding: 10px 10px 6px;
       overflow-y: auto;
-      font-size: 11px;
+      padding: 4px 2px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 6px;
+      border-radius: 12px;
     }
     .msg {
       display: flex;
@@ -139,274 +135,283 @@
       gap: 2px;
     }
     .msg-meta {
-      font-size: 9px;
-      color: #6b7280;
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      gap: 4px;
+      font-size: 11px;
+      color: #9ca3af;
+      padding: 0 4px;
     }
-    .msg-author {
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .08em;
+    .msg-author { font-weight: 600; color: #4b5563; }
+    .msg-label { font-style: italic; }
+    .msg-body-user,
+    .msg-body-bot {
+      padding: 8px 10px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+      white-space: pre-wrap;
     }
-    .msg-label {
-      font-size: 9px;
-      padding: 1px 6px;
-      border-radius: 999px;
-      background: #e5e7eb;
-      color: #374151;
+    .msg-body-user {
+      align-self: flex-end;
+      background: #e0f2fe;
+      color: #0f172a;
     }
-    .msg-body-user { color: #111827; }
-    .msg-body-bot { color: #111827; }
-    .composer {
+    .msg-body-bot {
+      align-self: flex-start;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+    }
+
+    /* TM input */
+    .tm-wrapper {
+      border-radius: 18px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      padding: 10px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      margin-top: 4px;
+      gap: 6px;
+      box-shadow: 0 -1px 4px rgba(15,23,42,0.04);
     }
-    .tm-chip {
-      align-self: flex-start;
-      border-radius: 999px;
-      padding: 4px 10px;
-      font-size: 10px;
-      background: #e0ecff;
-      color: #1d4ed8;
-      border: 1px solid rgba(37,99,235,0.25);
+    .tm-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #9ca3af;
     }
-    .composer-row {
+    .tm-input-row {
       display: flex;
       gap: 8px;
       align-items: flex-end;
     }
-    textarea {
+    #tmInput {
       flex: 1;
-      border-radius: 16px;
-      border: 1px solid rgba(15,23,42,0.18);
-      padding: 8px 10px;
       resize: none;
-      min-height: 54px;
-      font-size: 11px;
+      min-height: 52px;
+      max-height: 120px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      padding: 8px 10px;
+      font-size: 13px;
+      font-family: inherit;
       outline: none;
-      background: #fffdf7;
     }
-    textarea:focus {
-      border-color: #0ea5e9;
-      box-shadow: 0 0 0 1px rgba(56,189,248,0.4);
+    #tmInput:focus {
+      border-color: #22c55e;
+      box-shadow: 0 0 0 1px rgba(34,197,94,0.3);
     }
-    .btn-send {
+    #sendBtn {
       border-radius: 999px;
-      padding: 10px 18px;
       border: none;
-      background: #16a34a;
-      color: #f0fdf4;
-      font-size: 12px;
+      padding: 10px 16px;
+      background: #22c55e;
+      color: white;
       font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 3px 8px rgba(22,163,74,0.4);
+      font-size: 13px;
+      box-shadow: 0 2px 6px rgba(22,163,74,0.35);
     }
-    .btn-send:active {
-      transform: translateY(1px);
-      box-shadow: 0 1px 4px rgba(22,163,74,0.5);
+    #sendBtn:active { transform: translateY(1px); box-shadow: 0 1px 3px rgba(22,163,74,0.25); }
+
+    /* Match banner */
+    .match-banner {
+      display: none;
+      margin-top: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #fef9c3;
+      border: 1px solid #fde047;
+      font-size: 11px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
     }
+    .match-banner span { color: #854d0e; }
+    .match-banner button {
+      border-radius: 999px;
+      border: none;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      background: #2563eb;
+      color: white;
+    }
+
+    /* Footer */
     .footer-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 2px;
-    }
-    .pipeline {
-      font-size: 9px;
-      color: #6b7280;
-    }
-    .voice-toggle {
-      border-radius: 999px;
-      padding: 4px 10px;
-      border: 1px solid rgba(15,23,42,0.2);
       font-size: 10px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #e0f2fe;
-      color: #0f172a;
-      cursor: pointer;
+      color: #9ca3af;
+      padding: 0 4px;
     }
-    .match-banner {
-      margin-top: 6px;
-      border-radius: 999px;
+    #voiceToggle {
+      font-size: 11px;
       padding: 6px 10px;
-      font-size: 10px;
-      display: none;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      background: #fef9c3;
-      border: 1px solid #facc15;
-      color: #854d0e;
-    }
-    .match-banner strong { font-weight: 600; }
-    .btn-mini {
+      background: #e5e7eb;
       border-radius: 999px;
       border: none;
-      padding: 4px 10px;
-      font-size: 10px;
-      background: #2563eb;
-      color: #eff6ff;
-      cursor: pointer;
     }
-    /* Modal */
-    .modal-backdrop {
+
+    /* Modals */
+    .modal {
       position: fixed;
       inset: 0;
-      background: rgba(15,23,42,0.35);
+      background: rgba(15,23,42,0.4);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 20;
+      z-index: 40;
     }
-    .modal {
-      width: min(480px, 100% - 32px);
+    .modal-content {
+      background: #f9fafb;
+      border-radius: 16px;
+      max-width: 480px;
+      width: calc(100% - 32px);
       max-height: 80vh;
-      border-radius: 18px;
-      background: #fefce8;
       padding: 12px 14px;
-      box-shadow: 0 10px 30px rgba(15,23,42,0.35);
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      font-size: 11px;
+      gap: 6px;
+      box-shadow: 0 10px 40px rgba(15,23,42,0.35);
     }
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-size: 13px;
       font-weight: 600;
+      color: #111827;
     }
     .modal-close {
       border-radius: 999px;
       border: none;
-      padding: 4px 10px;
-      font-size: 10px;
-      background: #111827;
-      color: #f9fafb;
-      cursor: pointer;
+      padding: 4px 8px;
+      font-size: 11px;
+      background: #e5e7eb;
     }
     .modal-body {
+      font-size: 12px;
+      line-height: 1.5;
       overflow-y: auto;
-      padding-right: 4px;
-      font-size: 11px;
-      line-height: 1.45;
       white-space: pre-wrap;
+      border-radius: 8px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+      .app { padding: 10px; }
     }
   </style>
 </head>
 <body>
   <div class="app">
-    <header class="header-top">
-      <div class="brand">
-        <div class="brand-title">AURA-X Ω · EMOTIONAL CONTINUITY</div>
-        <div class="brand-sub">AEC · CRM · AECN · RL³ · LR³</div>
+    <!-- Header -->
+    <div class="header-top">
+      <div>
+        <div class="title">AURA-X Ω · Emotional Continuity</div>
+        <div class="subtitle">EMOTIONAL CONTINUITY · AEC · CRM · AECN · RL³ · LR³</div>
       </div>
-      <div class="pill-llm">
-        <div>LLM Engine</div>
-        <small>Emotional reactor (prototype)</small>
+      <div class="chip">
+        LLM<br />Engine: Live emotional reactor
       </div>
-    </header>
-
-    <div class="chip-row" style="margin-top:6px;">
-      <button class="chip" id="btnBmViewer"><span class="emoji">🧠</span> BM Viewer</button>
-      <button class="chip" id="btnRecall"><span class="emoji">📜</span> Recall BM</button>
-      <button class="chip" id="btnRecycle"><span class="emoji">♻️</span> Recycle 48h</button>
-      <button class="chip" id="btnOptions"><span class="emoji">⚙️</span> Options</button>
     </div>
 
-    <div class="hint-card">
+    <div class="header-buttons">
+      <button id="btnBmViewer" class="pill-btn">🧠 BM Viewer</button>
+      <button id="btnRecall" class="pill-btn">📜 Recall BM</button>
+      <button id="btnRecycle" class="pill-btn">♻️ Recycle 48h</button>
+      <button id="btnOptions" class="pill-btn">⚙️ Options</button>
+    </div>
+
+    <!-- Ethics -->
+    <div class="card ethics">
       Avoid actions that generate negative emotions in yourself or others. Gently move toward choices that create calm, kindness, and positive feelings.
     </div>
 
-    <div class="equation-card">
-      <h3>EMOTIONAL CONTINUITY EQUATION</h3>
+    <!-- Equation -->
+    <div class="card">
+      <div class="card-title">Emotional Continuity Equation</div>
       <div class="equation">
-        E₀ = tanh(TM × BM − D + λ_faith + λ_sys + ΣCₜ)
-      </div>
-      <div style="font-size:10px;margin-top:4px;">
-        All parameters are being updated internally after every message to keep emotional continuity live.
+E₀ = tanh(TM × BM − D + λ_faith + λ_sys + ΣCₜ)
+
+All parameters are being updated internally after every message to keep emotional continuity live.
       </div>
     </div>
 
-    <div class="reaction-card" id="reactionCard">
-      <div class="reaction-head">
-        <div class="reaction-title">AURA-X Ω REACTION</div>
-        <div class="reaction-tone" id="polarityDisplay">Polarity: Neutral · 50 : 50</div>
+    <!-- Reaction -->
+    <div class="card reaction-card">
+      <div id="polarityDisplay" class="reaction-meta">
+        Polarity: Positive · 50 : 50
       </div>
-      <div style="font-size:10px;margin-bottom:4px;" id="toneDisplay">
-        Tone: Light, gentle, low-amplitude drift.
+      <div id="toneDisplay" class="reaction-meta">
+        Tone: Light, gentle, low-amplitude positive drift.
       </div>
-      <div id="reactionText" style="font-size:11px;">
-        I am calm and listening. Tell me something that matters to you; I will treat it as TM (Temporary Memory) and update my BM layers.
+      <div id="reactionText" class="reaction-text">
+        I’m stable and calm — my emotional core E₀ is moving smoothly. How is your inner graph today?
       </div>
     </div>
 
-    <main class="chat-log" id="chatLog"></main>
+    <!-- Chat log -->
+    <div id="chatLog" class="chat-log"></div>
 
-    <section class="composer">
-      <div class="tm-chip">TM = Σ(User Inputs) + (Seed + LLM)</div>
-      <div class="composer-row">
+    <!-- TM input + banner -->
+    <div class="tm-wrapper">
+      <div class="tm-label">TM = Σ(User Inputs) + (Seed + LLM)</div>
+      <div class="tm-input-row">
         <textarea id="tmInput" placeholder="Write anything… AURA-X Ω will treat it as TM (Temporary Memory)."></textarea>
-        <button class="btn-send" id="sendBtn">Send</button>
+        <button id="sendBtn">Send</button>
       </div>
-      <div class="footer-row">
-        <div class="pipeline">
-          Prototype · TM → Analysis → Equation → BM save → Reaction.
-        </div>
-        <button class="voice-toggle" id="voiceToggle">
-          <span>🎙</span><span id="voiceToggleLabel">Voice: Off</span>
-        </button>
+      <div id="matchBanner" class="match-banner">
+        <span id="matchText">Related memory match.</span>
+        <button id="openMatchBtn">Open</button>
       </div>
-      <div class="match-banner" id="matchBanner">
-        <div>
-          <span>💡</span>
-          <span id="matchText">Related memory ~70% match.</span>
-        </div>
-        <button class="btn-mini" id="openMatchBtn">Open</button>
-      </div>
-    </section>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-row">
+      <div>Prototype · TM → Analysis → Equation → BM save → Reaction.</div>
+      <button id="voiceToggle"><span id="voiceToggleLabel">Voice: Off</span></button>
+    </div>
   </div>
 
   <!-- BM Modal -->
-  <div class="modal-backdrop" id="bmModal">
-    <div class="modal">
+  <div id="bmModal" class="modal">
+    <div class="modal-content">
       <div class="modal-header">
-        <span>🧠 Bold Memory Viewer</span>
+        <span>Bold Memory (BM)</span>
         <button class="modal-close" data-close="bmModal">Close</button>
       </div>
-      <div class="modal-body" id="bmModalBody"></div>
+      <pre id="bmModalBody" class="modal-body"></pre>
     </div>
   </div>
 
-  <!-- Auto-Recall Modal -->
-  <div class="modal-backdrop" id="recallModal">
-    <div class="modal">
+  <!-- Recall Modal -->
+  <div id="recallModal" class="modal">
+    <div class="modal-content">
       <div class="modal-header">
-        <span>💡 Auto-Recall Memory</span>
+        <span>Recall BM Trace</span>
         <button class="modal-close" data-close="recallModal">Close</button>
       </div>
-      <div class="modal-body" id="recallModalBody"></div>
+      <pre id="recallModalBody" class="modal-body"></pre>
     </div>
   </div>
 
   <!-- Recycle Modal -->
-  <div class="modal-backdrop" id="recycleModal">
-    <div class="modal">
+  <div id="recycleModal" class="modal">
+    <div class="modal-content">
       <div class="modal-header">
-        <span>♻️ Recycle 48h – Small Talk Buffer</span>
+        <span>Recycle 48h (Small Talk Buffer)</span>
         <button class="modal-close" data-close="recycleModal">Close</button>
       </div>
-      <div class="modal-body" id="recycleModalBody"></div>
+      <pre id="recycleModalBody" class="modal-body"></pre>
     </div>
   </div>
 
+  <!-- SCRIPT: TM–BM logic + filters (no small-talk in BM) -->
   <script>
     // ===== Storage Keys =====
     const BM_KEY = "auraX_bm_v1";
@@ -553,9 +558,27 @@ The crow happily took a long drink – necessity is the mother of invention.`,
       return inter / minSize;
     }
 
+    // Deep / shallow detection
+    function sentenceCount(text) {
+      return (text.split(/[.!?]/).filter(s => s.trim().length > 0)).length;
+    }
+
+    function isDeepStory(text) {
+      const tokens = tokenize(text);
+      const total = tokens.length;
+      if (total < 20) return false;              // kam se kam 20 meaningful words
+      const unique = new Set(tokens).size;
+      const uniqueRatio = unique / total;
+      if (uniqueRatio < 0.4) return false;      // bohot zyada repetition = meaningless
+      if (sentenceCount(text) < 2) return false; // kam se kam 2 sentences / lines
+      return true;
+    }
+
     function computeMatch(tmText) {
       const tmTokens = tokenize(tmText);
-      if (tmTokens.length < 5) return null; // ignore short TM completely
+
+      // TM must be big enough
+      if (tmTokens.length < 10) return null;
 
       const tmBigrams = toBigrams(tmTokens);
       const tmEmotions = extractEmotionSeq(tmText);
@@ -565,16 +588,15 @@ The crow happily took a long drink – necessity is the mother of invention.`,
       for (const mem of bmStore) {
         if (mem.kind === "small-talk") continue;
         const memTokens = tokenize(mem.text || "");
-        if (memTokens.length < 5) continue;
+        if (memTokens.length < 10) continue;
 
         const memBigrams = toBigrams(memTokens);
         const memEmotions = extractEmotionSeq(mem.text || "");
 
-        const wordScore = jaccardOverlap(tmTokens, memTokens); // 0–1
-        const patternScore = jaccardOverlap(tmBigrams, memBigrams); // 0–1
-        const emotionScore = emotionMatch(tmEmotions, memEmotions); // 0–1
+        const wordScore = jaccardOverlap(tmTokens, memTokens);
+        const patternScore = jaccardOverlap(tmBigrams, memBigrams);
+        const emotionScore = emotionMatch(tmEmotions, memEmotions);
 
-        // Weighted blend
         const total = 0.5 * wordScore + 0.2 * patternScore + 0.3 * emotionScore;
 
         if (!best || total > best.score) {
@@ -588,7 +610,7 @@ The crow happily took a long drink – necessity is the mother of invention.`,
         }
       }
 
-      // Dead-zone: if total < 0.40, treat as "no match at all"
+      // Dead-zone: below 0.40 = “no recall”
       if (!best || best.score < 0.40) return null;
       return best;
     }
@@ -599,7 +621,6 @@ The crow happily took a long drink – necessity is the mother of invention.`,
     const reactionText = document.getElementById("reactionText");
 
     function updateReaction(tmText) {
-      // Simple fake E0 update: length & sentiment keywords
       const tokens = tokenize(tmText);
       let pos = 0, neg = 0;
       const posWords = ["happy","hope","kind","love","joy","calm","peace","clever"];
@@ -612,7 +633,7 @@ The crow happily took a long drink – necessity is the mother of invention.`,
       const total = pos + neg || 1;
       const posRatio = pos / total;
       const negRatio = neg / total;
-      E0 = Math.tanh(posRatio - negRatio); // -1..+1
+      E0 = Math.tanh(posRatio - negRatio);
 
       const posPct = Math.round((posRatio) * 100);
       const negPct = 100 - posPct;
@@ -651,7 +672,6 @@ The crow happily took a long drink – necessity is the mother of invention.`,
       matchText.textContent = `Related memory ~${pct}% match. Open previous topic?`;
       matchBanner.style.display = "flex";
 
-      // If very strong (≥ 70%), also open auto-recall modal
       if (pct >= 70) {
         openRecallModal(match);
       }
@@ -697,22 +717,8 @@ ${match.memory.text.trim()}`;
       openRecallModal(lastMatch);
     });
 
-    // ===== Small Talk Detection & Recycle =====
-    function isGreeting(text) {
-      const t = text.toLowerCase().trim();
-      return (
-        t === "hi" || t === "hello" || t === "hey" ||
-        t.startsWith("how are you") ||
-        t.startsWith("salam") || t.startsWith("assalam")
-      );
-    }
-
-    function isSmallTalk(text) {
-      if (isGreeting(text)) return true;
-      if (text.length < 80) return true;
-      return false;
-    }
-
+    // ===== Recycle 48h =====
+    const recycleBody = document.getElementById("recycleModalBody");
     function pushRecycle(userText, botText) {
       const entry = {
         id: "r-" + Date.now(),
@@ -721,50 +727,11 @@ ${match.memory.text.trim()}`;
         bot: botText
       };
       recycleStore.push(entry);
-      // keep only last 48h
       const cutoff = Date.now() - (48 * 60 * 60 * 1000);
       recycleStore = recycleStore.filter(e => new Date(e.at).getTime() >= cutoff);
       saveJson(RECYCLE_KEY, recycleStore);
     }
 
-    // ===== BM Save =====
-    function saveBMEvent(userText, botText) {
-      const entry = {
-        id: "bm-" + Date.now(),
-        title: summarizeTitle(userText),
-        createdAt: nowIso(),
-        kind: "story",
-        text: botText ? (userText + "\n\n" + botText) : userText
-      };
-      bmStore.push(entry);
-      // optional: cap BM size
-      if (bmStore.length > 200) bmStore.shift();
-      saveJson(BM_KEY, bmStore);
-    }
-
-    function summarizeTitle(text) {
-      const tokens = tokenize(text);
-      if (tokens.length === 0) return "Memory";
-      return tokens.slice(0,4).map(w => w[0].toUpperCase()+w.slice(1)).join(" ");
-    }
-
-    // ===== BM Viewer =====
-    const bmModalBody = document.getElementById("bmModalBody");
-    document.getElementById("btnBmViewer").addEventListener("click", () => {
-      if (bmStore.length === 0) {
-        bmModalBody.textContent = "No BM entries yet.";
-      } else {
-        bmModalBody.textContent = bmStore
-          .slice()
-          .reverse()
-          .map(m => `• ${m.title || "Untitled"}  (${shortDateTime(m.createdAt)})\n${(m.text||"").trim()}\n`)
-          .join("\n────────────────────\n\n");
-      }
-      document.getElementById("bmModal").style.display = "flex";
-    });
-
-    // ===== Recycle Viewer =====
-    const recycleBody = document.getElementById("recycleModalBody");
     document.getElementById("btnRecycle").addEventListener("click", () => {
       if (recycleStore.length === 0) {
         recycleBody.textContent = "Recycle buffer is empty. Small talk from the last 48 hours will appear here.";
@@ -777,6 +744,40 @@ ${match.memory.text.trim()}`;
           ).join("\n───────────────\n\n");
       }
       document.getElementById("recycleModal").style.display = "flex";
+    });
+
+    // ===== BM Save & Viewer =====
+    function saveBMEvent(userText, botText) {
+      const entry = {
+        id: "bm-" + Date.now(),
+        title: summarizeTitle(userText),
+        createdAt: nowIso(),
+        kind: "story",
+        text: botText ? (userText + "\n\n" + botText) : userText
+      };
+      bmStore.push(entry);
+      if (bmStore.length > 200) bmStore.shift();
+      saveJson(BM_KEY, bmStore);
+    }
+
+    function summarizeTitle(text) {
+      const tokens = tokenize(text);
+      if (tokens.length === 0) return "Memory";
+      return tokens.slice(0,4).map(w => w[0].toUpperCase()+w.slice(1)).join(" ");
+    }
+
+    const bmModalBody = document.getElementById("bmModalBody");
+    document.getElementById("btnBmViewer").addEventListener("click", () => {
+      if (bmStore.length === 0) {
+        bmModalBody.textContent = "No BM entries yet.";
+      } else {
+        bmModalBody.textContent = bmStore
+          .slice()
+          .reverse()
+          .map(m => `• ${m.title || "Untitled"}  (${shortDateTime(m.createdAt)})\n${(m.text||"").trim()}\n`)
+          .join("\n────────────────────\n\n");
+      }
+      document.getElementById("bmModal").style.display = "flex";
     });
 
     // ===== Recall BM Button (quick recall: last BM) =====
@@ -813,17 +814,17 @@ ${match.memory.text.trim()}`;
       const botLine = "I'm stable and calm — my emotional core E₀ is moving smoothly. How is your inner graph today?";
       addMessage("AURA-X Ω", "Reaction", botLine);
 
-      // 3) Save either to recycle or BM
-      if (isSmallTalk(text)) {
-        pushRecycle(text, botLine);
-      } else {
+      // 3) Classification:
+      //    Deep story / idea  → BM + TM–BM matching
+      //    Otherwise         → sirf Recycle 48h, no BM, no match
+      if (isDeepStory(text)) {
         saveBMEvent(text, botLine);
-      }
-
-      // 4) Auto BM–TM match (only for non-small-talk TM)
-      const match = computeMatch(text);
-      if (match) {
-        showMatchBanner(match);
+        const match = computeMatch(text);
+        if (match) {
+          showMatchBanner(match);
+        }
+      } else {
+        pushRecycle(text, botLine);
       }
     }
 
@@ -835,7 +836,7 @@ ${match.memory.text.trim()}`;
       }
     });
 
-    // ===== Init: seed greeting =====
+    // ===== Init: seed greeting (no BM save) =====
     addMessage("AURA-X Ω", "System", "Hello. I treat small greetings as tiny TM events, but only deeper stories are saved as Bold Memory (BM).");
   </script>
 </body>
