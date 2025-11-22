@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AURA-X Ω v1 – Emotional Continuity Prototype</title>
+  <title>AURA-X Ω v1 – Emotional Continuity Prototype (v3.2)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,7 +25,6 @@
       gap: 12px;
     }
 
-    /* Header */
     .header-top {
       display: flex;
       justify-content: space-between;
@@ -62,7 +61,6 @@
     }
     .mode-pill .engine { opacity: 0.7; }
 
-    /* Top buttons */
     .top-buttons {
       display: flex;
       flex-wrap: nowrap;
@@ -96,7 +94,6 @@
       box-shadow: 0 3px 6px rgba(15,23,42,0.15);
     }
 
-    /* Cards */
     .card {
       border-radius: 18px;
       padding: 12px 14px;
@@ -130,7 +127,6 @@
     }
     .card.equation .formula-values { opacity: 0.85; }
 
-    /* Chat area */
     .chat-area {
       flex: 1;
       border-radius: 18px;
@@ -236,7 +232,6 @@
       background: #15803d;
     }
 
-    /* Auto recall bar */
     .auto-recall-bar {
       margin-top: 6px;
       border-radius: 999px;
@@ -288,7 +283,6 @@
       color: #4b5563;
     }
 
-    /* Modals shared */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -339,7 +333,6 @@
       font-size: 0.78rem;
     }
 
-    /* BM Viewer */
     .bm-day {
       margin-bottom: 10px;
       border-bottom: 1px solid rgba(148,163,184,0.7);
@@ -416,7 +409,6 @@
       margin-top: 4px;
     }
 
-    /* Recall modal */
     .recall-search { margin-bottom: 6px; }
     .recall-search input {
       width: 100%;
@@ -445,7 +437,6 @@
       margin-top: 4px;
     }
 
-    /* Options modal */
     .option-section-title {
       font-weight: 600;
       font-size: 0.8rem;
@@ -543,7 +534,7 @@
     <div class="header-top">
       <div class="title-block">
         <h1>AURA-X Ω</h1>
-        <p>EMOTIONAL CONTINUITY · AEC · CRM · AECN · RL³ · LR³</p>
+        <p>EMOTIONAL CONTINUITY · AEC · CRM · AECN · RL³ · LR³ · v3.2</p>
       </div>
       <div class="mode-pill" id="modePill">
         <span class="mode-label">MODE: OFFLINE PROTOTYPE</span>
@@ -552,7 +543,6 @@
       </div>
     </div>
 
-    <!-- top buttons -->
     <div class="top-buttons">
       <button class="pill-btn" id="bmViewerBtn">
         <span class="icon">🧠</span><span>BM Viewer</span>
@@ -568,13 +558,11 @@
       </button>
     </div>
 
-    <!-- ethics banner -->
     <div class="card golden" id="ethicsBanner">
       Avoid actions that generate negative emotions in yourself or others.
       Gently move toward choices that create calm, kindness, and positive feelings.
     </div>
 
-    <!-- equation card -->
     <div class="card equation" id="equationCard">
       <div class="label">EMOTIONAL CONTINUITY EQUATION</div>
       <div class="formula-main" id="eqMain">
@@ -586,7 +574,6 @@
       </div>
     </div>
 
-    <!-- chat area -->
     <div class="chat-area">
       <div id="reactionBanner" class="reaction-banner"></div>
       <div class="chat-log" id="chatLog"></div>
@@ -601,10 +588,9 @@
         <button class="send-btn" id="sendBtn">Send</button>
       </div>
 
-      <!-- auto recall bar -->
       <div id="autoRecallBar" class="auto-recall-bar">
         <span id="autoRecallText" class="label">
-          💡 Related memory ~7% match. Open previous topic?
+          💡 Related memory match. Open previous topic?
         </span>
         <button id="autoRecallOpenBtn" class="auto-recall-open-btn">Open</button>
       </div>
@@ -681,7 +667,6 @@
           </label>
         </div>
 
-        <!-- LLM model selection (UI only) -->
         <div class="option-row" id="llmModelRow" style="display:none;">
           <span>Preferred backend LLM model</span>
           <select id="llmModelSelect">
@@ -724,8 +709,8 @@
         </div>
         <div class="options-footer-note">
           About AURA-X Ω: Designed around the idea that emotions are continuity functions
-          between memories (TM and BM), not isolated sparks. This page is a small offline
-          demo of Alim ul Haq’s emotional continuity theory.
+          between memories (TM and BM), not isolated sparks. This is an offline demo of
+          Alim ul Haq’s emotional continuity theory (v3.2 – strict idea gate).
         </div>
       </div>
     </div>
@@ -743,11 +728,11 @@
   </div>
 
   <script>
-    const lsKey = "auraX_bm_v31";
+    const lsKey = "auraX_bm_v32";
     const faithKey = "auraX_faithLens";
     const engineKey = "auraX_engineMode";
     const llmModelKey = "auraX_llmModel";
-    const smallBufferKey = "auraX_smallTalkBuffer_v1"; // 48h continuity buffer
+    const smallBufferKey = "auraX_smallTalkBuffer_v1";
 
     const smallTalkPatterns = [
       "hi","hello","hey","salam","assalamualaikum","asalamualaikum",
@@ -756,7 +741,6 @@
       "i am fine","i'm fine","i’m fine","i am ok","i'm ok"
     ];
 
-    // stop words for idea-level matching
     const stopWords = [
       "the","a","an","is","are","to","of","and","for","in","on","at","with",
       "this","that","i","you","he","she","they","we","it","was","were","be",
@@ -766,7 +750,6 @@
       "then","there","here","just","very","too","also","only","own"
     ];
 
-    // Seed lexicons
     const abuseWords = [
       "fuck","fucking","fucked","lanat","laanat","haramzada",
       "bastard","bitch","bitches","bloody","kutte","kutta","kutiya",
@@ -800,11 +783,8 @@
       } catch { return {}; }
     }
     function saveBM(data) { localStorage.setItem(lsKey, JSON.stringify(data)); }
-
     function todayKey() { return new Date().toISOString().slice(0,10); }
-
     function tanh(x){ const e2x=Math.exp(2*x); return (e2x-1)/(e2x+1); }
-
     function approximateSentences(text){
       return text.split(/[.!?۔\n]/).filter(s=>s.trim().length>0);
     }
@@ -819,7 +799,6 @@
       return smallTalkPatterns.some(p=>clean===p || clean.startsWith(p+" "));
     }
 
-    // continuity buffer for greetings etc (48h rolling)
     function loadSmallBuffer(){
       try{
         const raw = localStorage.getItem(smallBufferKey);
@@ -883,7 +862,6 @@
       };
     }
 
-    // emotion state
     let TM=0.35, BMvalue=0.55, D=0.0, Csum=0.05;
     let lambdaFaith=0.0;
     const lambdaSys=0.02;
@@ -972,7 +950,6 @@
       chatLogEl.scrollTop=chatLogEl.scrollHeight;
     }
 
-    // voice
     function pickVoiceForPolarity(polarity) {
       const synth = window.speechSynthesis;
       if (!synth) return {voice:null, pitch:1.0, rate:1.0};
@@ -1008,7 +985,6 @@
       synth.speak(utt);
     }
 
-    // emotion maths
     function computeEmotion(strength, analysis){
       const baseFromLength=Math.min(1,0.2+strength/400);
       const sentiment = analysis ? analysis.sentiment || 0 : 0;
@@ -1140,7 +1116,6 @@
     function storeInBM(userText, botReply){
       const ignoreSmall=document.getElementById("ignoreSmallTalkToggle").checked;
       if (isMostlySmallTalk(userText)){
-        // keep only in hidden 48h continuity buffer
         pushSmallBuffer(userText);
         if (ignoreSmall) return;
       }
@@ -1177,8 +1152,7 @@
       saveBM(bm);
     }
 
-    // ---------- IDEA-LEVEL MATCHING FUNCTIONS (NEW) ----------
-
+    // -------- IDEA MATCHING (VERY STRICT) --------
     function tokenizeMeaningful(text){
       return text
         .toLowerCase()
@@ -1204,12 +1178,11 @@
 
     function findBestBMMatch(tmText){
       const clean = tmText.trim();
-      // very short / single sentence texts -> no recall
-      if (!clean || clean.length < 120) return null;
-      if (isMostlySmallTalk(clean)) return null;
+      // only long, story-like TM can trigger auto-recall
+      if (!clean || clean.length < 250) return null;
 
       const tmTokens = tokenizeMeaningful(clean);
-      if (tmTokens.length < 10) return null;
+      if (tmTokens.length < 35) return null;
 
       const bm = loadBM();
       const entries = [];
@@ -1223,16 +1196,16 @@
       let bestInter = 0;
 
       entries.forEach(item=>{
-        const text = (item.node.summary || item.node.full || "").slice(0, 1200);
+        const text = (item.node.summary || item.node.full || "").slice(0, 1600);
         const nodeTokens = tokenizeMeaningful(text);
         if (!nodeTokens.length) return;
 
         const { sim, inter, coverTM, coverBM } = jaccardSimilarity(tmTokens, nodeTokens);
 
-        // require enough shared “idea words”
-        if (inter < 5) return;          // at least 5 common words
-        if (coverTM < 0.4) return;      // ≥40% of TM tokens shared
-        if (coverBM < 0.10) return;     // ≥10% of BM tokens shared
+        // strict idea gate
+        if (inter < 10) return;       // at least 10 shared meaningful words
+        if (coverTM < 0.55) return;   // >=55% of TM words match
+        if (coverBM < 0.25) return;   // >=25% of BM words match
 
         if (sim > bestSim || (sim === bestSim && inter > bestInter)) {
           bestSim = sim;
@@ -1241,8 +1214,8 @@
         }
       });
 
-      const MATCH_THRESHOLD_PCT = 7; // 7% or more
-      if (!best || bestSim * 100 < MATCH_THRESHOLD_PCT || bestInter < 5) {
+      const MATCH_THRESHOLD_PCT = 18; // 18%+
+      if (!best || bestSim * 100 < MATCH_THRESHOLD_PCT || bestInter < 10) {
         return null;
       }
 
@@ -1261,8 +1234,6 @@
       autoRecallBar.style.display = "flex";
     }
 
-    // ---------- MAIN MESSAGE HANDLER ----------
-
     function handleUserMessage(text){
       if (!text.trim()) return;
       appendMessage(text,"user");
@@ -1272,11 +1243,9 @@
       const reply=buildSeedReply(text, analysis);
       appendMessage(reply,"bot");
 
-      // FIRST: try to find related BM (idea-level)
       const match = findBestBMMatch(text);
       updateAutoRecallBar(match);
 
-      // THEN store in BM and speak
       storeInBM(text,reply);
       speakReply(reply);
       userInputEl.value="";
@@ -1292,14 +1261,12 @@
       }
     });
 
-    // voice toggle
     voiceToggleEl.addEventListener("click", () => {
       autoVoice = !autoVoice;
       voiceToggleEl.classList.toggle("inactive", !autoVoice);
       voiceToggleEl.textContent = autoVoice ? "🔊 Voice: On" : "🔇 Voice: Off";
     });
 
-    // Auto recall modal open
     autoRecallOpenBtn.addEventListener("click", () => {
       if (!latestAutoRecallMatch) return;
       const { day, node, score } = latestAutoRecallMatch;
@@ -1320,7 +1287,6 @@
       document.getElementById("autoRecallModalBackdrop").style.display="flex";
     });
 
-    // BM Viewer
     const bmBackdrop=document.getElementById("bmModalBackdrop");
     const bmBody=document.getElementById("bmModalBody");
     document.getElementById("bmViewerBtn").addEventListener("click",()=>{
@@ -1399,7 +1365,6 @@
       bmBackdrop.style.display="flex";
     });
 
-    // Recall modal
     const recallBackdrop=document.getElementById("recallModalBackdrop");
     const recallInput=document.getElementById("recallSearchInput");
     const recallList=document.getElementById("recallList");
@@ -1476,7 +1441,6 @@
       rebuildRecallList(recallInput.value);
     });
 
-    // Options
     const optionsBackdrop=document.getElementById("optionsModalBackdrop");
     const engineModeToggle=document.getElementById("engineModeToggle");
     const engineModeLabel=document.getElementById("engineModeLabel");
@@ -1551,7 +1515,6 @@
       const bm=loadBM();
       delete bm[todayKey()];
       saveBM(bm);
-      // also clear continuity buffer
       saveSmallBuffer([]);
       optionsBackdrop.style.display="none";
     });
@@ -1562,7 +1525,6 @@
       optionsBackdrop.style.display="none";
     });
 
-    // Cleanup button (shortcut)
     document.getElementById("cleanupBtn").addEventListener("click",()=>{
       const bm=loadBM();
       const buffer=loadSmallBuffer();
@@ -1577,7 +1539,6 @@
       }
     });
 
-    // Close modals
     document.querySelectorAll(".modal-close").forEach(btn=>{
       btn.addEventListener("click",e=>{
         const target=e.target.getAttribute("data-close");
@@ -1598,8 +1559,7 @@
     applyEngineMode();
     applyFaithHighlight();
     updateEquationDisplay();
-    loadSmallBuffer(); // trigger 48h cleanup on start
-
+    loadSmallBuffer();
     if ("speechSynthesis" in window) {
       window.speechSynthesis.getVoices();
     }
