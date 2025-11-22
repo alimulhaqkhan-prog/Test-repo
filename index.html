@@ -405,8 +405,9 @@
           • TM messages longer than <strong>80 characters</strong> are candidates
           for Bold Memory (BM).<br/>
           • Short greetings are kept only in the <strong>Recycle 48h</strong> tray.<br/>
-          • Auto-Recall needs: lexical match ≥ <strong>70%</strong>,
-          <strong>4+</strong> shared keywords AND emotional sequence match ≥ <strong>70%</strong>.
+          • Auto-Recall needs: lexical ≥ <strong>68%</strong>,
+          at least <strong>6</strong> shared keywords,
+          emotional sequence ≥ <strong>70%</strong> and overall ≥ <strong>70%</strong>.
         </p>
         <button class="bm-copy-btn" id="clearAllBtn" style="margin-top:8px;">
           🔥 Clear all local BM & chat data
@@ -417,16 +418,16 @@
 
   <script>
     // ===== CONSTANTS =====
-    const BM_STORAGE_KEY = "auraX_bm_v4";
-    const CHAT_STORAGE_KEY = "auraX_chat_v4";
-    const RECYCLE_STORAGE_KEY = "auraX_recycle48_v2";
+    const BM_STORAGE_KEY = "auraX_bm_v5";
+    const CHAT_STORAGE_KEY = "auraX_chat_v5";
+    const RECYCLE_STORAGE_KEY = "auraX_recycle48_v3";
 
-    const SIM_THRESHOLD = 0.70;         // lexical similarity 70%
-    const MIN_OVERLAP_TOKENS = 4;       // min shared tokens
-    const MIN_BM_LENGTH = 80;           // BM candidate length
-    const EMO_SEQ_THRESHOLD = 0.70;     // emotional sequence 70%
+    const SIM_THRESHOLD = 0.68;          // lexical similarity 68%
+    const EMO_SEQ_THRESHOLD = 0.70;      // emotional sequence 70%
+    const OVERALL_THRESHOLD = 0.70;      // combined score 70%
+    const MIN_OVERLAP_TOKENS = 6;        // min shared tokens
+    const MIN_BM_LENGTH = 80;            // BM candidate length
 
-    // simple stopwords
     const STOPWORDS = new Set([
       "the","and","for","with","that","this","from","have","will","would","could",
       "should","about","your","into","over","under","very","their","there","here",
@@ -481,7 +482,6 @@
       return score;
     }
 
-    // story → 7 emotional stages
     function deriveEmotionSequence(text) {
       const clean = (text || "").replace(/\s+/g, " ").trim();
       if (!clean) return [];
@@ -507,7 +507,6 @@
       return seq;
     }
 
-    // TM vs BM emotional sequence alignment
     function emotionalSequenceScore(tmText, seq) {
       if (!seq || seq.length < 3 || !tmText) return 0;
       const lower = tmText.toLowerCase();
@@ -534,7 +533,7 @@
     let chatLog = loadJSON(CHAT_STORAGE_KEY, []);
     let recycleStore = loadJSON(RECYCLE_STORAGE_KEY, []);
 
-    // upgrade old BM entries (tokens + emotional sequence)
+    // upgrade BM entries
     bmStore.forEach(entry => {
       const text = entry.text || entry.summary || "";
       if (!entry.tokens || !entry.tokens.length) {
@@ -711,11 +710,12 @@
     }
 
     function runAutoRecall(tmText) {
+      // reset old banner
       lastAutoRecallCandidate = null;
       recallBannerEl.style.display = "none";
 
       if (!bmStore.length) return;
-      if (!tmText || tmText.length < MIN_BM_LENGTH) return; // chhoti line pe auto-recall off
+      if (!tmText || tmText.length < MIN_BM_LENGTH) return;
 
       const tmTokens = tokenize(tmText);
       if (!tmTokens.size) return;
@@ -725,34 +725,40 @@
         const { similarity, overlap } = computeSimilarity(tmTokens, entry.tokens || []);
         if (overlap < MIN_OVERLAP_TOKENS) return;
         if (similarity < SIM_THRESHOLD) return;
-        if (!best || similarity > best.similarity) {
-          best = { entry, similarity, overlap };
+
+        const emoScore = emotionalSequenceScore(tmText, entry.emotionSeq);
+        if (emoScore < EMO_SEQ_THRESHOLD) return;
+
+        const overall = (similarity + emoScore) / 2;
+        if (overall < OVERALL_THRESHOLD) return;
+
+        if (!best || overall > best.overall) {
+          best = { entry, similarity, overlap, emoScore, overall };
         }
       });
 
       if (!best) return;
 
-      // Emotional sequence check (3rd layer)
-      const emoScore = emotionalSequenceScore(tmText, best.entry.emotionSeq);
-      if (emoScore < EMO_SEQ_THRESHOLD) return;
-
-      lastAutoRecallCandidate = { ...best, emoScore };
+      lastAutoRecallCandidate = best;
       const pctLex = Math.round(best.similarity * 100);
-      const pctEmo = Math.round(emoScore * 100);
+      const pctEmo = Math.round(best.emoScore * 100);
+      const pctOverall = Math.round(best.overall * 100);
       recallBannerTextEl.textContent =
-        `💡 Related memory ~${pctLex}% lexical & ~${pctEmo}% emotional match. Open previous topic?`;
+        `💡 Related memory ~${pctOverall}% match (lexical ${pctLex}% · emotional ${pctEmo}%).`;
       recallBannerEl.style.display = "flex";
     }
 
     function openAutoRecallModal() {
       if (!lastAutoRecallCandidate) return;
-      const { entry, similarity, overlap, emoScore } = lastAutoRecallCandidate;
+      const { entry, similarity, overlap, emoScore, overall } = lastAutoRecallCandidate;
       const body = document.getElementById("bmRecallBody");
       const titleEl = document.getElementById("bmRecallTitle");
       const pctLex = Math.round(similarity * 100);
       const pctEmo = Math.round(emoScore * 100);
+      const pctOverall = Math.round(overall * 100);
 
-      titleEl.textContent = `Auto-Recall Memory · Lexical ≈ ${pctLex}% · Emotional ≈ ${pctEmo}%`;
+      titleEl.textContent =
+        `Auto-Recall Memory · Overall ≈ ${pctOverall}% (Lexical ${pctLex}% · Emotional ${pctEmo}%)`;
       body.innerHTML = "";
       const meta = document.createElement("div");
       meta.className = "bm-entry-meta";
@@ -835,7 +841,8 @@
         entry: latest,
         similarity: 1,
         overlap: latest.tokens ? latest.tokens.length : 0,
-        emoScore: 1
+        emoScore: 1,
+        overall: 1,
       };
       openAutoRecallModal();
     });
