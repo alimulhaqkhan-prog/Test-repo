@@ -24,819 +24,950 @@
       flex-direction: column;
       gap: 12px;
     }
+
+    /* Header */
     .header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 8px;
     }
-    .brand {
-      font-size: 14px;
-      line-height: 1.2;
-    }
-    .brand-title {
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      font-size: 11px;
-    }
-    .brand-sub {
-      font-size: 10px;
-      opacity: 0.8;
-    }
-    .pill {
-      border-radius: 999px;
-      padding: 6px 12px;
-      font-size: 10px;
-      border: 1px solid rgba(15,23,42,0.08);
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(4px);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 1px 3px rgba(15,23,42,0.12);
-    }
-    .pill-llm {
-      font-size: 10px;
-      border-radius: 999px;
-      padding: 6px 10px;
-      background: radial-gradient(circle at 0 0, #22c55e, #0ea5e9);
-      color: #ecfeff;
-      border: none;
-      box-shadow: 0 2px 6px rgba(15,23,42,0.4);
-    }
-    .pill-llm small { display: block; font-size: 9px; opacity: 0.85; }
-    .chip-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .chip {
-      border-radius: 999px;
-      padding: 6px 12px;
-      font-size: 11px;
-      border: 1px solid rgba(15,23,42,0.12);
-      background: #f9fafb;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-    }
-    .chip span.emoji { font-size: 13px; }
-    .equation-card, .reaction-card, .hint-card {
-      border-radius: 18px;
-      border: 1px solid rgba(15,23,42,0.08);
-      padding: 12px 14px;
-      background: rgba(255,255,255,0.85);
-      box-shadow: 0 2px 5px rgba(15,23,42,0.06);
-      font-size: 11px;
-    }
-    .equation-card h3 {
-      font-size: 11px;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: #6b7280;
-      margin-bottom: 4px;
-    }
-    .equation {
-      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 11px;
-      margin-bottom: 4px;
-    }
-    .reaction-card {
-      border-left: 4px solid #22c55e;
-      background: #ecfdf3;
-    }
-    .reaction-head {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      margin-bottom: 4px;
-    }
-    .reaction-title { font-weight: 600; }
-    .reaction-tone { font-size: 10px; color: #16a34a; }
-    .hint-card {
-      background: #fff7ed;
-      color: #92400e;
-      border-color: #fed7aa;
-      font-size: 11px;
-    }
-    .chat-log {
-      flex: 1;
-      min-height: 0;
-      border-radius: 18px;
-      border: 1px solid rgba(15,23,42,0.08);
-      background: rgba(255,255,255,0.8);
-      padding: 10px 10px 6px;
-      overflow-y: auto;
-      font-size: 11px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .msg {
+    .brand-block {
       display: flex;
       flex-direction: column;
       gap: 2px;
     }
-    .msg-meta {
-      font-size: 9px;
-      color: #6b7280;
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 4px;
+    .brand-title {
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: 0.02em;
     }
-    .msg-author {
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .08em;
+    .brand-sub {
+      font-size: 11px;
+      color: #4b5563;
     }
-    .msg-label {
-      font-size: 9px;
-      padding: 1px 6px;
+    .pill-engine {
       border-radius: 999px;
-      background: #e5e7eb;
-      color: #374151;
+      padding: 6px 12px;
+      font-size: 11px;
+      background: #e0f2fe;
+      color: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      min-width: 130px;
     }
-    .msg-body-user { color: #111827; }
-    .msg-body-bot { color: #111827; }
-    .composer {
+    .pill-engine span:first-child {
+      font-weight: 600;
+      font-size: 11px;
+    }
+    .pill-engine span:last-child {
+      font-size: 10px;
+    }
+
+    /* BM buttons row */
+    .bm-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .bm-btn {
+      flex: 1 1 0;
+      min-width: 80px;
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: 12px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.18);
+      background: #e5e7eb;
+      color: #111827;
+    }
+    .bm-btn span {
+      font-size: 14px;
+    }
+    .bm-btn-pink { background: #fee2e2; }
+    .bm-btn-gold { background: #fef3c7; }
+    .bm-btn-green { background: #dcfce7; }
+    .bm-btn-gray { background: #e5e7eb; }
+
+    /* Equation card */
+    .equation-card {
+      border-radius: 16px;
+      padding: 12px;
+      border: 1px dashed #d1d5db;
+      background: #fefce8;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .equation-title {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      font-size: 11px;
+      color: #4b5563;
+      margin-bottom: 4px;
+    }
+    .equation-main {
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+    .equation-sub {
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    /* Guidance banner */
+    .guidance-banner {
+      border-radius: 16px;
+      padding: 12px;
+      background: #fef3c7;
+      font-size: 12px;
+      line-height: 1.4;
+      border: 1px dashed #fbbf24;
+    }
+
+    /* Reaction card */
+    .reaction-card {
+      border-radius: 16px;
+      padding: 10px 12px;
+      background: #dcfce7;
+      border: 1px solid #bbf7d0;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .reaction-header {
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-size: 12px;
+    }
+    .reaction-meta {
+      font-size: 11px;
+      color: #166534;
+      margin-bottom: 4px;
+    }
+
+    /* Messages area */
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      border-radius: 16px;
+      border: 1px solid #e5e7eb;
+      padding: 10px 10px 6px;
+      background: #fff7ed;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      margin-top: 4px;
+      font-size: 12px;
     }
-    .tm-chip {
-      align-self: flex-start;
-      border-radius: 999px;
-      padding: 4px 10px;
+    .msg {
+      padding-bottom: 4px;
+      border-bottom: 1px dashed #e5e7eb;
+    }
+    .msg:last-child {
+      border-bottom: none;
+    }
+    .msg-author {
+      font-size: 11px;
+      font-weight: 600;
+      color: #4b5563;
+      margin-bottom: 2px;
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .msg-author span:last-child {
+      font-weight: 500;
+      color: #6b7280;
       font-size: 10px;
-      background: #e0ecff;
-      color: #1d4ed8;
-      border: 1px solid rgba(37,99,235,0.25);
     }
-    .composer-row {
+    .msg-text {
+      white-space: pre-wrap;
+    }
+
+    /* TM input area */
+    .tm-equation-label {
+      margin-top: 8px;
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 11px;
+      background: #e5e7eb;
+      padding: 6px 10px;
+      border-radius: 999px;
+      text-align: center;
+      color: #111827;
+    }
+    .input-row {
+      margin-top: 6px;
       display: flex;
       gap: 8px;
       align-items: flex-end;
     }
-    textarea {
+    .tm-input {
       flex: 1;
       border-radius: 16px;
-      border: 1px solid rgba(15,23,42,0.18);
+      border: 1px solid #d1d5db;
       padding: 8px 10px;
+      font-size: 13px;
       resize: none;
-      min-height: 54px;
-      font-size: 11px;
-      outline: none;
-      background: #fffdf7;
+      min-height: 52px;
+      max-height: 120px;
+      background: #ffffff;
     }
-    textarea:focus {
-      border-color: #0ea5e9;
-      box-shadow: 0 0 0 1px rgba(56,189,248,0.4);
-    }
-    .btn-send {
+    .send-btn {
       border-radius: 999px;
-      padding: 10px 18px;
+      padding: 10px 16px;
       border: none;
       background: #16a34a;
-      color: #f0fdf4;
-      font-size: 12px;
+      box-shadow: 0 4px 10px rgba(22, 163, 74, 0.35);
+      color: #ecfdf5;
       font-weight: 600;
+      font-size: 13px;
       cursor: pointer;
-      box-shadow: 0 3px 8px rgba(22,163,74,0.4);
     }
-    .btn-send:active {
-      transform: translateY(1px);
-      box-shadow: 0 1px 4px rgba(22,163,74,0.5);
-    }
-    .footer-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 2px;
-    }
-    .pipeline {
-      font-size: 9px;
-      color: #6b7280;
-    }
-    .voice-toggle {
-      border-radius: 999px;
-      padding: 4px 10px;
-      border: 1px solid rgba(15,23,42,0.2);
+
+    /* Bottom line */
+    .footer-line {
+      margin-top: 4px;
       font-size: 10px;
+      color: #6b7280;
+      text-align: center;
+    }
+
+    /* Voice toggle */
+    .voice-toggle {
+      margin-top: 6px;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
       background: #e0f2fe;
       color: #0f172a;
-      cursor: pointer;
+      align-self: flex-start;
+      cursor: default;
     }
-    .match-banner {
+    .voice-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    /* Auto-recall banner */
+    .recall-banner {
       margin-top: 6px;
       border-radius: 999px;
       padding: 6px 10px;
-      font-size: 10px;
+      background: #fef3c7;
+      border: 1px solid #facc15;
+      font-size: 11px;
       display: none;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      background: #fef9c3;
-      border: 1px solid #facc15;
-      color: #854d0e;
     }
-    .match-banner strong { font-weight: 600; }
-    .btn-mini {
+    .recall-banner span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .recall-open-btn {
       border-radius: 999px;
-      border: none;
       padding: 4px 10px;
-      font-size: 10px;
+      border: none;
       background: #2563eb;
       color: #eff6ff;
+      font-size: 11px;
+      font-weight: 600;
       cursor: pointer;
     }
-    /* Modal */
+
+    /* Modal base */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(15,23,42,0.35);
+      background: rgba(15,23,42,0.45);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 20;
+      z-index: 40;
     }
     .modal {
-      width: min(480px, 100% - 32px);
+      width: 100%;
+      max-width: 420px;
       max-height: 80vh;
+      background: #f9fafb;
       border-radius: 18px;
-      background: #fefce8;
-      padding: 12px 14px;
-      box-shadow: 0 10px 30px rgba(15,23,42,0.35);
+      box-shadow: 0 20px 45px rgba(15,23,42,0.45);
+      padding: 12px 14px 14px;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      font-size: 11px;
     }
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 8px;
+    }
+    .modal-title {
+      font-size: 13px;
       font-weight: 600;
     }
     .modal-close {
       border-radius: 999px;
       border: none;
       padding: 4px 10px;
-      font-size: 10px;
-      background: #111827;
-      color: #f9fafb;
+      background: #e5e7eb;
+      font-size: 11px;
       cursor: pointer;
     }
     .modal-body {
+      font-size: 12px;
       overflow-y: auto;
-      padding-right: 4px;
-      font-size: 11px;
-      line-height: 1.45;
+      padding-right: 2px;
+    }
+    .bm-layer-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 6px;
+      font-size: 10px;
+    }
+    .chip {
+      border-radius: 999px;
+      padding: 2px 6px;
+      background: #e5e7eb;
+    }
+    .bm-entry {
+      padding: 6px 0;
+      border-bottom: 1px dashed #e5e7eb;
+    }
+    .bm-entry:last-child { border-bottom: none; }
+    .bm-entry-title {
+      font-weight: 600;
+      font-size: 12px;
+    }
+    .bm-entry-meta {
+      font-size: 10px;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+    .bm-entry-text {
+      margin-top: 4px;
       white-space: pre-wrap;
     }
+    .bm-copy-btn {
+      border-radius: 999px;
+      border: none;
+      padding: 3px 8px;
+      font-size: 10px;
+      background: #dbeafe;
+      color: #1d4ed8;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    /* Small helper classes */
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
   <div class="app">
-    <header class="header-top">
-      <div class="brand">
-        <div class="brand-title">AURA-X Ω · EMOTIONAL CONTINUITY</div>
-        <div class="brand-sub">AEC · CRM · AECN · RL³ · LR³</div>
+    <!-- Header -->
+    <div class="header-top">
+      <div class="brand-block">
+        <div class="brand-title">AURA-X Ω v1</div>
+        <div class="brand-sub">
+          EMOTIONAL CONTINUITY · AEC · CRM · AECN · RL³ · LR³
+        </div>
       </div>
-      <div class="pill-llm">
-        <div>LLM Engine</div>
-        <small>Emotional reactor (prototype)</small>
+      <div class="pill-engine">
+        <span>LLM Engine</span>
+        <span>Seed (local) · Emotional reactor shell</span>
       </div>
-    </header>
-
-    <div class="chip-row" style="margin-top:6px;">
-      <button class="chip" id="btnBmViewer"><span class="emoji">🧠</span> BM Viewer</button>
-      <button class="chip" id="btnRecall"><span class="emoji">📜</span> Recall BM</button>
-      <button class="chip" id="btnRecycle"><span class="emoji">♻️</span> Recycle 48h</button>
-      <button class="chip" id="btnOptions"><span class="emoji">⚙️</span> Options</button>
     </div>
 
-    <div class="hint-card">
-      Avoid actions that generate negative emotions in yourself or others. Gently move toward choices that create calm, kindness, and positive feelings.
+    <!-- BM / Options row -->
+    <div class="bm-row">
+      <button class="bm-btn bm-btn-pink" id="bmViewerBtn">
+        <span>🧠</span> BM Viewer
+      </button>
+      <button class="bm-btn bm-btn-gold" id="bmRecallBtn">
+        <span>📜</span> Recall BM
+      </button>
+      <button class="bm-btn bm-btn-green" id="recycleBtn">
+        <span>♻️</span> Recycle 48h
+      </button>
+      <button class="bm-btn bm-btn-gray" id="optionsBtn">
+        <span>⚙️</span> Options
+      </button>
     </div>
 
+    <!-- Guidance banner -->
+    <div class="guidance-banner">
+      Avoid actions that generate negative emotions in yourself or others.
+      Gently move toward choices that create calm, kindness, and positive feelings.
+    </div>
+
+    <!-- Equation card -->
     <div class="equation-card">
-      <h3>EMOTIONAL CONTINUITY EQUATION</h3>
-      <div class="equation">
+      <div class="equation-title">EMOTIONAL CONTINUITY EQUATION</div>
+      <div class="equation-main">
         E₀ = tanh(TM × BM − D + λ_faith + λ_sys + ΣCₜ)
       </div>
-      <div style="font-size:10px;margin-top:4px;">
-        All parameters are being updated internally after every message to keep emotional continuity live.
+      <div class="equation-sub">
+        All parameters are being updated internally after every message
+        to keep emotional continuity live.
       </div>
     </div>
 
+    <!-- Reaction -->
     <div class="reaction-card" id="reactionCard">
-      <div class="reaction-head">
-        <div class="reaction-title">AURA-X Ω REACTION</div>
-        <div class="reaction-tone" id="polarityDisplay">Polarity: Neutral · 50 : 50</div>
+      <div class="reaction-header">AURA-X Ω REACTION</div>
+      <div class="reaction-meta" id="reactionMeta">
+        Polarity: Neutral · 50 : 50 · Tone: Waiting for first TM event.
       </div>
-      <div style="font-size:10px;margin-bottom:4px;" id="toneDisplay">
-        Tone: Light, gentle, low-amplitude drift.
-      </div>
-      <div id="reactionText" style="font-size:11px;">
-        I am calm and listening. Tell me something that matters to you; I will treat it as TM (Temporary Memory) and update my BM layers.
+      <div id="reactionText" class="reaction-text">
+        Describe something real from your life. I will treat it as TM and
+        start building BM layers around it.
       </div>
     </div>
 
-    <main class="chat-log" id="chatLog"></main>
+    <!-- Messages log -->
+    <div class="messages" id="messages"></div>
 
-    <section class="composer">
-      <div class="tm-chip">TM = Σ(User Inputs) + (Seed + LLM)</div>
-      <div class="composer-row">
-        <textarea id="tmInput" placeholder="Write anything… AURA-X Ω will treat it as TM (Temporary Memory)."></textarea>
-        <button class="btn-send" id="sendBtn">Send</button>
-      </div>
-      <div class="footer-row">
-        <div class="pipeline">
-          Prototype · TM → Analysis → Equation → BM save → Reaction.
-        </div>
-        <button class="voice-toggle" id="voiceToggle">
-          <span>🎙</span><span id="voiceToggleLabel">Voice: Off</span>
-        </button>
-      </div>
-      <div class="match-banner" id="matchBanner">
-        <div>
-          <span>💡</span>
-          <span id="matchText">Related memory ~70% match.</span>
-        </div>
-        <button class="btn-mini" id="openMatchBtn">Open</button>
-      </div>
-    </section>
+    <!-- TM equation label -->
+    <div class="tm-equation-label">
+      TM = Σ(User Inputs) + (Seed + LLM)
+    </div>
+
+    <!-- Input row -->
+    <div class="input-row">
+      <textarea id="tmInput" class="tm-input"
+        placeholder="Write anything… AURA-X Ω will treat it as TM (Temporary Memory)."></textarea>
+      <button id="sendBtn" class="send-btn">Send</button>
+    </div>
+
+    <!-- Auto recall banner -->
+    <div class="recall-banner" id="recallBanner">
+      <span id="recallBannerText">💡 Related memory ~70% match.</span>
+      <button class="recall-open-btn" id="recallOpenBtn">Open</button>
+    </div>
+
+    <!-- Voice toggle (UI only) -->
+    <div class="voice-toggle">
+      <div class="voice-dot"></div>
+      <span>Voice: On (UI only – no mic yet)</span>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-line">
+      Prototype · TM → Analysis → Equation → BM save → Reaction.
+    </div>
   </div>
 
-  <!-- BM Modal -->
-  <div class="modal-backdrop" id="bmModal">
+  <!-- BM Viewer Modal -->
+  <div class="modal-backdrop" id="bmViewerModal">
     <div class="modal">
       <div class="modal-header">
-        <span>🧠 Bold Memory Viewer</span>
-        <button class="modal-close" data-close="bmModal">Close</button>
+        <div class="modal-title">BM Viewer · Stored Bold Memories</div>
+        <button class="modal-close" data-close="bmViewerModal">Close</button>
       </div>
-      <div class="modal-body" id="bmModalBody"></div>
+      <div class="modal-body" id="bmViewerBody"></div>
     </div>
   </div>
 
-  <!-- Auto-Recall Modal -->
-  <div class="modal-backdrop" id="recallModal">
+  <!-- Single BM recall modal -->
+  <div class="modal-backdrop" id="bmRecallModal">
     <div class="modal">
       <div class="modal-header">
-        <span>💡 Auto-Recall Memory</span>
-        <button class="modal-close" data-close="recallModal">Close</button>
+        <div class="modal-title" id="bmRecallTitle">Auto-Recall Memory</div>
+        <button class="modal-close" data-close="bmRecallModal">Close</button>
       </div>
-      <div class="modal-body" id="recallModalBody"></div>
+      <div class="modal-body" id="bmRecallBody"></div>
     </div>
   </div>
 
-  <!-- Recycle Modal -->
+  <!-- Recycle 48h modal -->
   <div class="modal-backdrop" id="recycleModal">
     <div class="modal">
       <div class="modal-header">
-        <span>♻️ Recycle 48h – Small Talk Buffer</span>
+        <div class="modal-title">Recycle 48h · Short chat traces</div>
         <button class="modal-close" data-close="recycleModal">Close</button>
       </div>
-      <div class="modal-body" id="recycleModalBody"></div>
+      <div class="modal-body" id="recycleBody"></div>
+    </div>
+  </div>
+
+  <!-- Options modal -->
+  <div class="modal-backdrop" id="optionsModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Options · System Settings</div>
+        <button class="modal-close" data-close="optionsModal">Close</button>
+      </div>
+      <div class="modal-body" id="optionsBody">
+        <p>
+          This prototype runs fully in your browser using
+          <strong>localStorage</strong>. No data is sent to a server.
+        </p>
+        <p style="margin-top:6px;">
+          • TM messages longer than <strong>80 characters</strong> are candidates
+          for Bold Memory (BM).<br/>
+          • Short greetings are kept only in the <strong>Recycle 48h</strong> tray.<br/>
+          • Auto-Recall triggers only when similarity with a stored BM story is
+          ≥ <strong>70%</strong> and at least <strong>4 meaningful words</strong> overlap.
+        </p>
+        <button class="bm-copy-btn" id="clearAllBtn" style="margin-top:8px;">
+          🔥 Clear all local BM & chat data
+        </button>
+      </div>
     </div>
   </div>
 
   <script>
-    // ===== Storage Keys =====
-    const BM_KEY = "auraX_bm_v1";
-    const RECYCLE_KEY = "auraX_recycle_48h_v1";
+    // ============================
+    // STORAGE KEYS & CONSTANTS
+    // ============================
+    const BM_STORAGE_KEY = "auraX_bm_v3";
+    const CHAT_STORAGE_KEY = "auraX_chat_v3";
+    const RECYCLE_STORAGE_KEY = "auraX_recycle48_v1";
 
-    // ===== Global State =====
-    let bmStore = loadJson(BM_KEY, []);
-    let recycleStore = loadJson(RECYCLE_KEY, []);
-    let E0 = 0.0;
-    let lastMatch = null;
-    let voiceOn = false;
+    const SIM_THRESHOLD = 0.70;        // 70% minimum similarity
+    const MIN_OVERLAP_TOKENS = 4;      // minimum meaningful shared words
+    const MIN_BM_LENGTH = 80;          // characters to treat TM as BM candidate
 
-    // ===== Utility =====
-    function loadJson(key, fallback) {
+    // Simple anti-noise stopwords (English only for now)
+    const STOPWORDS = new Set([
+      "the","and","for","with","that","this","from","have","will","would","could",
+      "should","about","your","into","over","under","very","their","there","here",
+      "been","then","than","when","what","where","which","such","many","some",
+      "just","like","into","onto","ourselves","himself","herself","itself",
+      "they","them","were","while","because","also","into","onto","once","ever",
+      "only","after","before","again","more","most","much","even","every","each",
+      "onto","ours","his","hers","its","our","are","was","you","but","why","who",
+      "whose","how","can","may","might","shall","than","too","very","still"
+    ]);
+
+    // ============================
+    // UTILITIES
+    // ============================
+
+    function loadJSON(key, fallback) {
       try {
         const raw = localStorage.getItem(key);
         if (!raw) return fallback;
-        const parsed = JSON.parse(raw);
-        return Array.isArray(parsed) ? parsed : fallback;
+        return JSON.parse(raw);
       } catch (e) {
+        console.error("Failed to load", key, e);
         return fallback;
       }
     }
-    function saveJson(key, value) {
-      try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
+
+    function saveJSON(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch (e) {
+        console.error("Failed to save", key, e);
+      }
     }
+
+    function tokenize(text) {
+      if (!text) return new Set();
+      const cleaned = text
+        .toLowerCase()
+        .replace(/[^a-z\s]+/g, " ")
+        .split(/\s+/)
+        .filter(w => w && w.length >= 4 && !STOPWORDS.has(w));
+      return new Set(cleaned);
+    }
+
     function nowIso() {
       return new Date().toISOString();
     }
-    function shortDateTime(iso) {
-      const d = new Date(iso);
-      return d.toLocaleDateString() + " " + d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
-    }
 
-    // ===== Seed BM (Crow story example) =====
-    if (bmStore.length === 0) {
-      bmStore.push({
-        id: "seed-thirsty-crow",
-        title: "Thirsty Crow",
-        createdAt: nowIso(),
-        kind: "story",
-        text: `
-A scorching summer day had arrived, making the land dry and hot.
-A clever black crow felt terribly thirsty and searched for water.
-He finally saw a pitcher, but the water level inside was very low.
-His beak could not reach the water and he felt disappointed.
-He refused to give up, looked around, and noticed many small stones.
-He dropped the stones into the pitcher one by one.
-The water slowly rose until he could drink.
-The crow happily took a long drink – necessity is the mother of invention.`,
+    // ============================
+    // STATE
+    // ============================
+
+    let bmStore = loadJSON(BM_STORAGE_KEY, []);
+    let chatLog = loadJSON(CHAT_STORAGE_KEY, []);
+    let recycleStore = loadJSON(RECYCLE_STORAGE_KEY, []);
+
+    // Ensure tokens exist for old BM entries
+    bmStore.forEach(entry => {
+      if (!entry.tokens || !Array.isArray(entry.tokens)) {
+        entry.tokens = Array.from(tokenize(entry.text || entry.summary || ""));
+      }
+    });
+    saveJSON(BM_STORAGE_KEY, bmStore);
+
+    let lastAutoRecallCandidate = null;
+
+    // ============================
+    // RENDER FUNCTIONS
+    // ============================
+
+    const messagesEl = document.getElementById("messages");
+    const reactionMetaEl = document.getElementById("reactionMeta");
+    const reactionTextEl = document.getElementById("reactionText");
+    const recallBannerEl = document.getElementById("recallBanner");
+    const recallBannerTextEl = document.getElementById("recallBannerText");
+
+    function renderMessages() {
+      messagesEl.innerHTML = "";
+      chatLog.forEach(msg => {
+        const div = document.createElement("div");
+        div.className = "msg";
+        const header = document.createElement("div");
+        header.className = "msg-author";
+        header.innerHTML = `<span>${msg.author}</span><span>${msg.time || ""}</span>`;
+        const body = document.createElement("div");
+        body.className = "msg-text";
+        body.textContent = msg.text;
+        div.appendChild(header);
+        div.appendChild(body);
+        messagesEl.appendChild(div);
       });
-      saveJson(BM_KEY, bmStore);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
     }
 
-    // ===== Chat Rendering =====
-    const chatLog = document.getElementById("chatLog");
-    function addMessage(author, label, text) {
-      const div = document.createElement("div");
-      div.className = "msg";
-      const meta = document.createElement("div");
-      meta.className = "msg-meta";
-      const left = document.createElement("div");
-      left.innerHTML = `<span class="msg-author">${author}</span>`;
-      const right = document.createElement("div");
-      right.innerHTML = `<span class="msg-label">${label}</span>`;
-      meta.appendChild(left);
-      meta.appendChild(right);
-      const body = document.createElement("div");
-      body.className = author === "User" ? "msg-body-user" : "msg-body-bot";
-      body.textContent = text;
-      div.appendChild(meta);
-      div.appendChild(body);
-      chatLog.appendChild(div);
-      chatLog.scrollTop = chatLog.scrollHeight;
+    function renderReaction(e0, polarity) {
+      const pos = Math.round((polarity + 1) * 50); // -1..+1 -> 0..100
+      const neg = 100 - pos;
+      const tone =
+        e0 > 0.5 ? "Soft, stabilizing, hopeful resonance."
+      : e0 > 0.1 ? "Light, gentle, low-amplitude positive drift."
+      : e0 > -0.1 ? "Currently near neutral. Still contributes to long-run BM layers."
+      : e0 > -0.5 ? "Low-amplitude negative drift. Gently move toward stabilizing thoughts."
+      : "High-amplitude negative drift. Slow down and ground yourself kindly.";
+
+      reactionMetaEl.textContent =
+        `Polarity: ${pos} : ${neg} · Tone: ${tone}`;
+      reactionTextEl.textContent =
+        "I've received your TM event and collided it with the current BM state. " +
+        `E₀ is now around ${e0.toFixed(2)} (range −1 to +1). ` +
+        "The more clearly you describe context, the stronger and cleaner your BM trace becomes.";
     }
 
-    // ===== TM / BM Logic =====
-    const stopwords = new Set([
-      "the","is","am","are","a","an","and","or","of","to","in","on","for",
-      "with","at","by","it","this","that","was","were","be","as","from","up",
-      "down","very","so","but","then","had","have","has","his","her","their"
-    ]);
-
-    function tokenize(text) {
-      return text
-        .toLowerCase()
-        .replace(/[^a-z0-9\s]/g, " ")
-        .split(/\s+/)
-        .filter(w => w.length > 2 && !stopwords.has(w));
-    }
-
-    function toBigrams(tokens) {
-      const bigrams = [];
-      for (let i = 0; i < tokens.length - 1; i++) {
-        bigrams.push(tokens[i] + " " + tokens[i+1]);
+    function renderBMViewer() {
+      const body = document.getElementById("bmViewerBody");
+      if (!bmStore.length) {
+        body.textContent = "No Bold Memories saved yet. Share deeper stories and they will appear here.";
+        return;
       }
-      return bigrams;
+      body.innerHTML = "";
+      const info = document.createElement("div");
+      info.style.marginBottom = "6px";
+      info.textContent = `Total BM entries: ${bmStore.length}`;
+      body.appendChild(info);
+
+      bmStore
+        .slice()
+        .sort((a,b) => (b.savedAt || "").localeCompare(a.savedAt || ""))
+        .forEach(entry => {
+          const wrap = document.createElement("div");
+          wrap.className = "bm-entry";
+          const title = document.createElement("div");
+          title.className = "bm-entry-title";
+          title.textContent = entry.title || "Untitled memory";
+          const meta = document.createElement("div");
+          meta.className = "bm-entry-meta";
+          meta.textContent =
+            `Layer: ${entry.layer || "L2+"} · ` +
+            `Polarity: ${entry.polarity || "Balanced"} · ` +
+            `Saved: ${entry.savedAt ? entry.savedAt.slice(0,16).replace("T"," ") : "unknown"}`;
+          const text = document.createElement("div");
+          text.className = "bm-entry-text";
+          text.textContent = entry.text || "";
+          const btn = document.createElement("button");
+          btn.className = "bm-copy-btn";
+          btn.textContent = "Copy prompt for LLM";
+          btn.addEventListener("click", () => {
+            const prompt = `Recall this BM story as emotional context:\n\n${entry.text || ""}`;
+            navigator.clipboard.writeText(prompt).catch(() => {});
+          });
+          wrap.appendChild(title);
+          wrap.appendChild(meta);
+          wrap.appendChild(text);
+          wrap.appendChild(btn);
+          body.appendChild(wrap);
+        });
     }
 
-    // Rough emotional keywords map → simple emotional sequence
-    const emotionLex = [
-      { key: ["hope","hopeful","idea","plan","solution","clever"], tag: "hope" },
-      { key: ["thirsty","need","hungry"], tag: "need" },
-      { key: ["disappoint","sad","upset","unhappy"], tag: "disappointment" },
-      { key: ["angry","anger","mad","furious"], tag: "anger" },
-      { key: ["afraid","fear","scared"], tag: "fear" },
-      { key: ["try","effort","work","struggle","stones","pebbles"], tag: "effort" },
-      { key: ["happy","joy","satisfying","relief","relieved"], tag: "joy" }
-    ];
+    function openModal(id) {
+      document.getElementById(id).style.display = "flex";
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = "none";
+    }
 
-    function extractEmotionSeq(text) {
-      const tokens = tokenize(text);
-      const seq = [];
-      for (const t of tokens) {
-        for (const rule of emotionLex) {
-          if (rule.key.some(k => t.startsWith(k))) {
-            if (seq[seq.length - 1] !== rule.tag) {
-              seq.push(rule.tag);
-            }
-            break;
-          }
+    // ============================
+    // RECYCLE 48H
+    // ============================
+
+    function cleanupRecycle() {
+      const now = Date.now();
+      const cutoff = now - 48 * 60 * 60 * 1000;
+      recycleStore = recycleStore.filter(r => {
+        try {
+          return new Date(r.createdAt).getTime() >= cutoff;
+        } catch {
+          return false;
         }
+      });
+      saveJSON(RECYCLE_STORAGE_KEY, recycleStore);
+    }
+
+    function addToRecycle(text) {
+      cleanupRecycle();
+      recycleStore.push({ text, createdAt: nowIso() });
+      saveJSON(RECYCLE_STORAGE_KEY, recycleStore);
+    }
+
+    function renderRecycle() {
+      cleanupRecycle();
+      const body = document.getElementById("recycleBody");
+      if (!recycleStore.length) {
+        body.textContent = "No recent short chats. New greetings will appear here for 48 hours.";
+        return;
       }
-      return seq;
+      body.innerHTML = "";
+      recycleStore
+        .slice()
+        .sort((a,b) => (b.createdAt || "").localeCompare(a.createdAt || ""))
+        .forEach((item, idx) => {
+          const div = document.createElement("div");
+          div.className = "bm-entry";
+          const title = document.createElement("div");
+          title.className = "bm-entry-title";
+          title.textContent = `Trace #${idx + 1}`;
+          const meta = document.createElement("div");
+          meta.className = "bm-entry-meta";
+          meta.textContent = `Time: ${item.createdAt.slice(0,16).replace("T"," ")}`;
+          const text = document.createElement("div");
+          text.className = "bm-entry-text";
+          text.textContent = item.text;
+          div.appendChild(title);
+          div.appendChild(meta);
+          div.appendChild(text);
+          body.appendChild(div);
+        });
     }
 
-    function emotionMatch(seqA, seqB) {
-      const len = Math.min(seqA.length, seqB.length);
-      if (len < 3) return 0; // must have at least 3 aligned stages
-      let matches = 0;
-      for (let i = 0; i < len; i++) {
-        if (seqA[i] === seqB[i]) matches++;
-      }
-      return matches / len;
+    // ============================
+    // BM SAVE & AUTO-RECALL
+    // ============================
+
+    function saveBMFromTM(tmText, e0, polarity) {
+      if (!tmText || tmText.length < MIN_BM_LENGTH) return;
+      const tokensSet = tokenize(tmText);
+      if (!tokensSet.size) return;
+      const entry = {
+        id: "bm_" + Date.now(),
+        title: tmText.slice(0, 60) + (tmText.length > 60 ? "…" : ""),
+        text: tmText,
+        layer: "L2–L3",
+        polarity: polarity >= 0 ? "Positive" : "Negative",
+        savedAt: nowIso(),
+        tokens: Array.from(tokensSet)
+      };
+      bmStore.push(entry);
+      saveJSON(BM_STORAGE_KEY, bmStore);
     }
 
-    function jaccardOverlap(a, b) {
-      const setA = new Set(a);
-      const setB = new Set(b);
-      let inter = 0;
-      for (const x of setA) if (setB.has(x)) inter++;
-      const minSize = Math.min(setA.size, setB.size);
-      if (minSize === 0) return 0;
-      return inter / minSize;
+    function computeSimilarity(tmTokens, bmTokensArr) {
+      if (!tmTokens.size || !bmTokensArr || !bmTokensArr.length) return { similarity: 0, overlap: 0 };
+      const bmSet = new Set(bmTokensArr);
+      let overlap = 0;
+      tmTokens.forEach(tok => {
+        if (bmSet.has(tok)) overlap++;
+      });
+      const similarity = overlap / bmSet.size;
+      return { similarity, overlap };
     }
 
-    function computeMatch(tmText) {
+    function runAutoRecall(tmText) {
+      lastAutoRecallCandidate = null;
+      recallBannerEl.style.display = "none";
+      if (!bmStore.length || !tmText) return;
+
       const tmTokens = tokenize(tmText);
-      if (tmTokens.length < 5) return null; // ignore short TM completely
-
-      const tmBigrams = toBigrams(tmTokens);
-      const tmEmotions = extractEmotionSeq(tmText);
+      if (!tmTokens.size) return;
 
       let best = null;
 
-      for (const mem of bmStore) {
-        if (mem.kind === "small-talk") continue;
-        const memTokens = tokenize(mem.text || "");
-        if (memTokens.length < 5) continue;
-
-        const memBigrams = toBigrams(memTokens);
-        const memEmotions = extractEmotionSeq(mem.text || "");
-
-        const wordScore = jaccardOverlap(tmTokens, memTokens); // 0–1
-        const patternScore = jaccardOverlap(tmBigrams, memBigrams); // 0–1
-        const emotionScore = emotionMatch(tmEmotions, memEmotions); // 0–1
-
-        // Weighted blend
-        const total = 0.5 * wordScore + 0.2 * patternScore + 0.3 * emotionScore;
-
-        if (!best || total > best.score) {
-          best = {
-            score: total,
-            wordScore,
-            patternScore,
-            emotionScore,
-            memory: mem
-          };
+      bmStore.forEach(entry => {
+        const { similarity, overlap } = computeSimilarity(tmTokens, entry.tokens || []);
+        if (overlap < MIN_OVERLAP_TOKENS) return;
+        if (similarity < SIM_THRESHOLD) return;
+        if (!best || similarity > best.similarity) {
+          best = { entry, similarity, overlap };
         }
-      }
-
-      // Dead-zone: if total < 0.40, treat as "no match at all"
-      if (!best || best.score < 0.40) return null;
-      return best;
-    }
-
-    // ===== E0 + Reaction =====
-    const polarityDisplay = document.getElementById("polarityDisplay");
-    const toneDisplay = document.getElementById("toneDisplay");
-    const reactionText = document.getElementById("reactionText");
-
-    function updateReaction(tmText) {
-      // Simple fake E0 update: length & sentiment keywords
-      const tokens = tokenize(tmText);
-      let pos = 0, neg = 0;
-      const posWords = ["happy","hope","kind","love","joy","calm","peace","clever"];
-      const negWords = ["sad","angry","upset","hate","fear","worried","tired","lonely","thirsty","disappoint","frustrated"];
-
-      for (const t of tokens) {
-        if (posWords.some(w => t.startsWith(w))) pos++;
-        if (negWords.some(w => t.startsWith(w))) neg++;
-      }
-      const total = pos + neg || 1;
-      const posRatio = pos / total;
-      const negRatio = neg / total;
-      E0 = Math.tanh(posRatio - negRatio); // -1..+1
-
-      const posPct = Math.round((posRatio) * 100);
-      const negPct = 100 - posPct;
-
-      polarityDisplay.textContent = `Polarity: ${E0 >= 0 ? "Positive" : "Negative"} · ${posPct} : ${negPct}`;
-
-      let tone;
-      if (Math.abs(E0) < 0.2) {
-        tone = "Light, gentle, low-amplitude positive drift.";
-      } else if (E0 > 0.5) {
-        tone = "Soft, stabilizing, hopeful resonance.";
-      } else if (E0 < -0.5) {
-        tone = "Heavy, contracting, high-amplitude negative stress.";
-      } else {
-        tone = "Balanced but emotionally significant drift.";
-      }
-      toneDisplay.textContent = `Tone: ${tone}`;
-
-      const line = `I've received your TM event and collided it with the current BM state. E₀ is now around ${E0.toFixed(2)} (range −1 to +1). The more clearly you describe context, the stronger and cleaner your BM trace becomes.`;
-      reactionText.textContent = line;
-    }
-
-    // ===== Match Banner + Auto-Recall Modal =====
-    const matchBanner = document.getElementById("matchBanner");
-    const matchText = document.getElementById("matchText");
-    const openMatchBtn = document.getElementById("openMatchBtn");
-
-    function hideMatchBanner() {
-      matchBanner.style.display = "none";
-      lastMatch = null;
-    }
-
-    function showMatchBanner(match) {
-      lastMatch = match;
-      const pct = Math.round(match.score * 100);
-      matchText.textContent = `Related memory ~${pct}% match. Open previous topic?`;
-      matchBanner.style.display = "flex";
-
-      // If very strong (≥ 70%), also open auto-recall modal
-      if (pct >= 70) {
-        openRecallModal(match);
-      }
-    }
-
-    function openRecallModal(match) {
-      const modal = document.getElementById("recallModal");
-      const body = document.getElementById("recallModalBody");
-      const pct = Math.round(match.score * 100);
-      const day = new Date().toISOString().slice(0,10);
-
-      const polarityText = E0 >= 0 ? "Positive" : "Negative";
-      const posPct = E0 >= 0 ? Math.round((E0 + 1)/2 * 100) : Math.round((1 - (E0+1)/2) * 100);
-      const negPct = 100 - posPct;
-
-      body.textContent =
-`Day: ${day} · Match ≈ ${pct}%
-
-Polarity: ${polarityText} · E₀≈${E0.toFixed(2)}
-Polarity split: ${posPct} : ${negPct}
-
-Title: ${match.memory.title || "Untitled memory"}
-
-${match.memory.text.trim()}`;
-
-      modal.style.display = "flex";
-    }
-
-    function closeModal(id) {
-      const el = document.getElementById(id);
-      if (el) el.style.display = "none";
-    }
-
-    document.querySelectorAll(".modal-close").forEach(btn => {
-      btn.addEventListener("click", e => {
-        const id = btn.getAttribute("data-close");
-        if (id) closeModal(id);
       });
-    });
 
-    openMatchBtn.addEventListener("click", () => {
-      if (!lastMatch) return;
-      openRecallModal(lastMatch);
-    });
-
-    // ===== Small Talk Detection & Recycle =====
-    function isGreeting(text) {
-      const t = text.toLowerCase().trim();
-      return (
-        t === "hi" || t === "hello" || t === "hey" ||
-        t.startsWith("how are you") ||
-        t.startsWith("salam") || t.startsWith("assalam")
-      );
-    }
-
-    function isSmallTalk(text) {
-      if (isGreeting(text)) return true;
-      if (text.length < 80) return true;
-      return false;
-    }
-
-    function pushRecycle(userText, botText) {
-      const entry = {
-        id: "r-" + Date.now(),
-        at: nowIso(),
-        user: userText,
-        bot: botText
-      };
-      recycleStore.push(entry);
-      // keep only last 48h
-      const cutoff = Date.now() - (48 * 60 * 60 * 1000);
-      recycleStore = recycleStore.filter(e => new Date(e.at).getTime() >= cutoff);
-      saveJson(RECYCLE_KEY, recycleStore);
-    }
-
-    // ===== BM Save =====
-    function saveBMEvent(userText, botText) {
-      const entry = {
-        id: "bm-" + Date.now(),
-        title: summarizeTitle(userText),
-        createdAt: nowIso(),
-        kind: "story",
-        text: botText ? (userText + "\n\n" + botText) : userText
-      };
-      bmStore.push(entry);
-      // optional: cap BM size
-      if (bmStore.length > 200) bmStore.shift();
-      saveJson(BM_KEY, bmStore);
-    }
-
-    function summarizeTitle(text) {
-      const tokens = tokenize(text);
-      if (tokens.length === 0) return "Memory";
-      return tokens.slice(0,4).map(w => w[0].toUpperCase()+w.slice(1)).join(" ");
-    }
-
-    // ===== BM Viewer =====
-    const bmModalBody = document.getElementById("bmModalBody");
-    document.getElementById("btnBmViewer").addEventListener("click", () => {
-      if (bmStore.length === 0) {
-        bmModalBody.textContent = "No BM entries yet.";
-      } else {
-        bmModalBody.textContent = bmStore
-          .slice()
-          .reverse()
-          .map(m => `• ${m.title || "Untitled"}  (${shortDateTime(m.createdAt)})\n${(m.text||"").trim()}\n`)
-          .join("\n────────────────────\n\n");
+      if (best) {
+        lastAutoRecallCandidate = best;
+        const pct = Math.round(best.similarity * 100);
+        recallBannerTextEl.textContent =
+          `💡 Related memory ~${pct}% match. Open previous topic?`;
+        recallBannerEl.style.display = "flex";
       }
-      document.getElementById("bmModal").style.display = "flex";
-    });
+    }
 
-    // ===== Recycle Viewer =====
-    const recycleBody = document.getElementById("recycleModalBody");
-    document.getElementById("btnRecycle").addEventListener("click", () => {
-      if (recycleStore.length === 0) {
-        recycleBody.textContent = "Recycle buffer is empty. Small talk from the last 48 hours will appear here.";
-      } else {
-        recycleBody.textContent = recycleStore
-          .slice()
-          .reverse()
-          .map(e =>
-            `${shortDateTime(e.at)}\nUser: ${e.user}\nAURA-X Ω: ${e.bot}\n`
-          ).join("\n───────────────\n\n");
-      }
-      document.getElementById("recycleModal").style.display = "flex";
-    });
+    function openAutoRecallModal() {
+      if (!lastAutoRecallCandidate) return;
+      const { entry, similarity, overlap } = lastAutoRecallCandidate;
+      const body = document.getElementById("bmRecallBody");
+      const titleEl = document.getElementById("bmRecallTitle");
+      const pct = Math.round(similarity * 100);
 
-    // ===== Recall BM Button (quick recall: last BM) =====
-    document.getElementById("btnRecall").addEventListener("click", () => {
-      if (bmStore.length === 0) return;
-      const last = bmStore[bmStore.length - 1];
-      openRecallModal({ score: 1, memory: last });
-    });
+      titleEl.textContent = `Auto-Recall Memory · Match ≈ ${pct}%`;
 
-    // ===== Voice Toggle (UI only) =====
-    const voiceToggle = document.getElementById("voiceToggle");
-    const voiceLabel = document.getElementById("voiceToggleLabel");
-    voiceToggle.addEventListener("click", () => {
-      voiceOn = !voiceOn;
-      voiceLabel.textContent = voiceOn ? "Voice: On" : "Voice: Off";
-    });
+      body.innerHTML = "";
+      const meta = document.createElement("div");
+      meta.className = "bm-entry-meta";
+      meta.textContent =
+        `Positive polarity (approx.) · Overlap tokens: ${overlap} · ` +
+        `Saved: ${entry.savedAt.slice(0,16).replace("T"," ")}`;
+      const text = document.createElement("div");
+      text.className = "bm-entry-text";
+      text.textContent = entry.text;
+      body.appendChild(meta);
+      body.appendChild(text);
+      openModal("bmRecallModal");
+    }
 
-    // ===== Send Handling =====
-    const tmInput = document.getElementById("tmInput");
-    const sendBtn = document.getElementById("sendBtn");
+    // ============================
+    // MAIN TM HANDLER
+    // ============================
+
+    const tmInputEl = document.getElementById("tmInput");
+    const sendBtnEl = document.getElementById("sendBtn");
 
     function handleSend() {
-      const text = tmInput.value.trim();
-      if (!text) return;
-      tmInput.value = "";
-      hideMatchBanner();
+      const tmText = tmInputEl.value.trim();
+      if (!tmText) return;
 
-      addMessage("User", "TM event", text);
+      const timeStr = new Date().toTimeString().slice(0,5);
 
-      // 1) Update E0 & reaction
-      updateReaction(text);
+      // 1) Add user TM to chat log
+      chatLog.push({ author: "User (TM)", text: tmText, time: timeStr });
 
-      // 2) Bot reaction
-      const botLine = "I'm stable and calm — my emotional core E₀ is moving smoothly. How is your inner graph today?";
-      addMessage("AURA-X Ω", "Reaction", botLine);
+      // 2) Simple emotional math (placeholder)
+      const base = Math.max(-1, Math.min(1, (tmText.length - 80) / 300));
+      const faith = 0.05;
+      const sysBias = 0.02;
+      const disturbance = 0.1;
+      const e0raw = base - disturbance + faith + sysBias;
+      const e0 = Math.tanh(e0raw);
+      const polarityCore = e0; // -1..+1
 
-      // 3) Save either to recycle or BM
-      if (isSmallTalk(text)) {
-        pushRecycle(text, botLine);
+      renderReaction(e0, polarityCore);
+
+      // 3) Decide BM vs Recycle
+      if (tmText.length < MIN_BM_LENGTH) {
+        addToRecycle(tmText);
       } else {
-        saveBMEvent(text, botLine);
+        saveBMFromTM(tmText, e0, polarityCore);
       }
 
-      // 4) Auto BM–TM match (only for non-small-talk TM)
-      const match = computeMatch(text);
-      if (match) {
-        showMatchBanner(match);
-      }
+      // 4) Simple AURA-X Ω response (seeded)
+      const botReply =
+        "I'm stable and calm — my emotional core E₀ is moving smoothly. " +
+        "How is your inner graph today?";
+      chatLog.push({ author: "AURA-X Ω", text: botReply, time: timeStr });
+
+      // 5) Persist chat
+      saveJSON(CHAT_STORAGE_KEY, chatLog);
+      renderMessages();
+
+      // 6) Run auto-recall with new TM
+      runAutoRecall(tmText);
+
+      // 7) Clear input
+      tmInputEl.value = "";
     }
 
-    sendBtn.addEventListener("click", handleSend);
-    tmInput.addEventListener("keydown", e => {
+    sendBtnEl.addEventListener("click", handleSend);
+    tmInputEl.addEventListener("keydown", (e) => {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
         handleSend();
       }
     });
 
-    // ===== Init: seed greeting =====
-    addMessage("AURA-X Ω", "System", "Hello. I treat small greetings as tiny TM events, but only deeper stories are saved as Bold Memory (BM).");
+    // ============================
+    // BUTTON HOOKS
+    // ============================
+
+    document.getElementById("bmViewerBtn").addEventListener("click", () => {
+      renderBMViewer();
+      openModal("bmViewerModal");
+    });
+
+    document.getElementById("bmRecallBtn").addEventListener("click", () => {
+      // Manual recall: just open latest BM
+      if (!bmStore.length) {
+        const body = document.getElementById("bmRecallBody");
+        document.getElementById("bmRecallTitle").textContent = "Recall BM";
+        body.textContent = "No Bold Memories stored yet.";
+        openModal("bmRecallModal");
+        return;
+      }
+      const latest = bmStore[bmStore.length - 1];
+      lastAutoRecallCandidate = {
+        entry: latest,
+        similarity: 1,
+        overlap: latest.tokens ? latest.tokens.length : 0
+      };
+      openAutoRecallModal();
+    });
+
+    document.getElementById("recycleBtn").addEventListener("click", () => {
+      renderRecycle();
+      openModal("recycleModal");
+    });
+
+    document.getElementById("optionsBtn").addEventListener("click", () => {
+      openModal("optionsModal");
+    });
+
+    document.querySelectorAll(".modal-close").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-close");
+        if (id) closeModal(id);
+      });
+    });
+
+    document.getElementById("recallOpenBtn").addEventListener("click", () => {
+      openAutoRecallModal();
+    });
+
+    document.getElementById("clearAllBtn").addEventListener("click", () => {
+      if (!confirm("Are you sure you want to clear all BM, chat, and recycle data?")) return;
+      bmStore = [];
+      chatLog = [];
+      recycleStore = [];
+      saveJSON(BM_STORAGE_KEY, bmStore);
+      saveJSON(CHAT_STORAGE_KEY, chatLog);
+      saveJSON(RECYCLE_STORAGE_KEY, recycleStore);
+      renderMessages();
+      recallBannerEl.style.display = "none";
+      alert("All local data cleared. Prototype has been reset.");
+    });
+
+    // ============================
+    // INITIAL RENDER
+    // ============================
+    renderMessages();
+    cleanupRecycle();
   </script>
 </body>
 </html>
