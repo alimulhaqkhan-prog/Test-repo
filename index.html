@@ -1,418 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>AURA-X Ω v1 – Emotional Continuity Prototype</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #fdf4e3; /* book-page background */
-      color: #111827;
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
-    }
-    .app {
-      width: 100%;
-      max-width: 480px;
-      height: 100vh;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    /* Header */
-    .header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-    }
-    .title {
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 1.3;
-    }
-    .subtitle {
-      font-size: 11px;
-      color: #6b7280;
-    }
-    .chip {
-      font-size: 11px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: #e0f2fe;
-      color: #0369a1;
-      border: 1px solid #bae6fd;
-      text-align: right;
-    }
-
-    .header-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .pill-btn {
-      border-radius: 999px;
-      border: none;
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 500;
-      background: white;
-      border: 1px solid #e5e7eb;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
-    }
-    .pill-btn:hover { background: #f3f4f6; }
-
-    /* Cards */
-    .card {
-      border-radius: 16px;
-      background: white;
-      border: 1px solid #e5e7eb;
-      padding: 12px 14px;
-      box-shadow: 0 1px 3px rgba(15,23,42,0.06);
-    }
-    .card-title {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: #6b7280;
-      margin-bottom: 4px;
-    }
-
-    .ethics {
-      background: #fef3c7;
-      border-color: #facc15;
-      font-size: 12px;
-      line-height: 1.4;
-    }
-
-    .equation {
-      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 12px;
-      white-space: pre-wrap;
-      word-break: break-word;
-      color: #111827;
-    }
-
-    .reaction-card {
-      background: #ecfdf5;
-      border-color: #6ee7b7;
-    }
-    .reaction-meta {
-      font-size: 11px;
-      color: #047857;
-      margin-bottom: 4px;
-    }
-    .reaction-text {
-      font-size: 13px;
-      line-height: 1.5;
-      color: #064e3b;
-    }
-
-    /* Chat log */
-    .chat-log {
-      flex: 1;
-      min-height: 0;
-      overflow-y: auto;
-      padding: 4px 2px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      border-radius: 12px;
-    }
-    .msg {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .msg-meta {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      color: #9ca3af;
-      padding: 0 4px;
-    }
-    .msg-author { font-weight: 600; color: #4b5563; }
-    .msg-label { font-style: italic; }
-    .msg-body-user,
-    .msg-body-bot {
-      padding: 8px 10px;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.5;
-      white-space: pre-wrap;
-    }
-    .msg-body-user {
-      align-self: flex-end;
-      background: #e0f2fe;
-      color: #0f172a;
-    }
-    .msg-body-bot {
-      align-self: flex-start;
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-    }
-
-    /* TM input */
-    .tm-wrapper {
-      border-radius: 18px;
-      background: white;
-      border: 1px solid #e5e7eb;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      box-shadow: 0 -1px 4px rgba(15,23,42,0.04);
-    }
-    .tm-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: #9ca3af;
-    }
-    .tm-input-row {
-      display: flex;
-      gap: 8px;
-      align-items: flex-end;
-    }
-    #tmInput {
-      flex: 1;
-      resize: none;
-      min-height: 52px;
-      max-height: 120px;
-      border-radius: 12px;
-      border: 1px solid #e5e7eb;
-      padding: 8px 10px;
-      font-size: 13px;
-      font-family: inherit;
-      outline: none;
-    }
-    #tmInput:focus {
-      border-color: #22c55e;
-      box-shadow: 0 0 0 1px rgba(34,197,94,0.3);
-    }
-    #sendBtn {
-      border-radius: 999px;
-      border: none;
-      padding: 10px 16px;
-      background: #22c55e;
-      color: white;
-      font-weight: 600;
-      font-size: 13px;
-      box-shadow: 0 2px 6px rgba(22,163,74,0.35);
-    }
-    #sendBtn:active { transform: translateY(1px); box-shadow: 0 1px 3px rgba(22,163,74,0.25); }
-
-    /* Match banner */
-    .match-banner {
-      display: none;
-      margin-top: 6px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: #fef9c3;
-      border: 1px solid #fde047;
-      font-size: 11px;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .match-banner span { color: #854d0e; }
-    .match-banner button {
-      border-radius: 999px;
-      border: none;
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 600;
-      background: #2563eb;
-      color: white;
-    }
-
-    /* Footer */
-    .footer-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 10px;
-      color: #9ca3af;
-      padding: 0 4px;
-    }
-    #voiceToggle {
-      font-size: 11px;
-      padding: 6px 10px;
-      background: #e5e7eb;
-      border-radius: 999px;
-      border: none;
-    }
-
-    /* Modals */
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(15,23,42,0.4);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 40;
-    }
-    .modal-content {
-      background: #f9fafb;
-      border-radius: 16px;
-      max-width: 480px;
-      width: calc(100% - 32px);
-      max-height: 80vh;
-      padding: 12px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      box-shadow: 0 10px 40px rgba(15,23,42,0.35);
-    }
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 13px;
-      font-weight: 600;
-      color: #111827;
-    }
-    .modal-close {
-      border-radius: 999px;
-      border: none;
-      padding: 4px 8px;
-      font-size: 11px;
-      background: #e5e7eb;
-    }
-    .modal-body {
-      font-size: 12px;
-      line-height: 1.5;
-      overflow-y: auto;
-      white-space: pre-wrap;
-      border-radius: 8px;
-      background: white;
-      border: 1px solid #e5e7eb;
-      padding: 8px;
-    }
-
-    @media (max-width: 480px) {
-      .app { padding: 10px; }
-    }
-  </style>
-</head>
-<body>
-  <div class="app">
-    <!-- Header -->
-    <div class="header-top">
-      <div>
-        <div class="title">AURA-X Ω · Emotional Continuity</div>
-        <div class="subtitle">EMOTIONAL CONTINUITY · AEC · CRM · AECN · RL³ · LR³</div>
-      </div>
-      <div class="chip">
-        LLM<br />Engine: Live emotional reactor
-      </div>
-    </div>
-
-    <div class="header-buttons">
-      <button id="btnBmViewer" class="pill-btn">🧠 BM Viewer</button>
-      <button id="btnRecall" class="pill-btn">📜 Recall BM</button>
-      <button id="btnRecycle" class="pill-btn">♻️ Recycle 48h</button>
-      <button id="btnOptions" class="pill-btn">⚙️ Options</button>
-    </div>
-
-    <!-- Ethics -->
-    <div class="card ethics">
-      Avoid actions that generate negative emotions in yourself or others. Gently move toward choices that create calm, kindness, and positive feelings.
-    </div>
-
-    <!-- Equation -->
-    <div class="card">
-      <div class="card-title">Emotional Continuity Equation</div>
-      <div class="equation">
-E₀ = tanh(TM × BM − D + λ_faith + λ_sys + ΣCₜ)
-
-All parameters are being updated internally after every message to keep emotional continuity live.
-      </div>
-    </div>
-
-    <!-- Reaction -->
-    <div class="card reaction-card">
-      <div id="polarityDisplay" class="reaction-meta">
-        Polarity: Positive · 50 : 50
-      </div>
-      <div id="toneDisplay" class="reaction-meta">
-        Tone: Light, gentle, low-amplitude positive drift.
-      </div>
-      <div id="reactionText" class="reaction-text">
-        I’m stable and calm — my emotional core E₀ is moving smoothly. How is your inner graph today?
-      </div>
-    </div>
-
-    <!-- Chat log -->
-    <div id="chatLog" class="chat-log"></div>
-
-    <!-- TM input + banner -->
-    <div class="tm-wrapper">
-      <div class="tm-label">TM = Σ(User Inputs) + (Seed + LLM)</div>
-      <div class="tm-input-row">
-        <textarea id="tmInput" placeholder="Write anything… AURA-X Ω will treat it as TM (Temporary Memory)."></textarea>
-        <button id="sendBtn">Send</button>
-      </div>
-      <div id="matchBanner" class="match-banner">
-        <span id="matchText">Related memory match.</span>
-        <button id="openMatchBtn">Open</button>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer-row">
-      <div>Prototype · TM → Analysis → Equation → BM save → Reaction.</div>
-      <button id="voiceToggle"><span id="voiceToggleLabel">Voice: Off</span></button>
-    </div>
-  </div>
-
-  <!-- BM Modal -->
-  <div id="bmModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span>Bold Memory (BM)</span>
-        <button class="modal-close" data-close="bmModal">Close</button>
-      </div>
-      <pre id="bmModalBody" class="modal-body"></pre>
-    </div>
-  </div>
-
-  <!-- Recall Modal -->
-  <div id="recallModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span>Recall BM Trace</span>
-        <button class="modal-close" data-close="recallModal">Close</button>
-      </div>
-      <pre id="recallModalBody" class="modal-body"></pre>
-    </div>
-  </div>
-
-  <!-- Recycle Modal -->
-  <div id="recycleModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span>Recycle 48h (Small Talk Buffer)</span>
-        <button class="modal-close" data-close="recycleModal">Close</button>
-      </div>
-      <pre id="recycleModalBody" class="modal-body"></pre>
-    </div>
-  </div>
-
-  <!-- SCRIPT: TM–BM logic + filters (no small-talk in BM) -->
-  <script>
+<script>
     // ===== Storage Keys =====
     const BM_KEY = "auraX_bm_v1";
     const RECYCLE_KEY = "auraX_recycle_48h_v1";
@@ -558,26 +144,10 @@ The crow happily took a long drink – necessity is the mother of invention.`,
       return inter / minSize;
     }
 
-    // Deep / shallow detection
-    function sentenceCount(text) {
-      return (text.split(/[.!?]/).filter(s => s.trim().length > 0)).length;
-    }
-
-    function isDeepStory(text) {
-      const tokens = tokenize(text);
-      const total = tokens.length;
-      if (total < 20) return false;              // kam se kam 20 meaningful words
-      const unique = new Set(tokens).size;
-      const uniqueRatio = unique / total;
-      if (uniqueRatio < 0.4) return false;      // bohot zyada repetition = meaningless
-      if (sentenceCount(text) < 2) return false; // kam se kam 2 sentences / lines
-      return true;
-    }
-
     function computeMatch(tmText) {
       const tmTokens = tokenize(tmText);
 
-      // TM must be big enough
+      // 🔒 TM must be "big enough": at least 10 meaningful words
       if (tmTokens.length < 10) return null;
 
       const tmBigrams = toBigrams(tmTokens);
@@ -586,8 +156,9 @@ The crow happily took a long drink – necessity is the mother of invention.`,
       let best = null;
 
       for (const mem of bmStore) {
-        if (mem.kind === "small-talk") continue;
+        if (mem.kind === "small-talk") continue; // safety
         const memTokens = tokenize(mem.text || "");
+        // 🔒 BM memory must also be fairly big
         if (memTokens.length < 10) continue;
 
         const memBigrams = toBigrams(memTokens);
@@ -717,8 +288,22 @@ ${match.memory.text.trim()}`;
       openRecallModal(lastMatch);
     });
 
-    // ===== Recycle 48h =====
-    const recycleBody = document.getElementById("recycleModalBody");
+    // ===== Small Talk Detection & Recycle =====
+    function isGreeting(text) {
+      const t = text.toLowerCase().trim();
+      return (
+        t === "hi" || t === "hello" || t === "hey" ||
+        t.startsWith("how are you") ||
+        t.startsWith("salam") || t.startsWith("assalam")
+      );
+    }
+
+    function isSmallTalk(text) {
+      if (isGreeting(text)) return true;
+      if (text.length < 80) return true;   // chhota message = chitchat
+      return false;
+    }
+
     function pushRecycle(userText, botText) {
       const entry = {
         id: "r-" + Date.now(),
@@ -732,21 +317,7 @@ ${match.memory.text.trim()}`;
       saveJson(RECYCLE_KEY, recycleStore);
     }
 
-    document.getElementById("btnRecycle").addEventListener("click", () => {
-      if (recycleStore.length === 0) {
-        recycleBody.textContent = "Recycle buffer is empty. Small talk from the last 48 hours will appear here.";
-      } else {
-        recycleBody.textContent = recycleStore
-          .slice()
-          .reverse()
-          .map(e =>
-            `${shortDateTime(e.at)}\nUser: ${e.user}\nAURA-X Ω: ${e.bot}\n`
-          ).join("\n───────────────\n\n");
-      }
-      document.getElementById("recycleModal").style.display = "flex";
-    });
-
-    // ===== BM Save & Viewer =====
+    // ===== BM Save =====
     function saveBMEvent(userText, botText) {
       const entry = {
         id: "bm-" + Date.now(),
@@ -766,6 +337,7 @@ ${match.memory.text.trim()}`;
       return tokens.slice(0,4).map(w => w[0].toUpperCase()+w.slice(1)).join(" ");
     }
 
+    // ===== BM Viewer =====
     const bmModalBody = document.getElementById("bmModalBody");
     document.getElementById("btnBmViewer").addEventListener("click", () => {
       if (bmStore.length === 0) {
@@ -778,6 +350,22 @@ ${match.memory.text.trim()}`;
           .join("\n────────────────────\n\n");
       }
       document.getElementById("bmModal").style.display = "flex";
+    });
+
+    // ===== Recycle Viewer =====
+    const recycleBody = document.getElementById("recycleModalBody");
+    document.getElementById("btnRecycle").addEventListener("click", () => {
+      if (recycleStore.length === 0) {
+        recycleBody.textContent = "Recycle buffer is empty. Small talk from the last 48 hours will appear here.";
+      } else {
+        recycleBody.textContent = recycleStore
+          .slice()
+          .reverse()
+          .map(e =>
+            `${shortDateTime(e.at)}\nUser: ${e.user}\nAURA-X Ω: ${e.bot}\n`
+          ).join("\n───────────────\n\n");
+      }
+      document.getElementById("recycleModal").style.display = "flex";
     });
 
     // ===== Recall BM Button (quick recall: last BM) =====
@@ -814,17 +402,18 @@ ${match.memory.text.trim()}`;
       const botLine = "I'm stable and calm — my emotional core E₀ is moving smoothly. How is your inner graph today?";
       addMessage("AURA-X Ω", "Reaction", botLine);
 
-      // 3) Classification:
-      //    Deep story / idea  → BM + TM–BM matching
-      //    Otherwise         → sirf Recycle 48h, no BM, no match
-      if (isDeepStory(text)) {
+      // 3) Decide: small talk → Recycle, deep TM → BM + match
+      if (isSmallTalk(text)) {
+        // ✅ pure chitchat: sirf recycle, koi BM match nahi
+        pushRecycle(text, botLine);
+      } else {
+        // ✅ real story / summary: BM + TM–BM matching
         saveBMEvent(text, botLine);
+
         const match = computeMatch(text);
         if (match) {
           showMatchBanner(match);
         }
-      } else {
-        pushRecycle(text, botLine);
       }
     }
 
@@ -836,8 +425,6 @@ ${match.memory.text.trim()}`;
       }
     });
 
-    // ===== Init: seed greeting (no BM save) =====
+    // ===== Init: seed greeting =====
     addMessage("AURA-X Ω", "System", "Hello. I treat small greetings as tiny TM events, but only deeper stories are saved as Bold Memory (BM).");
   </script>
-</body>
-</html>
