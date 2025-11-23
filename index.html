@@ -236,32 +236,6 @@
       background: #15803d;
     }
 
-    /* Auto recall bar */
-    .auto-recall-bar {
-      margin-top: 6px;
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 0.78rem;
-      background: #fef9c3;
-      border: 1px solid #facc15;
-      display: none;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-    }
-    .auto-recall-bar span.label {
-      flex: 1;
-    }
-    .auto-recall-open-btn {
-      border-radius: 999px;
-      border: none;
-      padding: 4px 12px;
-      font-size: 0.78rem;
-      cursor: pointer;
-      background: #1d4ed8;
-      color: #e5e7eb;
-    }
-
     .footer-line {
       font-size: 0.72rem;
       opacity: 0.75;
@@ -286,6 +260,33 @@
       border-color: #9ca3af;
       background: #f9fafb;
       color: #4b5563;
+    }
+
+    /* Auto-recall bar */
+    .auto-recall-bar {
+      display: none;
+      margin-top: 6px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: #fef9c3;
+      border: 1px solid #facc15;
+      font-size: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .auto-recall-text {
+      flex: 1;
+    }
+    .auto-recall-btn {
+      border-radius: 999px;
+      border: none;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      background: #2563eb;
+      color: #e5e7eb;
+      white-space: nowrap;
     }
 
     /* Modals shared */
@@ -536,6 +537,21 @@
       font-size: 0.72rem;
       opacity: 0.8;
     }
+
+    /* Recycle buffer list */
+    .recycle-item {
+      margin-bottom: 6px;
+      padding: 6px 8px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      background: #fffbeb;
+      font-size: 0.75rem;
+    }
+    .recycle-meta {
+      font-size: 0.7rem;
+      opacity: 0.8;
+      margin-bottom: 2px;
+    }
   </style>
 </head>
 <body>
@@ -560,7 +576,7 @@
       <button class="pill-btn primary" id="recallBtn">
         <span class="icon">📂</span><span>Recall BM</span>
       </button>
-      <button class="pill-btn" id="cleanupBtn">
+      <button class="pill-btn" id="recycleBtn">
         <span class="icon">♻️</span><span>Recycle 48h</span>
       </button>
       <button class="pill-btn" id="optionsBtn">
@@ -568,7 +584,7 @@
       </button>
     </div>
 
-    <!-- ethics banner -->
+    <!-- ethics banner in golden -->
     <div class="card golden" id="ethicsBanner">
       Avoid actions that generate negative emotions in yourself or others.
       Gently move toward choices that create calm, kindness, and positive feelings.
@@ -581,8 +597,7 @@
         E₀ = tanh(TM × BM − D + λ_faith + λ_sys + ΣCₜ)
       </div>
       <div class="formula-values" id="eqValues">
-        All parameters are being updated internally after every message
-        to keep emotional continuity live.
+        TM, BM, D, λ_faith, λ_sys and ΣCₜ are updated internally after every message.
       </div>
     </div>
 
@@ -601,12 +616,11 @@
         <button class="send-btn" id="sendBtn">Send</button>
       </div>
 
-      <!-- auto recall bar -->
       <div id="autoRecallBar" class="auto-recall-bar">
-        <span id="autoRecallText" class="label">
+        <span id="autoRecallText" class="auto-recall-text">
           💡 Related memory ~7% match. Open previous topic?
         </span>
-        <button id="autoRecallOpenBtn" class="auto-recall-open-btn">Open</button>
+        <button id="autoRecallOpenBtn" class="auto-recall-btn">Open</button>
       </div>
 
       <div class="footer-line">
@@ -731,7 +745,19 @@
     </div>
   </div>
 
-  <!-- Auto Recall Modal -->
+  <!-- Recycle 48h Modal (small-talk buffer) -->
+  <div class="modal-backdrop" id="recycleModalBackdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title"><span>♻️</span> Recycle 48h – Continuity Buffer</div>
+        <button class="modal-close" data-close="recycleModalBackdrop">Close</button>
+      </div>
+      <div class="modal-body" id="recycleModalBody"></div>
+      <button class="modal-close" id="clearRecycleBtn">Clear 48h buffer</button>
+    </div>
+  </div>
+
+  <!-- Auto-Recall Modal -->
   <div class="modal-backdrop" id="autoRecallModalBackdrop">
     <div class="modal">
       <div class="modal-header">
@@ -754,16 +780,6 @@
       "how are you","kia hal hai","kese ho","how r u",
       "i am happy","i am very happy","i am sad","i am very sad",
       "i am fine","i'm fine","i’m fine","i am ok","i'm ok"
-    ];
-
-    // stop words for idea-level matching
-    const stopWords = [
-      "the","a","an","is","are","to","of","and","for","in","on","at","with",
-      "this","that","i","you","he","she","they","we","it","was","were","be",
-      "been","have","has","had","will","shall","would","should","can","could",
-      "may","might","do","did","does","not","no","yes","but","so","if","or",
-      "as","from","by","about","into","over","after","before","when","while",
-      "then","there","here","just","very","too","also","only","own"
     ];
 
     // Seed lexicons
@@ -896,11 +912,10 @@
     const modePill=document.getElementById("modePill");
     const reactionBannerEl=document.getElementById("reactionBanner");
     const voiceToggleEl=document.getElementById("voiceToggle");
-    const autoRecallBar=document.getElementById("autoRecallBar");
-    const autoRecallText=document.getElementById("autoRecallText");
-    const autoRecallOpenBtn=document.getElementById("autoRecallOpenBtn");
+    const autoRecallBar = document.getElementById("autoRecallBar");
+    const autoRecallText = document.getElementById("autoRecallText");
+    const autoRecallOpenBtn = document.getElementById("autoRecallOpenBtn");
     let autoVoice = true;
-    let latestAutoRecallMatch = null;
 
     function updateEquationDisplay(){
       eqMainEl.textContent="E₀ = tanh(TM × BM − D + λ_faith + λ_sys + ΣCₜ)";
@@ -1177,91 +1192,127 @@
       saveBM(bm);
     }
 
-    // ---------- IDEA-LEVEL MATCHING FUNCTIONS (NEW) ----------
+    /* ---------- Auto-Recall logic ---------- */
+
+    const stopWords = [
+      "the","a","an","is","are","to","of","and","for","in","on","at","with",
+      "this","that","i","you","he","she","they","we","it","was","were","be",
+      "been","have","has","had","will","shall","would","should","can","could",
+      "may","might","do","did","does","not","no","yes","but","so","if","or",
+      "as","from","by","about","into","over","after","before","when","while",
+      "then","there","here","just","very","too","also","only","own"
+    ];
 
     function tokenizeMeaningful(text){
       return text
         .toLowerCase()
         .replace(/[^a-z0-9\u0600-\u06FF\s]+/g," ")
         .split(/\s+/)
-        .filter(w => w.length >= 3 && !stopWords.includes(w));
+        .filter(w => w.length>=3 && !stopWords.includes(w));
     }
 
     function jaccardSimilarity(tokensA, tokensB){
-      if (!tokensA.length || !tokensB.length) {
-        return { sim: 0, inter: 0, coverTM: 0, coverBM: 0 };
-      }
+      if (!tokensA.length || !tokensB.length) return 0;
       const setA = new Set(tokensA);
       const setB = new Set(tokensB);
       let inter = 0;
       setA.forEach(t => { if (setB.has(t)) inter++; });
       const union = setA.size + setB.size - inter;
-      const sim = union ? inter / union : 0;
-      const coverTM = inter / setA.size;
-      const coverBM = inter / setB.size;
-      return { sim, inter, coverTM, coverBM };
+      return union ? inter/union : 0;
     }
 
     function findBestBMMatch(tmText){
       const clean = tmText.trim();
-      // very short / single sentence texts -> no recall
-      if (!clean || clean.length < 120) return null;
-      if (isMostlySmallTalk(clean)) return null;
+      if (!clean || clean.length < 40) return null;        // very short lines skip
+      if (isMostlySmallTalk(clean)) return null;           // greetings skip
 
       const tmTokens = tokenizeMeaningful(clean);
-      if (tmTokens.length < 10) return null;
+      if (tmTokens.length < 4) return null;                // need some content
 
       const bm = loadBM();
       const entries = [];
-      Object.entries(bm).forEach(([day, nodes])=>{
-        nodes.forEach(node=>entries.push({day,node}));
+      Object.entries(bm).forEach(([day,nodes])=>{
+        nodes.forEach(node => entries.push({day,node}));
       });
       if (!entries.length) return null;
 
       let best = null;
-      let bestSim = 0;
-      let bestInter = 0;
+      let bestScore = 0;
 
       entries.forEach(item=>{
-        const text = (item.node.summary || item.node.full || "").slice(0, 1200);
+        const text = (item.node.summary || item.node.full || "").slice(0,600);
         const nodeTokens = tokenizeMeaningful(text);
         if (!nodeTokens.length) return;
-
-        const { sim, inter, coverTM, coverBM } = jaccardSimilarity(tmTokens, nodeTokens);
-
-        // require enough shared “idea words”
-        if (inter < 5) return;          // at least 5 common words
-        if (coverTM < 0.4) return;      // ≥40% of TM tokens shared
-        if (coverBM < 0.10) return;     // ≥10% of BM tokens shared
-
-        if (sim > bestSim || (sim === bestSim && inter > bestInter)) {
-          bestSim = sim;
-          bestInter = inter;
+        const score = jaccardSimilarity(tmTokens, nodeTokens);
+        if (score > bestScore) {
+          bestScore = score;
           best = item;
         }
       });
 
-      const MATCH_THRESHOLD_PCT = 7; // 7% or more
-      if (!best || bestSim * 100 < MATCH_THRESHOLD_PCT || bestInter < 5) {
-        return null;
-      }
+      const MATCH_THRESHOLD = 0.07; // ≈7% overlap
+      if (!best || bestScore < MATCH_THRESHOLD) return null;
 
-      return { day: best.day, node: best.node, score: bestSim };
+      return { day: best.day, node: best.node, score: bestScore };
     }
 
-    function updateAutoRecallBar(match){
-      latestAutoRecallMatch = match;
+    let currentAutoRecall = null;
+
+    function maybeShowAutoRecall(tmText){
+      const match = findBestBMMatch(tmText);
       if (!match){
         autoRecallBar.style.display = "none";
+        currentAutoRecall = null;
         return;
       }
+      currentAutoRecall = match;
       const pct = Math.round(match.score * 100);
-      autoRecallText.textContent =
-        `💡 Related memory ~${pct}% match. Open previous topic?`;
+      autoRecallText.textContent = `💡 Related memory ~${pct}% match. Open previous topic?`;
       autoRecallBar.style.display = "flex";
     }
 
-    // ---------- MAIN MESSAGE HANDLER ----------
+    function buildAutoRecallModal(match){
+      const {day,node,score} = match;
+      const body = document.getElementById("autoRecallModalBody");
+      body.innerHTML = "";
+
+      const wrap = document.createElement("div");
+      wrap.className = "bm-node";
+
+      const header = document.createElement("div");
+      header.className = "bm-node-meta";
+      header.textContent = `Day: ${day} · Match ≈ ${Math.round(score*100)}%`;
+
+      const meta = document.createElement("div");
+      meta.className = "bm-node-meta";
+      const pol = node.polarity || "Neutral";
+      const intensity = node.intensity ?? Math.abs(node.E0 ?? 0);
+      const {pos,neg} = polarityPercentages(pol,intensity);
+      const polLine = pol==="Neutral"
+        ? `Polarity: Neutral 50 : 50`
+        : `Polarity: ${pos} : ${neg}`;
+      meta.textContent =
+        `${pol} · E₀≈${(node.E0??node.intensity).toFixed(2)} · `+
+        new Date(node.ts).toLocaleTimeString() + " · " + polLine;
+
+      const title = document.createElement("div");
+      title.className = "bm-node-title";
+      title.textContent = (node.summary || "").slice(0,80) +
+        ((node.summary||"").length>80 ? "…" : "");
+
+      const full = document.createElement("div");
+      full.style.fontSize = "0.75rem";
+      full.style.marginTop = "4px";
+      full.textContent = node.full || node.summary || "";
+
+      wrap.appendChild(header);
+      wrap.appendChild(meta);
+      wrap.appendChild(title);
+      wrap.appendChild(full);
+      body.appendChild(wrap);
+    }
+
+    /* ---------- Main message handling ---------- */
 
     function handleUserMessage(text){
       if (!text.trim()) return;
@@ -1272,11 +1323,9 @@
       const reply=buildSeedReply(text, analysis);
       appendMessage(reply,"bot");
 
-      // FIRST: try to find related BM (idea-level)
-      const match = findBestBMMatch(text);
-      updateAutoRecallBar(match);
+      // auto-recall check BEFORE storing this TM as BM, so it doesn't match itself
+      maybeShowAutoRecall(text);
 
-      // THEN store in BM and speak
       storeInBM(text,reply);
       speakReply(reply);
       userInputEl.value="";
@@ -1299,25 +1348,10 @@
       voiceToggleEl.textContent = autoVoice ? "🔊 Voice: On" : "🔇 Voice: Off";
     });
 
-    // Auto recall modal open
     autoRecallOpenBtn.addEventListener("click", () => {
-      if (!latestAutoRecallMatch) return;
-      const { day, node, score } = latestAutoRecallMatch;
-      const body = document.getElementById("autoRecallModalBody");
-      const pct = Math.round(score * 100);
-      const pol = node.polarity || "Neutral";
-      const intensity = node.intensity ?? Math.abs(node.E0 ?? 0);
-      const {pos,neg} = polarityPercentages(pol,intensity);
-      const polLine = pol==="Neutral"
-        ? `Polarity: Neutral 50 : 50`
-        : `Polarity: ${pos} : ${neg}`;
-
-      body.innerHTML =
-        `<div class="bm-day-title">Day: ${day} · Match ≈ ${pct}%</div>`+
-        `<div class="bm-node-meta">${pol} · E₀≈${(node.E0??node.intensity).toFixed(2)} · ${new Date(node.ts).toLocaleString()}</div>`+
-        `<div class="bm-node-polarity">${polLine}</div>`+
-        `<div style="margin-top:6px;font-size:0.8rem;white-space:pre-wrap;">${(node.full||node.summary)}</div>`;
-      document.getElementById("autoRecallModalBackdrop").style.display="flex";
+      if (!currentAutoRecall) return;
+      buildAutoRecallModal(currentAutoRecall);
+      document.getElementById("autoRecallModalBackdrop").style.display = "flex";
     });
 
     // BM Viewer
@@ -1399,7 +1433,7 @@
       bmBackdrop.style.display="flex";
     });
 
-    // Recall modal
+    // Recall
     const recallBackdrop=document.getElementById("recallModalBackdrop");
     const recallInput=document.getElementById("recallSearchInput");
     const recallList=document.getElementById("recallList");
@@ -1474,6 +1508,44 @@
     });
     recallInput.addEventListener("input",()=>{
       rebuildRecallList(recallInput.value);
+    });
+
+    // Recycle 48h (small-talk buffer)
+    const recycleBackdrop = document.getElementById("recycleModalBackdrop");
+    const recycleBody = document.getElementById("recycleModalBody");
+
+    function rebuildRecycleList(){
+      const buf = loadSmallBuffer();
+      recycleBody.innerHTML = "";
+      if (!buf.length){
+        recycleBody.textContent =
+          "No small-talk continuity messages stored in the last 48 hours.\n"+
+          "Greetings like hello / hi / how are you will appear here instead of BM.";
+        return;
+      }
+      buf.sort((a,b)=> a.ts<b.ts ? 1 : -1);
+      buf.forEach(item=>{
+        const div = document.createElement("div");
+        div.className = "recycle-item";
+        const meta = document.createElement("div");
+        meta.className = "recycle-meta";
+        meta.textContent = new Date(item.ts).toLocaleString();
+        const text = document.createElement("div");
+        text.textContent = item.text;
+        div.appendChild(meta);
+        div.appendChild(text);
+        recycleBody.appendChild(div);
+      });
+    }
+
+    document.getElementById("recycleBtn").addEventListener("click",()=>{
+      rebuildRecycleList();
+      recycleBackdrop.style.display = "flex";
+    });
+
+    document.getElementById("clearRecycleBtn").addEventListener("click", () => {
+      saveSmallBuffer([]);
+      recycleBackdrop.style.display = "none";
     });
 
     // Options
@@ -1562,21 +1634,6 @@
       optionsBackdrop.style.display="none";
     });
 
-    // Cleanup button (shortcut)
-    document.getElementById("cleanupBtn").addEventListener("click",()=>{
-      const bm=loadBM();
-      const buffer=loadSmallBuffer();
-      if(!Object.keys(bm).length && !buffer.length){
-        alert("Nothing to clean. No BM nodes or continuity buffer stored yet.");
-        return;
-      }
-      if(confirm("Clear today’s BM nodes and the 48-hour continuity buffer?")){
-        delete bm[todayKey()];
-        saveBM(bm);
-        saveSmallBuffer([]);
-      }
-    });
-
     // Close modals
     document.querySelectorAll(".modal-close").forEach(btn=>{
       btn.addEventListener("click",e=>{
@@ -1586,10 +1643,13 @@
         }
       });
     });
-    [document.getElementById("bmModalBackdrop"),
-     document.getElementById("recallModalBackdrop"),
-     document.getElementById("optionsModalBackdrop"),
-     document.getElementById("autoRecallModalBackdrop")].forEach(backdrop=>{
+    [
+      document.getElementById("bmModalBackdrop"),
+      document.getElementById("recallModalBackdrop"),
+      document.getElementById("optionsModalBackdrop"),
+      document.getElementById("recycleModalBackdrop"),
+      document.getElementById("autoRecallModalBackdrop")
+    ].forEach(backdrop=>{
       backdrop.addEventListener("click",e=>{
         if(e.target===backdrop) backdrop.style.display="none";
       });
